@@ -1,0 +1,19 @@
+#menu {
+  width: 600px;
+  height: 400px;
+  background-color: white;
+  border: 4px solid black;
+  border-radius: 2rem;
+  position: fixed;
+  left: calc(50% - 300px);
+  top: calc(50% - 200px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#start-button {
+  font-size: 3rem;
+  padding: 1rem 2rem;
+}

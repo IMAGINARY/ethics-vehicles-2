@@ -1,0 +1,6 @@
+{
+  "source": "src/index.html",
+  "devDependencies": {
+    "vite": "^6.2.5"
+  }
+}

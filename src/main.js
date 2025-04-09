@@ -1,4 +1,15 @@
 import "./style.css";
+import i18next from "i18next";
+import { scenarios } from "./scenarios";
+import en from "./locales/en.json";
+import de from "./locales/de.json";
+
+await i18next.init({
+  lng: "en", // TODO language detector
+  debug: true,
+  resources: { en: { translation: en }, de: { translation: de } },
+});
+
 let video, menu;
 
 function playIdle() {
@@ -10,9 +21,10 @@ function playIdle() {
   // Show scenario buttons
   menu.innerHTML = "";
   showOptions(
+    i18next.t("ChooseSituation"),
     scenarios.map(({ title, videoSrc, options }) => {
       return {
-        text: title,
+        text: i18next.t(`${title}.name`),
         handler: () => {
           video.loop = false;
           video.src = videoSrc;
@@ -20,20 +32,31 @@ function playIdle() {
           menu.innerHTML = "";
 
           video.onended = () => {
-            menu.innerHTML = "";
-            showOptions(
-              options.map(({ title, videoSrc }) => {
+            menu.innerHTML = `
+              <h1>${i18next.t("Report")}</h1>
+              <p>${i18next.t(`${title}.description`)}</p>
+            `;
+            const optionsEl = showOptions(
+              i18next.t("Choose Policy"),
+              options.map(({ title: optionTitle, videoSrc }) => {
+                const optionText = `${i18next.t(
+                  `${optionTitle}.name`
+                )}: ${i18next.t(`${optionTitle}.objective`)}`;
                 return {
-                  text: title,
+                  text: optionText,
                   handler: () => {
-                    menu.innerHTML = "";
+                    menu.removeChild(optionsEl);
+                    menu.innerHTML += `<p>${optionText}</p>`;
                     video.loop = false;
                     video.src = videoSrc;
                     video.play();
 
                     video.onended = () => {
+                      menu.innerHTML += `<p>${i18next.t(
+                        `${title}.${optionTitle}`
+                      )}</p>`;
                       const restartButton = document.createElement("button");
-                      restartButton.textContent = "Restart";
+                      restartButton.textContent = i18next.t("Restart");
                       restartButton.id = "start-button";
                       restartButton.onclick = playIdle;
                       menu.append(restartButton);
@@ -49,8 +72,10 @@ function playIdle() {
   );
 }
 
-function showOptions(options) {
+function showOptions(prompt, options) {
   const list = document.createElement("div");
+  list.classList.add("options");
+  list.innerHTML = `<h2>${prompt}</h2>`;
   for (const { text, handler } of options) {
     const button = document.createElement("button");
     button.textContent = text;
@@ -58,6 +83,7 @@ function showOptions(options) {
     button.onclick = handler;
   }
   menu.append(list);
+  return list;
 }
 
 window.onload = () => {
@@ -69,72 +95,3 @@ window.onload = () => {
 
 const idleVideo =
   "https://videos.pexels.com/video-files/30975000/13241693_2160_1440_24fps.mp4";
-
-const scenarios = [
-  {
-    title: "Scenario 1",
-    videoSrc:
-      "https://videos.pexels.com/video-files/30221480/12957890_1920_1080_30fps.mp4",
-    options: [
-      {
-        title: "Option 1",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31197958/13326009_2560_1440_25fps.mp4",
-      },
-      {
-        title: "Option 2",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31374437/13388231_2560_1440_25fps.mp4",
-      },
-      {
-        title: "Option 3",
-        videoSrc:
-          "https://videos.pexels.com/video-files/30886113/13206249_2560_1440_60fps.mp4",
-      },
-    ],
-  },
-  {
-    title: "Scenario 2",
-    videoSrc:
-      "https://videos.pexels.com/video-files/7865322/7865322-uhd_2560_1440_30fps.mp4",
-    options: [
-      {
-        title: "Option 1",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31197958/13326009_2560_1440_25fps.mp4",
-      },
-      {
-        title: "Option 2",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31374437/13388231_2560_1440_25fps.mp4",
-      },
-      {
-        title: "Option 3",
-        videoSrc:
-          "https://videos.pexels.com/video-files/30886113/13206249_2560_1440_60fps.mp4",
-      },
-    ],
-  },
-  {
-    title: "Scenario 3",
-    videoSrc:
-      "https://videos.pexels.com/video-files/31381823/13390461_1920_1080_30fps.mp4",
-    options: [
-      {
-        title: "Option 1",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31197958/13326009_2560_1440_25fps.mp4",
-      },
-      {
-        title: "Option 2",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31374437/13388231_2560_1440_25fps.mp4",
-      },
-      {
-        title: "Option 3",
-        videoSrc:
-          "https://videos.pexels.com/video-files/30886113/13206249_2560_1440_60fps.mp4",
-      },
-    ],
-  },
-];

@@ -10,7 +10,7 @@ await i18next.init({
   resources: { en: { translation: en }, de: { translation: de } },
 });
 
-let video, menu;
+let video: any, menu: any;
 
 function playIdle() {
   // Play idle video
@@ -78,7 +78,7 @@ function playIdle() {
 }
 
 // Show a a prompt and a list of options
-function showOptions(prompt, options) {
+function showOptions(prompt: string, options: any) {
   const list = document.createElement("div");
   list.classList.add("options");
   list.innerHTML = `<h2>${prompt}</h2>`;
@@ -96,7 +96,7 @@ window.onload = () => {
   video = document.getElementById("video");
   menu = document.getElementById("menu");
 
-  document.getElementById("start-button").onclick = playIdle;
+  document.getElementById("start-button")!.onclick = playIdle;
 };
 
 const idleVideo =

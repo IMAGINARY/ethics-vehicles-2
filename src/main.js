@@ -26,16 +26,19 @@ function playIdle() {
       return {
         text: i18next.t(`${title}.name`),
         handler: () => {
+          // Play scenario video
           video.loop = false;
           video.src = videoSrc;
           video.play();
           menu.innerHTML = "";
 
           video.onended = () => {
+            // Scenario introduction
             menu.innerHTML = `
               <h1>${i18next.t("Report")}</h1>
               <p>${i18next.t(`${title}.description`)}</p>
             `;
+            // Scenario options
             const optionsEl = showOptions(
               i18next.t("Choose Policy"),
               options.map(({ title: optionTitle, videoSrc }) => {
@@ -45,12 +48,14 @@ function playIdle() {
                 return {
                   text: optionText,
                   handler: () => {
+                    // Play the scenario out
                     menu.removeChild(optionsEl);
                     menu.innerHTML += `<p>${optionText}</p>`;
                     video.loop = false;
                     video.src = videoSrc;
                     video.play();
 
+                    // Show concluding text and restart button
                     video.onended = () => {
                       menu.innerHTML += `<p>${i18next.t(
                         `${title}.${optionTitle}`
@@ -72,6 +77,7 @@ function playIdle() {
   );
 }
 
+// Show a a prompt and a list of options
 function showOptions(prompt, options) {
   const list = document.createElement("div");
   list.classList.add("options");

@@ -41,7 +41,7 @@ export default class Options {
           this.setSelected(this.#selected);
           break;
         }
-        case "SpaceBar":
+        case " ":
         case "Enter": {
           this.#buttons[this.#selected].click();
           break;

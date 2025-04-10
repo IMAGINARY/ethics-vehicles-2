@@ -3,6 +3,7 @@ import i18next from "i18next";
 import { scenarios, Scenario } from "./scenarios";
 import en from "./locales/en.json";
 import de from "./locales/de.json";
+import Options from "./Options";
 
 await i18next.init({
   lng: "en", // TODO language detector
@@ -20,17 +21,20 @@ function playIdle() {
 
   // Show scenario buttons
   menu.innerHTML = "";
-  showOptions(
+  let scenarioOptions = new Options(
+    menu,
     i18next.t("ChooseSituation"),
     scenarios.map((scenario) => {
       return {
         text: i18next.t(`${scenario.key}.name`),
         handler: () => {
+          scenarioOptions.hide();
           showScenario(scenario);
         },
       };
     })
   );
+  scenarioOptions.show();
 }
 
 function showScenario({ key, videoSrc, options }: Scenario) {
@@ -47,7 +51,8 @@ function showScenario({ key, videoSrc, options }: Scenario) {
       <p>${i18next.t(`${key}.description`)}</p>
     `;
     // Scenario options
-    const optionsEl = showOptions(
+    const choiceOptions = new Options(
+      menu,
       i18next.t("Choose Policy"),
       options.map(({ key: optionKey, videoSrc }) => {
         const optionText = `${i18next.t(`${optionKey}.name`)}: ${i18next.t(
@@ -57,7 +62,7 @@ function showScenario({ key, videoSrc, options }: Scenario) {
           text: optionText,
           handler: () => {
             // Play the scenario out
-            menu.removeChild(optionsEl);
+            choiceOptions.hide();
             menu.innerHTML += `<p>${optionText}</p>`;
             video.loop = false;
             video.src = videoSrc;
@@ -76,22 +81,8 @@ function showScenario({ key, videoSrc, options }: Scenario) {
         };
       })
     );
+    choiceOptions.show();
   };
-}
-
-// Show a a prompt and a list of options
-function showOptions(prompt: string, options: any) {
-  const list = document.createElement("div");
-  list.classList.add("options");
-  list.innerHTML = `<h2>${prompt}</h2>`;
-  for (const { text, handler } of options) {
-    const button = document.createElement("button");
-    button.textContent = text;
-    list.append(button);
-    button.onclick = handler;
-  }
-  menu.append(list);
-  return list;
 }
 
 window.onload = () => {

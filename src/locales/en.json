@@ -21,7 +21,7 @@
     "name": "A car enters your lane",
     "description": "A car suddenly swerves into your lane, and there's no time to brake fully. You can either crash into it, swerve left and hit a parked car, or swerve right and endanger a bus stop full of people.",
     "AutonomousCar": {
-      "name": "Autonmated car",
+      "name": "Automated car",
       "description": "As you approach a bus stop, a car enters your lane in front of you."
     },
     "LuxuryCar": {

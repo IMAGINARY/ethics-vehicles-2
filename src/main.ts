@@ -11,7 +11,9 @@ await i18next.init({
   resources: { en: { translation: en }, de: { translation: de } },
 });
 
-let video: HTMLMediaElement, menu: HTMLElement;
+let video: HTMLMediaElement;
+let menu: HTMLElement;
+let labelContainer: HTMLElement;
 
 function playIdle() {
   // Play idle video
@@ -37,7 +39,7 @@ function playIdle() {
   scenarioOptions.show();
 }
 
-function showScenario({ key, videoSrc, options }: Scenario) {
+function showScenario({ key, labels, videoSrc, options }: Scenario) {
   // Play scenario video
   video.loop = false;
   video.src = videoSrc;
@@ -50,6 +52,16 @@ function showScenario({ key, videoSrc, options }: Scenario) {
       <h1>${i18next.t("Report")}</h1>
       <p>${i18next.t(`${key}.description`)}</p>
     `;
+    // Show entity labels
+    for (const { key: labelKey, position } of labels) {
+      labelContainer.innerHTML += `
+        <div class="label" style="left:${position[0]}px;top:${position[1]}px">
+          <div>${i18next.t(`${key}.${labelKey}.name`)}</div>
+          <div>${i18next.t(`${key}.${labelKey}.description`)}</div>
+        </div>
+      `;
+    }
+
     // Scenario options
     const choiceOptions = new Options(
       menu,
@@ -61,6 +73,7 @@ function showScenario({ key, videoSrc, options }: Scenario) {
         return {
           text: optionText,
           handler: () => {
+            labelContainer.innerHTML = "";
             // Play the scenario out
             choiceOptions.hide();
             menu.innerHTML += `<p>${optionText}</p>`;
@@ -88,6 +101,7 @@ function showScenario({ key, videoSrc, options }: Scenario) {
 window.onload = () => {
   video = document.getElementById("video") as HTMLMediaElement;
   menu = document.getElementById("menu")!;
+  labelContainer = document.getElementById("labels")!;
 
   document.getElementById("start-button")!.onclick = playIdle;
 };

@@ -32,6 +32,14 @@
   padding: 1rem 2rem;
 }
 
+.label {
+  background-color: white;
+  padding: 1rem;
+  border: 2px solid black;
+  border-radius: 1rem;
+  position: fixed;
+}
+
 .options {
   display: flex;
   flex-direction: column;

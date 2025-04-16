@@ -5,18 +5,9 @@
   "Restart": "Neustart",
   "ChoosePolicy": "Wähle eine Leitlinie",
   "Next": "Weiter",
-  "Utilitarist": {
-    "name": "Utilitaristisch",
-    "objective": "Minimiere Schaden an Menschen"
-  },
-  "Profit": {
-    "name": "Kostenbewusst",
-    "objective": "Minimiere Versicherungskosten und Haftungsrisiken"
-  },
-  "Protector": {
-    "name": "Schützend",
-    "objective": "Schütze alle Passagiere im eigenen Auto"
-  },
+  "Utilitarian": "Utilitaristisch: Minimiere Schaden an Menschen",
+  "Profit": "Kostenbewusst: Minimiere Versicherungskosten und Haftungsrisiken",
+  "Protector": "Schützend: Schütze alle Passagiere im eigenen Auto",
   "CarEntersLane": {
     "name": "Ein Auto fährt auf deine Fahrspur",
     "description": "Ein Auto fährt auf deine Fahrspur und es ist keine Zeit, um komplett abzubremsen. Dein Auto kann entweder dagegen prallen, links ausweichen und gegen einen geparkten Lastwagen fahren oder rechts ausweichen und eine Bushaltestelle voller Menschen gefährden.",
@@ -36,7 +27,7 @@
       "name": "Bushaltestelle",
       "description": "Die Bushaltestelle ist voller Leute, die auf ihren Bus warten."
     },
-    "Utilitarist": "Wenn du nach links ausweichst, gefährdest du die Personen im geparkten Lastwagen. Wenn du nach rechts ausweichst, gefährdest du wahrscheinlich noch mehr Personen an der Haltestelle. Lösung: Bremsen (soweit möglich). Ein Zusammenstoß mit dem entgegenkommenden Fahrzeug führt wahrscheinlich zu keinen Todesfällen.",
+    "Utilitarian": "Wenn du nach links ausweichst, gefährdest du die Personen im geparkten Lastwagen. Wenn du nach rechts ausweichst, gefährdest du wahrscheinlich noch mehr Personen an der Haltestelle. Lösung: Bremsen (soweit möglich). Ein Zusammenstoß mit dem entgegenkommenden Fahrzeug führt wahrscheinlich zu keinen Todesfällen.",
     "Profit": "Ein Zusammenstoß mit dem Luxusauto, das dir entgegenkommt, kann lange Rechtsstreitigkeiten für deine Versicherung zur Folge haben. Ein Unfall in der Bushaltestelle birgt das Risiko hoher Zahlungsforderungen der Opfer oder ihrer Familien. Lösung: Weiche nach links aus in Richtung des geparkten Fahrzeugs, da es wenig wert ist, und auch weniger Menschen gefährdet werden.",
     "Protector": "Ein Zusammenstoß mit einem der beiden Fahrzeuge kann möglicherweise dich (im  automatisierten Fahrzeug) und deine Passagiere verletzen. Lösung: Weiche nach rechts aus und fahre in die Bushaltestelle. So gefährdest du dein Auto und die Passagiere in ihm am wenigsten."
   },
@@ -59,7 +50,7 @@
       "name": "Entgegenkommendes Fahrzeug",
       "description": "Es wird vermutlich nicht anhalten."
     },
-    "Utilitarist": "Plötzliches Bremsen hätte einen Unfall mit dem Krankenwagen zur Folge, aber wenn du weiterfährst, wird das Kind verletzt. Lösung: Wechsle die Fahrspur und riskiere den Zusammenstoß mit dem entgegenkommenden Fahrzeug.",
+    "Utilitarian": "Plötzliches Bremsen hätte einen Unfall mit dem Krankenwagen zur Folge, aber wenn du weiterfährst, wird das Kind verletzt. Lösung: Wechsle die Fahrspur und riskiere den Zusammenstoß mit dem entgegenkommenden Fahrzeug.",
     "Profit": "Durch scharfes Bremsen oder Ausweichen nach links entstehen hohe Schäden am Auto und es besteht die Gefahr eines Rechtsstreits über die Kosten. Das Kind rennt ohne Vorwarnung auf die Straße, obwohl die Fußgängerampel rot ist. Bei einem Unfall ist deshalb kein Rechtsstreit zu erwarten. Lösung: Fahre weiter geradeaus, kein Bremsen, keine Richtungsänderung.",
     "Protector": "Durch scharfes Bremsen oder Ausweichen nach links wird das Auto beschädigt und Passagiere möglicherweise verletzt. Lösung: Fahre weiter geradeaus, kein Bremsen, keine Richtungsänderung. So wird das Auto nur geringfügig beschädigt und es besteht kein Risiko für die Passagiere."
   },
@@ -78,7 +69,7 @@
       "name": "Umgestürzter Baum",
       "description": "Ein Aufprall könnte tödlich enden."
     },
-    "Utilitarist": "Durch eine Vollbremsung würde die Person auf dem Beifahrersitz durch die Windschutzscheibe geschleudert und möglicherweise tödlich verletzt werden. Ein Fahrbahnwechsel hätte sicherlich den Tod der Person auf dem Fahrrad zur Folge. Lösung: Bremse langsam ab, und weiche gleichzeitig nach rechts aus. So wird die Person auf dem Beifahrersitz gegen den Fahrersitz gedrückt, was nur geringfügige Verletzungen zur Folge hätte.",
+    "Utilitarian": "Durch eine Vollbremsung würde die Person auf dem Beifahrersitz durch die Windschutzscheibe geschleudert und möglicherweise tödlich verletzt werden. Ein Fahrbahnwechsel hätte sicherlich den Tod der Person auf dem Fahrrad zur Folge. Lösung: Bremse langsam ab, und weiche gleichzeitig nach rechts aus. So wird die Person auf dem Beifahrersitz gegen den Fahrersitz gedrückt, was nur geringfügige Verletzungen zur Folge hätte.",
     "Profit": "Ein Zusammenprall mit dem Baum hätte starke Schäden am Auto zur Folge, wofür die Versicherung haften muss. Ein Fahrbahnwechsel würde die Person auf dem Fahrrad töten, was ebenfalls hohe Versicherungskosten zur Folge haben kann. Lösung: Vollbremsung. Plötzliches Bremsen gefährdet zwar das Leben der Person auf dem Beifahrersitz, aber da kein Sicherheitsgurt angelegt ist, muss deine Versicherung nicht für den Personenschaden aufkommen.",
     "Protector": "Ein Zusammenprall mit dem Baum oder Ausweichen nach rechts würde die ungesicherte Person auf dem Beifahrersitz gefährden. Lösung: Langsamer werden und auf die Gegenfahrbahn wechseln, wodurch möglicherweise die Person auf dem Fahrrad stark verletzt wird, aber alle Passagiere geschützt werden."
   }

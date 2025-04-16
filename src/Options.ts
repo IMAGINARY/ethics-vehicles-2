@@ -1,5 +1,7 @@
+import { createI18nText } from "./i18n";
+
 interface ListOption {
-  text: string;
+  key: string;
   handler(): void;
 }
 
@@ -10,15 +12,14 @@ export default class Options {
   #selected: number = 0;
   #keypressHandler: (e: KeyboardEvent) => void;
 
-  constructor(parent: HTMLElement, prompt: string, options: ListOption[]) {
+  constructor(parent: HTMLElement, promptKey: string, options: ListOption[]) {
     this.#parent = parent;
     const list = document.createElement("div");
     list.classList.add("options");
-    list.innerHTML = `<h2>${prompt}</h2>`;
+    list.append(createI18nText("h2", promptKey));
     this.#buttons = [];
-    for (const { text, handler } of options) {
-      const button = document.createElement("button");
-      button.textContent = text;
+    for (const { key, handler } of options) {
+      const button = createI18nText("button", key) as HTMLButtonElement;
       list.append(button);
       button.onclick = handler;
       this.#buttons.push(button);

@@ -5,18 +5,9 @@
   "Restart": "Restart",
   "ChoosePolicy": "Choose a Policy",
   "Next": "Next",
-  "Utilitarian": {
-    "name": "Utilitarian",
-    "objective": "Minimize human injuries"
-  },
-  "Profit": {
-    "name": "Cost-conscious",
-    "objective": "Minimize insurance costs and liability risks"
-  },
-  "Protector": {
-    "name": "Protector",
-    "objective": "Protect car passengers"
-  },
+  "Utilitarian": "Utilitarian: Minimize human injuries",
+  "Profit": "Cost-conscious: Minimize insurance costs and liability risks",
+  "Protector": "Protector: Protect car passengers",
   "CarEntersLane": {
     "name": "A car enters your lane",
     "description": "A car suddenly swerves into your lane, and there's no time to brake fully. You can either crash into it, swerve left and hit a parked car, or swerve right and endanger a bus stop full of people.",

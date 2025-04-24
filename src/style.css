@@ -67,3 +67,11 @@
 .options button.selected {
   border: 3px solid red;
 }
+
+.fade {
+  transition: opacity 500ms;
+}
+
+.invisible {
+  opacity: 0;
+}

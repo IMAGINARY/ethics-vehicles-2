@@ -1,3 +1,4 @@
+import { fadeIn, fadeOut } from "./animation";
 import { createI18nText } from "./i18n";
 
 interface ListOption {
@@ -62,13 +63,13 @@ export default class Options {
     }
   }
 
-  show() {
-    this.#parent.appendChild(this.#el);
+  async show() {
+    await fadeIn(this.#parent, this.#el);
     document.addEventListener("keydown", this.#keypressHandler);
   }
 
-  hide() {
+  async hide() {
     document.removeEventListener("keydown", this.#keypressHandler);
-    this.#parent.removeChild(this.#el);
+    await fadeOut(this.#parent, this.#el);
   }
 }

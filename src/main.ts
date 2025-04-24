@@ -5,6 +5,7 @@ import en from "./locales/en.json";
 import de from "./locales/de.json";
 import Options from "./Options";
 import { createI18nText, refreshI18nText } from "./i18n";
+import { fadeIn, fadeOut } from "./animation";
 
 const languages = [
   { code: "en", name: "English" },
@@ -22,28 +23,33 @@ let menu: HTMLElement;
 let labelContainer: HTMLElement;
 let langSwitcher: HTMLButtonElement;
 
-function playIdle() {
+async function playIdle() {
   // Play idle video
   video.src = idleVideo;
   video.loop = true;
   video.play();
 
+  // Clear previous content
+  await Promise.all(
+    [...menu.children].map(async (child) => {
+      await fadeOut(menu, child as HTMLElement);
+    })
+  );
   // Show scenario buttons
-  menu.innerHTML = "";
   let scenarioOptions = new Options(
     menu,
     "ChooseSituation",
     scenarios.map((scenario) => {
       return {
         key: `${scenario.key}.name`,
-        handler: () => {
-          scenarioOptions.hide();
+        handler: async () => {
+          await scenarioOptions.hide();
           showScenario(scenario);
         },
       };
     })
   );
-  scenarioOptions.show();
+  await scenarioOptions.show();
 }
 
 function showScenario({ key, labels, videoSrc, options }: Scenario) {
@@ -53,11 +59,7 @@ function showScenario({ key, labels, videoSrc, options }: Scenario) {
   video.play();
   menu.innerHTML = "";
 
-  video.onended = () => {
-    // Scenario introduction
-    menu.append(createI18nText("h1", "Report"));
-    menu.append(createI18nText("p", `${key}.description`));
-
+  video.onended = async () => {
     // Show entity labels
     for (const { key: labelKey, position } of labels) {
       const labelEl = document.createElement("div");
@@ -65,8 +67,14 @@ function showScenario({ key, labels, videoSrc, options }: Scenario) {
       labelEl.style = `left:${position[0]}px;top:${position[1]}px;`;
       labelEl.append(createI18nText("div", `${key}.${labelKey}.name`));
       labelEl.append(createI18nText("div", `${key}.${labelKey}.description`));
-      labelContainer.append(labelEl);
+      await fadeIn(labelContainer, labelEl);
     }
+
+    // Scenario introduction
+    const intro = document.createElement("div");
+    intro.appendChild(createI18nText("h1", "Report"));
+    intro.appendChild(createI18nText("p", `${key}.description`));
+    await fadeIn(menu, intro);
 
     // Scenario options
     const choiceOptions = new Options(
@@ -75,28 +83,33 @@ function showScenario({ key, labels, videoSrc, options }: Scenario) {
       options.map(({ key: optionKey, videoSrc }) => {
         return {
           key: optionKey,
-          handler: () => {
-            labelContainer.innerHTML = "";
+          handler: async () => {
+            await choiceOptions.hide();
+            await fadeIn(menu, createI18nText("p", optionKey));
+            // Hide labels
+            await Promise.all(
+              [...labelContainer.children].map(async (labelEl) => {
+                await fadeOut(labelContainer, labelEl as HTMLElement);
+              })
+            );
             // Play the scenario out
-            choiceOptions.hide();
-            menu.append(createI18nText("p", optionKey));
             video.loop = false;
             video.src = videoSrc;
             video.play();
 
             // Show concluding text and restart button
-            video.onended = () => {
-              menu.append(createI18nText("p", `${key}.${optionKey}`));
+            video.onended = async () => {
+              await fadeIn(menu, createI18nText("p", `${key}.${optionKey}`));
               const restartButton = createI18nText("button", `Restart`);
               restartButton.id = "start-button";
               restartButton.onclick = playIdle;
-              menu.append(restartButton);
+              await fadeIn(menu, restartButton);
             };
           },
         };
       })
     );
-    choiceOptions.show();
+    await choiceOptions.show();
   };
 }
 

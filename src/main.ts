@@ -24,10 +24,7 @@ let menu: HTMLElement;
 let labelContainer: HTMLElement;
 let langSwitcher: HTMLButtonElement;
 
-async function playIdle() {
-  // Play idle video
-  idleVideo.play();
-
+async function showScenarioChoices() {
   // Show scenario buttons
   let scenarioOptions = new Options(
     menu,
@@ -85,6 +82,9 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
             const decisionVideo = document.createElement("video");
             decisionVideo.loop = false;
             decisionVideo.src = videoSrc;
+            decisionVideo.onloadeddata = () => {
+              videoContainer.removeChild(scenarioVideo);
+            };
             videoContainer.appendChild(decisionVideo);
             await choiceOptions.hide();
             await fadeIn(menu, createI18nText("p", optionKey));
@@ -96,9 +96,6 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
             );
             // Play the scenario out
             decisionVideo.play();
-            decisionVideo.onloadeddata = () => {
-              videoContainer.removeChild(scenarioVideo);
-            };
 
             // Show concluding text and restart button
             decisionVideo.onended = async () => {
@@ -106,11 +103,12 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
               const restartButton = createI18nText("button", `Restart`);
               restartButton.id = "start-button";
               restartButton.onclick = async () => {
+                idleVideo.play();
                 await Promise.all([
-                  fadeOut(videoContainer, decisionVideo),
+                  fadeOut(videoContainer, decisionVideo, 1000),
                   fadeOutChildren(menu),
                 ]);
-                playIdle();
+                showScenarioChoices();
               };
               await fadeIn(menu, restartButton);
             };
@@ -145,7 +143,7 @@ window.onload = () => {
   labelContainer = document.getElementById("labels")!;
   langSwitcher = document.getElementById("lang-switcher") as HTMLButtonElement;
 
-  playIdle();
+  showScenarioChoices();
   langSwitcher.onclick = switchLanguage;
   document.addEventListener("keydown", (e) => {
     if (e.key === "Tab") {

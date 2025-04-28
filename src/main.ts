@@ -145,11 +145,7 @@ window.onload = () => {
   labelContainer = document.getElementById("labels")!;
   langSwitcher = document.getElementById("lang-switcher") as HTMLButtonElement;
 
-  const startButton = document.getElementById("start-button")!;
-  startButton.onclick = async () => {
-    await fadeOut(startButton.parentElement!, startButton);
-    playIdle();
-  };
+  playIdle();
   langSwitcher.onclick = switchLanguage;
   document.addEventListener("keydown", (e) => {
     if (e.key === "Tab") {

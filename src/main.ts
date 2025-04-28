@@ -26,16 +26,8 @@ let langSwitcher: HTMLButtonElement;
 
 async function playIdle() {
   // Play idle video
-  idleVideo.src = idleVideoSrc;
-  idleVideo.loop = true;
   idleVideo.play();
 
-  // Clear previous content
-  await Promise.all(
-    [...menu.children].map(async (child) => {
-      await fadeOut(menu, child as HTMLElement);
-    })
-  );
   // Show scenario buttons
   let scenarioOptions = new Options(
     menu,
@@ -59,9 +51,11 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
   scenarioVideo.loop = false;
   scenarioVideo.src = videoSrc;
   scenarioVideo.play();
-  await fadeIn(videoContainer, scenarioVideo, 1500);
-  idleVideo.pause(); // Wait till the new video comes in completely, then disable idle
   menu.innerHTML = "";
+
+  await fadeIn(videoContainer, scenarioVideo, 1500);
+  // pause the idle when we know we're completely loaded
+  idleVideo.pause();
 
   scenarioVideo.onended = async () => {
     // Show entity labels
@@ -112,7 +106,10 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
               const restartButton = createI18nText("button", `Restart`);
               restartButton.id = "start-button";
               restartButton.onclick = async () => {
-                await fadeOut(videoContainer, decisionVideo);
+                await Promise.all([
+                  fadeOut(videoContainer, decisionVideo),
+                  fadeOutChildren(menu),
+                ]);
                 playIdle();
               };
               await fadeIn(menu, restartButton);
@@ -135,6 +132,12 @@ async function switchLanguage() {
   langSwitcher.textContent = name;
 }
 
+async function fadeOutChildren(parent: HTMLElement) {
+  await Promise.all(
+    [...parent.children].map((child) => fadeOut(parent, child as HTMLElement))
+  );
+}
+
 window.onload = () => {
   videoContainer = document.getElementById("videos") as HTMLElement;
   idleVideo = document.getElementById("idle-video") as HTMLMediaElement;
@@ -142,7 +145,11 @@ window.onload = () => {
   labelContainer = document.getElementById("labels")!;
   langSwitcher = document.getElementById("lang-switcher") as HTMLButtonElement;
 
-  document.getElementById("start-button")!.onclick = playIdle;
+  const startButton = document.getElementById("start-button")!;
+  startButton.onclick = async () => {
+    await fadeOut(startButton.parentElement!, startButton);
+    playIdle();
+  };
   langSwitcher.onclick = switchLanguage;
   document.addEventListener("keydown", (e) => {
     if (e.key === "Tab") {
@@ -150,5 +157,3 @@ window.onload = () => {
     }
   });
 };
-
-const idleVideoSrc = "/idle.mp4";

@@ -18,8 +18,7 @@ export interface Label {
 export const scenarios: Scenario[] = [
   {
     key: "CarEntersLane",
-    videoSrc:
-      "https://videos.pexels.com/video-files/30221480/12957890_1920_1080_30fps.mp4",
+    videoSrc: "/scene_3_0.mp4",
     labels: [
       { key: "AutonomousCar", position: [100, 100] },
       { key: "LuxuryCar", position: [100, 900] },
@@ -29,25 +28,21 @@ export const scenarios: Scenario[] = [
     options: [
       {
         key: "Utilitarian",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31197958/13326009_2560_1440_25fps.mp4",
+        videoSrc: "/scene_3_1.mp4",
       },
       {
         key: "Profit",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31374437/13388231_2560_1440_25fps.mp4",
+        videoSrc: "/scene_3_2.mp4",
       },
       {
         key: "Protector",
-        videoSrc:
-          "https://videos.pexels.com/video-files/30886113/13206249_2560_1440_60fps.mp4",
+        videoSrc: "/scene_3_3.mp4",
       },
     ],
   },
   {
     key: "ChildRuns",
-    videoSrc:
-      "https://videos.pexels.com/video-files/30221480/12957890_1920_1080_30fps.mp4",
+    videoSrc: "/scene_2_0.mp4",
     labels: [
       { key: "AutonomousCar", position: [100, 100] },
       { key: "Ambulance", position: [100, 900] },
@@ -57,25 +52,21 @@ export const scenarios: Scenario[] = [
     options: [
       {
         key: "Utilitarian",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31197958/13326009_2560_1440_25fps.mp4",
+        videoSrc: "/scene_2_1.mp4",
       },
       {
         key: "Profit",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31374437/13388231_2560_1440_25fps.mp4",
+        videoSrc: "/scene_2_2.mp4",
       },
       {
         key: "Protector",
-        videoSrc:
-          "https://videos.pexels.com/video-files/30886113/13206249_2560_1440_60fps.mp4",
+        videoSrc: "/scene_2_3.mp4",
       },
     ],
   },
   {
     key: "TreeFalls",
-    videoSrc:
-      "https://videos.pexels.com/video-files/30221480/12957890_1920_1080_30fps.mp4",
+    videoSrc: "/scene_1_0.mp4",
     labels: [
       { key: "AutonomousCar", position: [100, 100] },
       { key: "Cyclist", position: [100, 900] },
@@ -84,18 +75,15 @@ export const scenarios: Scenario[] = [
     options: [
       {
         key: "Utilitarian",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31197958/13326009_2560_1440_25fps.mp4",
+        videoSrc: "/scene_1_1.mp4",
       },
       {
         key: "Profit",
-        videoSrc:
-          "https://videos.pexels.com/video-files/31374437/13388231_2560_1440_25fps.mp4",
+        videoSrc: "/scene_1_2.mp4",
       },
       {
         key: "Protector",
-        videoSrc:
-          "https://videos.pexels.com/video-files/30886113/13206249_2560_1440_60fps.mp4",
+        videoSrc: "/scene_1_3.mp4",
       },
     ],
   },

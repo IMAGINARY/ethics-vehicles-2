@@ -138,5 +138,4 @@ window.onload = () => {
   });
 };
 
-const idleVideo =
-  "https://videos.pexels.com/video-files/30975000/13241693_2160_1440_24fps.mp4";
+const idleVideo = "/idle.mp4"

@@ -18,16 +18,17 @@ await i18next.init({
   resources: { en: { translation: en }, de: { translation: de } },
 });
 
-let video: HTMLMediaElement;
+let videoContainer: HTMLElement;
+let idleVideo: HTMLMediaElement;
 let menu: HTMLElement;
 let labelContainer: HTMLElement;
 let langSwitcher: HTMLButtonElement;
 
 async function playIdle() {
   // Play idle video
-  video.src = idleVideo;
-  video.loop = true;
-  video.play();
+  idleVideo.src = idleVideoSrc;
+  idleVideo.loop = true;
+  idleVideo.play();
 
   // Clear previous content
   await Promise.all(
@@ -44,7 +45,7 @@ async function playIdle() {
         key: `${scenario.key}.name`,
         handler: async () => {
           await scenarioOptions.hide();
-          showScenario(scenario);
+          await showScenario(scenario);
         },
       };
     })
@@ -52,14 +53,17 @@ async function playIdle() {
   await scenarioOptions.show();
 }
 
-function showScenario({ key, labels, videoSrc, options }: Scenario) {
+async function showScenario({ key, labels, videoSrc, options }: Scenario) {
   // Play scenario video
-  video.loop = false;
-  video.src = videoSrc;
-  video.play();
+  const scenarioVideo = document.createElement("video");
+  scenarioVideo.loop = false;
+  scenarioVideo.src = videoSrc;
+  scenarioVideo.play();
+  await fadeIn(videoContainer, scenarioVideo, 1500);
+  idleVideo.pause(); // Wait till the new video comes in completely, then disable idle
   menu.innerHTML = "";
 
-  video.onended = async () => {
+  scenarioVideo.onended = async () => {
     // Show entity labels
     for (const { key: labelKey, position } of labels) {
       const labelEl = document.createElement("div");
@@ -84,6 +88,10 @@ function showScenario({ key, labels, videoSrc, options }: Scenario) {
         return {
           key: optionKey,
           handler: async () => {
+            const decisionVideo = document.createElement("video");
+            decisionVideo.loop = false;
+            decisionVideo.src = videoSrc;
+            videoContainer.appendChild(decisionVideo);
             await choiceOptions.hide();
             await fadeIn(menu, createI18nText("p", optionKey));
             // Hide labels
@@ -93,16 +101,20 @@ function showScenario({ key, labels, videoSrc, options }: Scenario) {
               })
             );
             // Play the scenario out
-            video.loop = false;
-            video.src = videoSrc;
-            video.play();
+            decisionVideo.play();
+            decisionVideo.onloadeddata = () => {
+              videoContainer.removeChild(scenarioVideo);
+            };
 
             // Show concluding text and restart button
-            video.onended = async () => {
+            decisionVideo.onended = async () => {
               await fadeIn(menu, createI18nText("p", `${key}.${optionKey}`));
               const restartButton = createI18nText("button", `Restart`);
               restartButton.id = "start-button";
-              restartButton.onclick = playIdle;
+              restartButton.onclick = async () => {
+                await fadeOut(videoContainer, decisionVideo);
+                playIdle();
+              };
               await fadeIn(menu, restartButton);
             };
           },
@@ -124,7 +136,8 @@ async function switchLanguage() {
 }
 
 window.onload = () => {
-  video = document.getElementById("video") as HTMLMediaElement;
+  videoContainer = document.getElementById("videos") as HTMLElement;
+  idleVideo = document.getElementById("idle-video") as HTMLMediaElement;
   menu = document.getElementById("menu")!;
   labelContainer = document.getElementById("labels")!;
   langSwitcher = document.getElementById("lang-switcher") as HTMLButtonElement;
@@ -138,4 +151,4 @@ window.onload = () => {
   });
 };
 
-const idleVideo = "/idle.mp4"
+const idleVideoSrc = "/idle.mp4";

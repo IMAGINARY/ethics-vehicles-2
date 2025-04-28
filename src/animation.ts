@@ -1,6 +1,11 @@
-export function fadeIn(parent: HTMLElement, child: HTMLElement): Promise<void> {
+export function fadeIn(
+  parent: HTMLElement,
+  child: HTMLElement,
+  duration: number = 500
+): Promise<void> {
   child.classList.add("fade");
   child.classList.add("invisible");
+  child.style.transitionDuration = `${duration}ms`;
   parent.appendChild(child);
   return new Promise((resolve) => {
     child.ontransitionend = () => {
@@ -14,8 +19,10 @@ export function fadeIn(parent: HTMLElement, child: HTMLElement): Promise<void> {
 
 export function fadeOut(
   parent: HTMLElement,
-  child: HTMLElement
+  child: HTMLElement,
+  duration: number = 500
 ): Promise<void> {
+  child.style.transitionDuration = `${duration}ms`;
   child.classList.add("fade");
   return new Promise((resolve) => {
     child.ontransitionend = () => {

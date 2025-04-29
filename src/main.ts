@@ -44,9 +44,8 @@ async function showScenarioChoices() {
 
 async function showScenario({ key, labels, videoSrc, options }: Scenario) {
   // Play scenario video
-  const scenarioVideo = document.createElement("video");
-  scenarioVideo.loop = false;
-  scenarioVideo.src = videoSrc;
+  const scenarioVideo = document.querySelector(`video[src='${videoSrc}']`) as HTMLVideoElement;
+  scenarioVideo.style.removeProperty('display');
   scenarioVideo.play();
   menu.innerHTML = "";
 
@@ -76,16 +75,14 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
       menu,
       "Choose Policy",
       options.map(({ key: optionKey, videoSrc }) => {
+        const decisionVideo = document.querySelector(`video[src='${videoSrc}']`) as HTMLVideoElement;
+        decisionVideo.currentTime = 0;
         return {
           key: optionKey,
           handler: async () => {
-            const decisionVideo = document.createElement("video");
-            decisionVideo.loop = false;
-            decisionVideo.src = videoSrc;
-            decisionVideo.onloadeddata = () => {
-              videoContainer.removeChild(scenarioVideo);
-            };
-            videoContainer.appendChild(decisionVideo);
+            scenarioVideo.style.display = 'none';
+            decisionVideo.style.removeProperty('display');
+
             await choiceOptions.hide();
             await fadeIn(menu, createI18nText("p", optionKey));
             // Hide labels
@@ -108,6 +105,8 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
                   fadeOut(videoContainer, decisionVideo, 1000),
                   fadeOutChildren(menu),
                 ]);
+                decisionVideo.style.display = 'none';
+                decisionVideo.currentTime = 0;
                 showScenarioChoices();
               };
               await fadeIn(menu, restartButton);
@@ -142,6 +141,24 @@ window.onload = () => {
   menu = document.getElementById("menu")!;
   labelContainer = document.getElementById("labels")!;
   langSwitcher = document.getElementById("lang-switcher") as HTMLButtonElement;
+
+  scenarios.forEach((s => {
+    const scenarioVideo = document.createElement("video");
+    scenarioVideo.loop = false;
+    scenarioVideo.preload = "auto";
+    scenarioVideo.src = s.videoSrc;
+    scenarioVideo.style.display = 'none';
+    videoContainer.append(scenarioVideo);
+
+    s.options.forEach((o) => {
+      const decisionVideo = document.createElement("video");
+      decisionVideo.loop = false;
+      decisionVideo.preload = "auto";
+      decisionVideo.src = o.videoSrc;
+      decisionVideo.style.display = 'none';
+      videoContainer.append(decisionVideo);
+    });
+  }));
 
   showScenarioChoices();
   langSwitcher.onclick = switchLanguage;

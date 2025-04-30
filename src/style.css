@@ -70,11 +70,13 @@ button {
 }
 
 .label {
-  background-color: white;
+  color: white;
+  font-size: 1.25rem;
   padding: 1rem;
-  border: 2px solid black;
   border-radius: 1rem;
   position: absolute;
+  max-width: 400px;
+  text-align: center;
 }
 
 .options {

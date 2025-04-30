@@ -20,10 +20,10 @@ export const scenarios: Scenario[] = [
     key: "CarEntersLane",
     videoSrc: "/scene_3_0.mp4",
     labels: [
-      { key: "AutonomousCar", position: [100, 100] },
-      { key: "LuxuryCar", position: [100, 900] },
-      { key: "Truck", position: [800, 100] },
-      { key: "BusStop", position: [800, 900] },
+      { key: "AutonomousCar", position: [1390, 1000] },
+      { key: "LuxuryCar", position: [1310, 610] },
+      { key: "Truck", position: [1620, 710] },
+      { key: "BusStop", position: [1050, 740] },
     ],
     options: [
       {
@@ -44,10 +44,10 @@ export const scenarios: Scenario[] = [
     key: "ChildRuns",
     videoSrc: "/scene_2_0.mp4",
     labels: [
-      { key: "AutonomousCar", position: [100, 100] },
-      { key: "Ambulance", position: [100, 900] },
-      { key: "Child", position: [800, 100] },
-      { key: "OtherCar", position: [800, 900] },
+      { key: "AutonomousCar", position: [850, 1220] },
+      { key: "Ambulance", position: [980, 1020] },
+      { key: "Child", position: [660, 1040] },
+      { key: "OtherCar", position: [650, 1290] },
     ],
     options: [
       {
@@ -68,9 +68,9 @@ export const scenarios: Scenario[] = [
     key: "TreeFalls",
     videoSrc: "/scene_1_0.mp4",
     labels: [
-      { key: "AutonomousCar", position: [100, 100] },
-      { key: "Cyclist", position: [100, 900] },
-      { key: "FallenTree", position: [800, 100] },
+      { key: "AutonomousCar", position: [450, 660] },
+      { key: "Cyclist", position: [500, 1080] },
+      { key: "FallenTree", position: [270, 975] },
     ],
     options: [
       {

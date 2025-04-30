@@ -47,7 +47,7 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
   const scenarioVideo = document.createElement("video");
   scenarioVideo.loop = false;
   scenarioVideo.src = videoSrc;
-  menu.innerHTML = "";
+  scenarioVideo.preload = "auto";
 
   // pause the idle when we know we're completely loaded
   scenarioVideo.oncanplay = async () => {

@@ -47,12 +47,14 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
   const scenarioVideo = document.createElement("video");
   scenarioVideo.loop = false;
   scenarioVideo.src = videoSrc;
-  scenarioVideo.play();
   menu.innerHTML = "";
 
-  await fadeIn(videoContainer, scenarioVideo, 1500);
   // pause the idle when we know we're completely loaded
-  idleVideo.pause();
+  scenarioVideo.oncanplay = async () => {
+    scenarioVideo.play();
+    await fadeIn(videoContainer, scenarioVideo, 1500);
+    idleVideo.pause();
+  };
 
   scenarioVideo.onended = async () => {
     // Show entity labels
@@ -82,7 +84,7 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
             const decisionVideo = document.createElement("video");
             decisionVideo.loop = false;
             decisionVideo.src = videoSrc;
-            decisionVideo.onloadeddata = () => {
+            decisionVideo.oncanplay = () => {
               videoContainer.removeChild(scenarioVideo);
             };
             videoContainer.appendChild(decisionVideo);

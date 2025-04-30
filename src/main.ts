@@ -104,14 +104,22 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
               await fadeIn(menu, createI18nText("p", `${key}.${optionKey}`));
               const restartButton = createI18nText("button", `Restart`);
               restartButton.id = "start-button";
-              restartButton.onclick = async () => {
+              const handleClickRestart = async () => {
                 idleVideo.play();
+                document.removeEventListener("keypress", handleKeypress);
                 await Promise.all([
                   fadeOut(videoContainer, decisionVideo, 1000),
                   fadeOutChildren(menu),
                 ]);
                 showScenarioChoices();
               };
+              restartButton.onclick = handleClickRestart;
+              const handleKeypress = (e: KeyboardEvent) => {
+                if (e.key === " " || e.key === "Enter") {
+                  handleClickRestart();
+                }
+              };
+              document.addEventListener("keypress", handleKeypress);
               await fadeIn(menu, restartButton);
             };
           },

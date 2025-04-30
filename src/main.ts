@@ -106,7 +106,7 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
               restartButton.id = "start-button";
               const handleClickRestart = async () => {
                 idleVideo.play();
-                document.removeEventListener("keypress", handleKeypress);
+                document.removeEventListener("keydown", handleKeypress);
                 await Promise.all([
                   fadeOut(videoContainer, decisionVideo, 1000),
                   fadeOutChildren(menu),
@@ -119,7 +119,7 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
                   handleClickRestart();
                 }
               };
-              document.addEventListener("keypress", handleKeypress);
+              document.addEventListener("keydown", handleKeypress);
               await fadeIn(menu, restartButton);
             };
           },

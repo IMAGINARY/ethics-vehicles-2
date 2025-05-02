@@ -156,7 +156,7 @@ window.onload = () => {
   showScenarioChoices();
   langSwitcher.onclick = switchLanguage;
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Tab") {
+    if (e.key === "l") {
       switchLanguage();
     }
   });

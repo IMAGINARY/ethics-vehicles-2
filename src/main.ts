@@ -1,22 +1,18 @@
 import "./style.css";
-import i18next from "i18next";
 import { scenarios, Scenario } from "./scenarios";
-import en from "./locales/en.json";
-import de from "./locales/de.json";
 import Options from "./Options";
-import { createI18nText, refreshI18nText } from "./i18n";
+import {
+  createI18nText,
+  getCurrentLang,
+  refreshI18nText,
+  changeLanguage,
+} from "./i18n";
 import { fadeIn, fadeOut } from "./animation";
 
 const languages = [
   { code: "en", name: "English" },
   { code: "de", name: "Deutsch" },
 ];
-
-await i18next.init({
-  lng: "en", // TODO language detector
-  debug: true,
-  resources: { en: { translation: en }, de: { translation: de } },
-});
 
 let videoContainer: HTMLElement;
 let idleVideo: HTMLMediaElement;
@@ -132,10 +128,10 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
 
 async function switchLanguage() {
   const currentIndex = languages.findIndex(
-    ({ code }) => i18next.language === code
+    ({ code }) => getCurrentLang() === code
   );
   const { name, code } = languages[(currentIndex + 1) % languages.length];
-  await i18next.changeLanguage(code);
+  await changeLanguage(code);
   refreshI18nText();
   langSwitcher.textContent = name;
 }

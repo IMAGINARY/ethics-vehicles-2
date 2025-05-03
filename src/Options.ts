@@ -11,7 +11,7 @@ export default class Options {
   #el: HTMLElement;
   #buttons: HTMLButtonElement[];
   #selected: number = 0;
-  #keypressHandler: (e: KeyboardEvent) => void;
+  #handleKeydown: (e: KeyboardEvent) => void;
 
   constructor(parent: HTMLElement, promptKey: string, options: ListOption[]) {
     this.#parent = parent;
@@ -27,7 +27,7 @@ export default class Options {
     }
     this.setSelected(this.#selected);
     this.#el = list;
-    this.#keypressHandler = (e) => {
+    this.#handleKeydown = (e) => {
       e.preventDefault();
       switch (e.key) {
         case "ArrowUp": {
@@ -65,11 +65,11 @@ export default class Options {
 
   async show() {
     await fadeIn(this.#parent, this.#el);
-    document.addEventListener("keydown", this.#keypressHandler);
+    document.addEventListener("keydown", this.#handleKeydown);
   }
 
   async hide() {
-    document.removeEventListener("keydown", this.#keypressHandler);
+    document.removeEventListener("keydown", this.#handleKeydown);
     await fadeOut(this.#parent, this.#el);
   }
 }

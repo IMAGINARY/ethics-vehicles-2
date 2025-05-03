@@ -3,9 +3,13 @@ import de from "./locales/de.json";
 
 const I18N_ATTR = "data-i18n";
 
-const strings = { en, de };
-let currentLang: keyof typeof strings = "en";
+const strings: Record<string, any> = { en, de };
+let currentLang: string = "en";
 
+/**
+ * Create a translatable element with the provided tag
+ * that will be re-translated when `refreshI18Text` is called.
+ */
 export function createI18nText(tag: string, key: string) {
   const el = document.createElement(tag);
   el.textContent = translate(key);
@@ -13,6 +17,9 @@ export function createI18nText(tag: string, key: string) {
   return el;
 }
 
+/**
+ * Retranslate all translateable text in the current language.
+ */
 export function refreshI18nText() {
   for (const el of document.querySelectorAll(`[${I18N_ATTR}]`)) {
     const key = el.getAttribute(I18N_ATTR) ?? "";
@@ -28,7 +35,7 @@ export function changeLanguage(newLang: string) {
   if (!Object.keys(strings).includes(newLang)) {
     throw new Error(`Unknown code: ${newLang}`);
   }
-  currentLang = newLang as any;
+  currentLang = newLang;
 }
 
 function translate(key: string) {

@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build"
+    "build": "tsc && vite build",
+    "download": "node --env-file=.env.local -- scripts/download-videos.js",
+    "clean:videos": "node scripts/remove-videos.js"
   },
   "devDependencies": {
     "typescript": "^5.8.3",

@@ -1,43 +1,39 @@
+import { createHash } from "crypto";
 import fs from "fs";
 import path from "path";
 import { Readable } from "stream";
 import { finished } from "stream/promises";
 const url = process.env.VIDEO_URL;
+const videos = JSON.parse(fs.readFileSync("./videos.json"));
 
 console.log(`VIDEO_URL=${url}`);
 
-// TODO These should probably be configured somewhere
-const videos = [
-  "idle.mp4",
-  "scene_1_0.mp4",
-  "scene_1_1.mp4",
-  "scene_1_2.mp4",
-  "scene_1_3.mp4",
-  "scene_2_0.mp4",
-  "scene_2_1.mp4",
-  "scene_2_2.mp4",
-  "scene_2_3.mp4",
-  "scene_3_0.mp4",
-  "scene_3_1.mp4",
-  "scene_3_2.mp4",
-  "scene_3_3.mp4",
-];
-
-async function downloadFile(url, filename) {
+async function downloadFile(url, filename, checksum) {
   const destination = path.resolve("./public", filename);
   if (fs.existsSync(destination)) {
-    console.log(`${filename} already exists.`);
-    return;
+    if (checksumMatches(destination, checksum)) {
+      console.log(`${filename} already exists.`);
+      return;
+    }
+    fs.unlinkSync(destination);
+    console.log(`${filename} is outdated. Redownloading...`);
   }
   const res = await fetch(url);
   console.log("Downloading", url);
   const fileStream = fs.createWriteStream(destination, { flags: "wx" });
   await finished(Readable.fromWeb(res.body).pipe(fileStream));
   console.log("Finished downloading", filename);
+  if (!checksumMatches(destination, checksum)) {
+    console.error(`Invalid checksum for ${filename}`);
+    process.exit(1);
+  }
 }
 
-await Promise.all(
-  videos.map((video) => {
-    downloadFile(`${url}${video}`, video);
-  })
-);
+function checksumMatches(path, checksum) {
+  const file = fs.readFileSync(path);
+  return createHash("sha256").update(file).digest("hex") === checksum;
+}
+
+for (const { name, checksum } of videos.videos) {
+  await downloadFile(`${url}${name}`, name, checksum);
+}

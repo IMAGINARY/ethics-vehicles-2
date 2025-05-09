@@ -111,7 +111,9 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
               };
               restartButton.onclick = handleClickRestart;
               const handleKeypress = (e: KeyboardEvent) => {
-                if (e.key === " " || e.key === "Enter") {
+                // Not sure which of these are going to get mapped.
+                // Bind "Space" and "Enter" for the demo version just in case.
+                if (["1", "2", "3", " ", "Enter"].includes(e.key)) {
                   handleClickRestart();
                 }
               };

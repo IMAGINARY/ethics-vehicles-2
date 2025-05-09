@@ -10,7 +10,6 @@ export default class Options {
   #parent: HTMLElement;
   #el: HTMLElement;
   #buttons: HTMLButtonElement[];
-  #selected: number = 0;
   #handleKeydown: (e: KeyboardEvent) => void;
 
   constructor(parent: HTMLElement, promptKey: string, options: ListOption[]) {
@@ -25,42 +24,24 @@ export default class Options {
       button.onclick = handler;
       this.#buttons.push(button);
     }
-    this.setSelected(this.#selected);
     this.#el = list;
     this.#handleKeydown = (e) => {
       e.preventDefault();
       switch (e.key) {
-        case "ArrowUp": {
-          this.#selected -= 1;
-          if (this.#selected < 0) {
-            this.#selected += this.#buttons.length;
-          }
-          this.setSelected(this.#selected);
-          break;
+        case "1": {
+          this.#buttons[0].click();
+          return;
         }
-        case "ArrowDown": {
-          this.#selected = (this.#selected + 1) % this.#buttons.length;
-          this.setSelected(this.#selected);
-          break;
+        case "2": {
+          this.#buttons[1].click();
+          return;
         }
-        case " ":
-        case "Enter": {
-          this.#buttons[this.#selected].click();
-          break;
+        case "3": {
+          this.#buttons[2].click();
+          return;
         }
       }
     };
-  }
-
-  setSelected(index: number) {
-    for (let i = 0; i < this.#buttons.length; i++) {
-      const button = this.#buttons[i];
-      if (i === index) {
-        button.classList.add("selected");
-      } else {
-        button.classList.remove("selected");
-      }
-    }
   }
 
   async show() {

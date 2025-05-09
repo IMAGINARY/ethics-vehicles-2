@@ -1,4 +1,5 @@
 {
+  "defaultVideoURL": "http://exhibits.storage.imaginary.org/ethics-vehicles-2/videos/v0/",
   "videos": [
     {
       "name": "idle.mp4",

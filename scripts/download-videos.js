@@ -3,8 +3,8 @@ import fs from "fs";
 import path from "path";
 import { Readable } from "stream";
 import { finished } from "stream/promises";
-const url = process.env.VIDEO_URL;
 const videos = JSON.parse(fs.readFileSync("./videos.json"));
+const url = process.env.VIDEO_URL || videos.defaultVideoURL;
 
 console.log(`VIDEO_URL=${url}`);
 

@@ -30,10 +30,6 @@ video {
   left: calc(50% - var(--video-width) / 2);
 }
 
-button {
-  font-size: 1.5rem;
-}
-
 #lang-switcher {
   position: fixed;
   bottom: 2rem;
@@ -57,6 +53,13 @@ button {
   color: rgb(250, 236, 224);
   font-size: 60px;
   line-height: 72px;
+}
+
+.arrow-choose-scenario {
+  position: absolute;
+  left: 1150px;
+  top: 1625px;
+  width: 200px;
 }
 
 .options button {
@@ -125,13 +128,9 @@ button {
 }
 
 .report {
-  border-block: 4px solid black;
+  border-block: 2px solid black;
   margin-block: 30px;
   padding-block: 30px;
-}
-
-.report hr {
-  margin-block: 30px;
 }
 
 .report h1 {
@@ -148,6 +147,13 @@ button {
   margin: 0;
 }
 
+.arrow-next {
+  position: absolute;
+  left: 950px;
+  top: 1700px;
+  width: 250px;
+}
+
 .next-button {
   position: absolute;
   left: 1200px;
@@ -157,12 +163,27 @@ button {
   font-weight: bold;
   font-size: 20px;
   /* TODO same as scenario buttons */
-  background-color: rgb(167, 188, 188);
+  background-color: rgb(167, 188, 168);
   padding-block: 2rem;
   border-radius: 9999px;
   border: none;
   padding-right: 3rem;
   padding-left: 94px;
+}
+
+.choose-policy {
+  position: absolute;
+  left: 840px;
+  top: 1700px;
+  background-color: rgb(167, 188, 168);
+  padding-inline: 50px;
+  padding-block: 25px;
+  border-radius: 9999px;
+
+  font-size: 25px;
+  font-family: "Space Grotesk";
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 #start-button {

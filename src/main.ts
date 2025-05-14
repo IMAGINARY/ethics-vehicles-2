@@ -26,14 +26,21 @@ async function showScenarioChoices() {
   const heading = createI18nText("h2", "ChooseSituation");
   heading.classList.add("situation-prompt");
   await fadeIn(menu, heading);
+  const arrow = document.createElement("img");
+  arrow.src = "/icons/Arrow_Choose_Scenario.svg";
+  arrow.classList.add("arrow-choose-scenario");
+  await fadeIn(menu, arrow);
   let scenarioOptions = new Options(
     menu,
     scenarios.map((scenario) => {
       return {
         key: `${scenario.key}.name`,
         handler: async () => {
-          await fadeOut(menu, heading);
-          await scenarioOptions.hide();
+          await Promise.all([
+            fadeOut(menu, heading),
+            fadeOut(menu, arrow),
+            scenarioOptions.hide(),
+          ]);
           await showScenario(scenario);
         },
       };
@@ -82,6 +89,11 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
     reportContainer.appendChild(report);
     await fadeIn(menu, reportContainer);
 
+    const arrow = document.createElement("img");
+    arrow.classList.add("arrow-next");
+    arrow.src = "/icons/Arrow_Next.svg";
+    await fadeIn(menu, arrow);
+
     // Scenario options
     const choiceOptions = new Options(
       menu,
@@ -97,6 +109,7 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
             };
             videoContainer.appendChild(decisionVideo);
             await choiceOptions.hide();
+            await fadeOutChildren(menu);
             await fadeIn(menu, createI18nText("p", optionKey));
             // Hide labels
             await Promise.all(
@@ -141,6 +154,9 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
     const handleNextPress = async () => {
       document.removeEventListener("keydown", handleNextPress);
       await fadeOut(menu, nextButton);
+      const choosePolicy = createI18nText("div", "ChoosePolicy");
+      choosePolicy.classList.add("choose-policy");
+      await fadeIn(menu, choosePolicy);
       await choiceOptions.show();
     };
     document.addEventListener("keydown", async (e) => {

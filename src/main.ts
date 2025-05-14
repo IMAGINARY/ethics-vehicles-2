@@ -1,5 +1,5 @@
 import "./style.css";
-import { scenarios, Scenario } from "./scenarios";
+import { scenarios, Scenario, ScenarioOption, Label } from "./scenarios";
 import Options from "./Options";
 import {
   createI18nText,
@@ -26,9 +26,24 @@ let menu: HTMLElement;
 let labelContainer: HTMLElement;
 let langSwitcher: HTMLButtonElement;
 
+window.onload = () => {
+  videoContainer = document.getElementById("videos") as HTMLElement;
+  idleVideo = document.getElementById("idle-video") as HTMLMediaElement;
+  menu = document.getElementById("menu")!;
+  labelContainer = document.getElementById("labels")!;
+  langSwitcher = document.getElementById("lang-switcher") as HTMLButtonElement;
+
+  showScenarioChoices();
+  langSwitcher.onclick = switchLanguage;
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "l") {
+      switchLanguage();
+    }
+  });
+};
+
 async function showScenarioChoices() {
   // Show scenario buttons
-
   const heading = createI18nText("h2", "ChooseSituation");
   heading.classList.add("situation-prompt");
   await fadeIn(menu, heading);
@@ -71,18 +86,8 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
 
   scenarioVideo.onended = async () => {
     // Show entity labels
-    for (const { key: labelKey, position, color, align } of labels) {
-      const labelEl = document.createElement("div");
-      labelEl.classList.add("label");
-      labelEl.style.left = `${position[0]}px`;
-      labelEl.style.top = `${position[1]}px`;
-      labelEl.style.color = color ?? "white";
-      labelEl.style.textAlign = align ?? "left";
-      const name = createI18nText("div", `${key}.${labelKey}.name`);
-      name.classList.add("label-name");
-      labelEl.append(name);
-      labelEl.append(createI18nText("div", `${key}.${labelKey}.description`));
-      await fadeIn(labelContainer, labelEl);
+    for (const label of labels) {
+      createLabel(key, label);
     }
 
     // Scenario introduction
@@ -103,71 +108,12 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
     // Scenario options
     const choiceOptions = new Options(
       menu,
-      options.map(({ key: optionKey, videoSrc }) => {
+      options.map((choice) => {
         return {
-          key: optionKey,
+          key: choice.key,
           handler: async () => {
-            const decisionVideo = document.createElement("video");
-            decisionVideo.loop = false;
-            decisionVideo.src = videoSrc;
-            decisionVideo.oncanplay = () => {
-              videoContainer.removeChild(scenarioVideo);
-            };
-            videoContainer.appendChild(decisionVideo);
             await choiceOptions.hide();
-            await fadeOutChildren(menu);
-            await fadeIn(menu, createI18nText("p", optionKey));
-            // Hide labels
-            await Promise.all(
-              [...labelContainer.children].map(async (labelEl) => {
-                await fadeOut(labelContainer, labelEl as HTMLElement);
-              })
-            );
-            // Play the scenario out
-            decisionVideo.play();
-
-            // Show concluding text and restart button
-            decisionVideo.onended = async () => {
-              const conclusion = document.createElement("div");
-              conclusion.classList.add("conclusion");
-              const header = document.createElement("div");
-              header.classList.add("header");
-              const icon = document.createElement("img");
-              icon.src = icons[optionKey];
-              header.appendChild(icon);
-              header.appendChild(createI18nText("h2", optionKey));
-
-              conclusion.appendChild(header);
-              conclusion.appendChild(
-                createI18nText("p", `${key}.${optionKey}`)
-              );
-              await fadeIn(menu, conclusion);
-
-              const arrow = document.createElement("img");
-              arrow.src = "/icons/Arrow_Restart.svg";
-              arrow.classList.add("arrow-restart");
-              fadeIn(menu, arrow);
-
-              const restartButton = createI18nText("button", `Restart`);
-              restartButton.classList.add("restart-button");
-              const handleClickRestart = async () => {
-                idleVideo.play();
-                document.removeEventListener("keydown", handleKeypress);
-                await Promise.all([
-                  fadeOut(videoContainer, decisionVideo, 1000),
-                  fadeOutChildren(menu),
-                ]);
-                showScenarioChoices();
-              };
-              restartButton.onclick = handleClickRestart;
-              const handleKeypress = (e: KeyboardEvent) => {
-                if (e.key === "3") {
-                  handleClickRestart();
-                }
-              };
-              document.addEventListener("keydown", handleKeypress);
-              await fadeIn(menu, restartButton);
-            };
+            pickChoice(key, scenarioVideo, choice);
           },
         };
       })
@@ -192,12 +138,96 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
   };
 }
 
+async function pickChoice(
+  scenarioKey: string,
+  scenarioVideo: HTMLVideoElement,
+  { key: optionKey, videoSrc }: ScenarioOption
+) {
+  const decisionVideo = document.createElement("video");
+  decisionVideo.loop = false;
+  decisionVideo.src = videoSrc;
+  decisionVideo.oncanplay = () => {
+    videoContainer.removeChild(scenarioVideo);
+  };
+  videoContainer.appendChild(decisionVideo);
+  await fadeOutChildren(menu);
+  await fadeIn(menu, createI18nText("p", optionKey));
+  // Hide labels
+  await Promise.all(
+    [...labelContainer.children].map(async (labelEl) => {
+      await fadeOut(labelContainer, labelEl as HTMLElement);
+    })
+  );
+  // Play the scenario out
+  decisionVideo.play();
+
+  // Show concluding text and restart button
+  decisionVideo.onended = async () => {
+    const conclusion = document.createElement("div");
+    conclusion.classList.add("conclusion");
+    const header = document.createElement("div");
+    header.classList.add("header");
+    const icon = document.createElement("img");
+    icon.src = icons[optionKey];
+    header.appendChild(icon);
+    header.appendChild(createI18nText("h2", optionKey));
+
+    conclusion.appendChild(header);
+    conclusion.appendChild(createI18nText("p", `${scenarioKey}.${optionKey}`));
+    await fadeIn(menu, conclusion);
+
+    const arrow = document.createElement("img");
+    arrow.src = "/icons/Arrow_Restart.svg";
+    arrow.classList.add("arrow-restart");
+    fadeIn(menu, arrow);
+
+    const restartButton = createI18nText("button", `Restart`);
+    restartButton.classList.add("restart-button");
+    const handleClickRestart = async () => {
+      idleVideo.play();
+      document.removeEventListener("keydown", handleKeypress);
+      await Promise.all([
+        fadeOut(videoContainer, decisionVideo, 1000),
+        fadeOutChildren(menu),
+      ]);
+      showScenarioChoices();
+    };
+    restartButton.onclick = handleClickRestart;
+    const handleKeypress = (e: KeyboardEvent) => {
+      if (e.key === "3") {
+        handleClickRestart();
+      }
+    };
+    document.addEventListener("keydown", handleKeypress);
+    await fadeIn(menu, restartButton);
+  };
+}
+
+async function createLabel(
+  scenarioKey: string,
+  { position, color, align, key: labelKey }: Label
+) {
+  const labelEl = document.createElement("div");
+  labelEl.classList.add("label");
+  labelEl.style.left = `${position[0]}px`;
+  labelEl.style.top = `${position[1]}px`;
+  labelEl.style.color = color ?? "white";
+  labelEl.style.textAlign = align ?? "left";
+  const name = createI18nText("div", `${scenarioKey}.${labelKey}.name`);
+  name.classList.add("label-name");
+  labelEl.append(name);
+  labelEl.append(
+    createI18nText("div", `${scenarioKey}.${labelKey}.description`)
+  );
+  await fadeIn(labelContainer, labelEl);
+}
+
 async function switchLanguage() {
   const currentIndex = languages.findIndex(
     ({ code }) => getCurrentLang() === code
   );
   const { name, code } = languages[(currentIndex + 1) % languages.length];
-  await changeLanguage(code);
+  changeLanguage(code);
   refreshI18nText();
   langSwitcher.textContent = name;
 }
@@ -207,19 +237,3 @@ async function fadeOutChildren(parent: HTMLElement) {
     [...parent.children].map((child) => fadeOut(parent, child as HTMLElement))
   );
 }
-
-window.onload = () => {
-  videoContainer = document.getElementById("videos") as HTMLElement;
-  idleVideo = document.getElementById("idle-video") as HTMLMediaElement;
-  menu = document.getElementById("menu")!;
-  labelContainer = document.getElementById("labels")!;
-  langSwitcher = document.getElementById("lang-switcher") as HTMLButtonElement;
-
-  showScenarioChoices();
-  langSwitcher.onclick = switchLanguage;
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "l") {
-      switchLanguage();
-    }
-  });
-};

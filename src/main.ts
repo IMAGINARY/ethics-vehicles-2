@@ -25,13 +25,14 @@ async function showScenarioChoices() {
 
   const heading = createI18nText("h2", "ChooseSituation");
   heading.classList.add("situation-prompt");
-  menu.appendChild(heading);
+  await fadeIn(menu, heading);
   let scenarioOptions = new Options(
     menu,
     scenarios.map((scenario) => {
       return {
         key: `${scenario.key}.name`,
         handler: async () => {
+          await fadeOut(menu, heading);
           await scenarioOptions.hide();
           await showScenario(scenario);
         },
@@ -57,11 +58,16 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
 
   scenarioVideo.onended = async () => {
     // Show entity labels
-    for (const { key: labelKey, position } of labels) {
+    for (const { key: labelKey, position, color, align } of labels) {
       const labelEl = document.createElement("div");
       labelEl.classList.add("label");
-      labelEl.style = `left:${position[0]}px;top:${position[1]}px;`;
-      labelEl.append(createI18nText("div", `${key}.${labelKey}.name`));
+      labelEl.style.left = `${position[0]}px`;
+      labelEl.style.top = `${position[1]}px`;
+      labelEl.style.color = color ?? "white";
+      labelEl.style.textAlign = align ?? "left";
+      const name = createI18nText("div", `${key}.${labelKey}.name`);
+      name.classList.add("label-name");
+      labelEl.append(name);
       labelEl.append(createI18nText("div", `${key}.${labelKey}.description`));
       await fadeIn(labelContainer, labelEl);
     }
@@ -71,6 +77,8 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
     intro.appendChild(createI18nText("h1", "Report"));
     intro.appendChild(createI18nText("p", `${key}.description`));
     await fadeIn(menu, intro);
+
+    // TODO Show "next" button
 
     // Scenario options
     const choiceOptions = new Options(

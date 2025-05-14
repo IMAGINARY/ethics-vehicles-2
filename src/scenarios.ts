@@ -13,6 +13,8 @@ export interface ScenarioOption {
 export interface Label {
   key: string;
   position: [number, number];
+  color?: string;
+  align?: string;
 }
 
 export const scenarios: Scenario[] = [
@@ -20,9 +22,18 @@ export const scenarios: Scenario[] = [
     key: "TreeFalls",
     videoSrc: "/videos/scene_1_0.mp4",
     labels: [
-      { key: "AutonomousCar", position: [450, 660] },
-      { key: "Cyclist", position: [500, 1080] },
-      { key: "FallenTree", position: [270, 975] },
+      {
+        key: "AutonomousCar",
+        position: [740, 890],
+        color: "rgb(118, 187, 255)",
+      },
+      { key: "Cyclist", position: [740, 1050], color: "rgb(82, 255, 255)" },
+      {
+        key: "FallenTree",
+        position: [270, 975],
+        color: "rgb(166, 242, 107)",
+        align: "right",
+      },
     ],
     options: [
       {

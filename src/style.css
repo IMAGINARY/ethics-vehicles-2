@@ -94,11 +94,6 @@ button {
   top: 1925px;
 }
 
-#start-button {
-  font-size: 3rem;
-  padding: 1rem 2rem;
-}
-
 .label {
   color: white;
   font-size: 20px;
@@ -113,6 +108,66 @@ button {
 .label .label-name {
   font-weight: bold;
   margin-bottom: 8px;
+}
+
+.report-container {
+  position: absolute;
+  width: 700px;
+  height: 350px;
+  top: 1360px;
+  left: 750px;
+
+  background-color: rgb(250, 236, 224);
+  border-radius: 50px;
+  padding-inline: 50px;
+
+  font-family: "Space Grotesk";
+}
+
+.report {
+  border-block: 4px solid black;
+  margin-block: 30px;
+  padding-block: 30px;
+}
+
+.report hr {
+  margin-block: 30px;
+}
+
+.report h1 {
+  font-family: "Space Grotesk";
+  font-weight: bold;
+  font-size: 45px;
+  text-transform: uppercase;
+  line-height: 0;
+}
+
+.report p {
+  font-size: 20px;
+  line-height: 28px;
+  margin: 0;
+}
+
+.next-button {
+  position: absolute;
+  left: 1200px;
+  top: 1805px;
+
+  font-family: "Space Grotesk";
+  font-weight: bold;
+  font-size: 20px;
+  /* TODO same as scenario buttons */
+  background-color: rgb(167, 188, 188);
+  padding-block: 2rem;
+  border-radius: 9999px;
+  border: none;
+  padding-right: 3rem;
+  padding-left: 94px;
+}
+
+#start-button {
+  font-size: 3rem;
+  padding: 1rem 2rem;
 }
 
 .fade {

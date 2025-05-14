@@ -73,12 +73,14 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
     }
 
     // Scenario introduction
-    const intro = document.createElement("div");
-    intro.appendChild(createI18nText("h1", "Report"));
-    intro.appendChild(createI18nText("p", `${key}.description`));
-    await fadeIn(menu, intro);
-
-    // TODO Show "next" button
+    const reportContainer = document.createElement("div");
+    reportContainer.classList.add("report-container");
+    const report = document.createElement("div");
+    report.classList.add("report");
+    report.appendChild(createI18nText("h1", "Report"));
+    report.appendChild(createI18nText("p", `${key}.description`));
+    reportContainer.appendChild(report);
+    await fadeIn(menu, reportContainer);
 
     // Scenario options
     const choiceOptions = new Options(
@@ -134,7 +136,20 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
         };
       })
     );
-    await choiceOptions.show();
+    const nextButton = createI18nText("button", "Next");
+    nextButton.classList.add("next-button");
+    const handleNextPress = async () => {
+      document.removeEventListener("keydown", handleNextPress);
+      await fadeOut(menu, nextButton);
+      await choiceOptions.show();
+    };
+    document.addEventListener("keydown", async (e) => {
+      if (e.key === "2") {
+        await handleNextPress();
+      }
+    });
+    nextButton.onclick = handleNextPress;
+    await fadeIn(menu, nextButton);
   };
 }
 

@@ -9,7 +9,7 @@ const url = process.env.VIDEO_URL || videos.defaultVideoURL;
 console.log(`VIDEO_URL=${url}`);
 
 async function downloadFile(url, filename, checksum) {
-  const destination = path.resolve("./public", filename);
+  const destination = path.resolve("./public/videos", filename);
   if (fs.existsSync(destination)) {
     if (checksumMatches(destination, checksum)) {
       console.log(`${filename} already exists.`);

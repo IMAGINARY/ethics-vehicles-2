@@ -4,9 +4,9 @@ import fs from "fs";
 import path from "path";
 
 const videos = fs
-  .readdirSync("./public")
+  .readdirSync("./public/videos")
   .filter((file) => path.extname(file) === ".mp4");
 
 for (const video of videos) {
-  fs.unlinkSync(`./public/${video}`);
+  fs.unlinkSync(`./public/videos/${video}`);
 }

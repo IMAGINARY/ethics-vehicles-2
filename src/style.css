@@ -9,7 +9,7 @@
 }
 
 * {
-  font-family: sans-serif;
+  font-family: "Space Grotesk";
 }
 
 body {
@@ -48,7 +48,6 @@ video {
   margin: 0;
   max-width: 350px;
 
-  font-family: "Space Grotesk";
   text-transform: uppercase;
   color: rgb(250, 236, 224);
   font-size: 60px;
@@ -63,7 +62,6 @@ video {
 }
 
 .options button {
-  font-family: "Space Grotesk";
   font-size: 20px;
   font-weight: bold;
 
@@ -100,7 +98,6 @@ video {
 .label {
   color: white;
   font-size: 20px;
-  font-family: "Space Grotesk";
 
   padding: 1rem;
   border-radius: 1rem;
@@ -123,8 +120,6 @@ video {
   background-color: rgb(250, 236, 224);
   border-radius: 50px;
   padding-inline: 50px;
-
-  font-family: "Space Grotesk";
 }
 
 .report {
@@ -134,7 +129,6 @@ video {
 }
 
 .report h1 {
-  font-family: "Space Grotesk";
   font-weight: bold;
   font-size: 45px;
   text-transform: uppercase;
@@ -159,7 +153,6 @@ video {
   left: 1200px;
   top: 1805px;
 
-  font-family: "Space Grotesk";
   font-weight: bold;
   font-size: 20px;
   /* TODO same as scenario buttons */
@@ -181,14 +174,60 @@ video {
   border-radius: 9999px;
 
   font-size: 25px;
-  font-family: "Space Grotesk";
   font-weight: bold;
   text-transform: uppercase;
 }
 
-#start-button {
-  font-size: 3rem;
-  padding: 1rem 2rem;
+.conclusion {
+  position: absolute;
+  left: 750px;
+  top: 1375px;
+  width: 700px;
+  height: 435px;
+
+  background-color: rgb(250, 236, 224);
+  padding-block: 20px;
+  padding-inline: 50px;
+  border-radius: 50px;
+}
+
+.conclusion .header {
+  display: flex;
+  gap: 20px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.conclusion img {
+  width: 100px;
+}
+
+.conclusion p {
+  font-size: 20px;
+  line-height: 28px;
+  margin: 0;
+}
+
+.arrow-restart {
+  position: absolute;
+  width: 125px;
+  bottom: 30px;
+  left: 825px;
+}
+
+.restart-button {
+  position: absolute;
+  left: 950px;
+  top: 1934px;
+
+  background-color: rgb(167, 188, 168);
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  border-radius: 9999px;
+  padding-block: 30px;
+  padding-right: 50px;
+  padding-left: 90px;
 }
 
 .fade {

@@ -14,6 +14,12 @@ const languages = [
   { code: "de", name: "Deutsch" },
 ];
 
+const icons: Record<string, string> = {
+  Utilitarian: "/icons/Policy_Utilitarist.svg",
+  Profit: "/icons/Policy_Profit.svg",
+  Protector: "/icons/Policy_Protector.svg",
+};
+
 let videoContainer: HTMLElement;
 let idleVideo: HTMLMediaElement;
 let menu: HTMLElement;
@@ -122,9 +128,28 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
 
             // Show concluding text and restart button
             decisionVideo.onended = async () => {
-              await fadeIn(menu, createI18nText("p", `${key}.${optionKey}`));
+              const conclusion = document.createElement("div");
+              conclusion.classList.add("conclusion");
+              const header = document.createElement("div");
+              header.classList.add("header");
+              const icon = document.createElement("img");
+              icon.src = icons[optionKey];
+              header.appendChild(icon);
+              header.appendChild(createI18nText("h2", optionKey));
+
+              conclusion.appendChild(header);
+              conclusion.appendChild(
+                createI18nText("p", `${key}.${optionKey}`)
+              );
+              await fadeIn(menu, conclusion);
+
+              const arrow = document.createElement("img");
+              arrow.src = "/icons/Arrow_Restart.svg";
+              arrow.classList.add("arrow-restart");
+              fadeIn(menu, arrow);
+
               const restartButton = createI18nText("button", `Restart`);
-              restartButton.id = "start-button";
+              restartButton.classList.add("restart-button");
               const handleClickRestart = async () => {
                 idleVideo.play();
                 document.removeEventListener("keydown", handleKeypress);
@@ -136,9 +161,7 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
               };
               restartButton.onclick = handleClickRestart;
               const handleKeypress = (e: KeyboardEvent) => {
-                // Not sure which of these are going to get mapped.
-                // Bind "Space" and "Enter" for the demo version just in case.
-                if (["1", "2", "3", " ", "Enter"].includes(e.key)) {
+                if (e.key === "3") {
                   handleClickRestart();
                 }
               };
@@ -153,7 +176,7 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
     nextButton.classList.add("next-button");
     const handleNextPress = async () => {
       document.removeEventListener("keydown", handleNextPress);
-      await fadeOut(menu, nextButton);
+      await Promise.all([fadeOut(menu, nextButton), fadeOut(menu, arrow)]);
       const choosePolicy = createI18nText("div", "ChoosePolicy");
       choosePolicy.classList.add("choose-policy");
       await fadeIn(menu, choosePolicy);

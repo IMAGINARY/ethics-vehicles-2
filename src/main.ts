@@ -22,9 +22,12 @@ let langSwitcher: HTMLButtonElement;
 
 async function showScenarioChoices() {
   // Show scenario buttons
+
+  const heading = createI18nText("h2", "ChooseSituation");
+  heading.classList.add("situation-prompt");
+  menu.appendChild(heading);
   let scenarioOptions = new Options(
     menu,
-    "ChooseSituation",
     scenarios.map((scenario) => {
       return {
         key: `${scenario.key}.name`,
@@ -72,7 +75,6 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
     // Scenario options
     const choiceOptions = new Options(
       menu,
-      "Choose Policy",
       options.map(({ key: optionKey, videoSrc }) => {
         return {
           key: optionKey,

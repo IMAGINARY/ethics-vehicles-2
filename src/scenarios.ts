@@ -17,6 +17,29 @@ export interface Label {
 
 export const scenarios: Scenario[] = [
   {
+    key: "TreeFalls",
+    videoSrc: "/scene_1_0.mp4",
+    labels: [
+      { key: "AutonomousCar", position: [450, 660] },
+      { key: "Cyclist", position: [500, 1080] },
+      { key: "FallenTree", position: [270, 975] },
+    ],
+    options: [
+      {
+        key: "Utilitarian",
+        videoSrc: "/scene_1_1.mp4",
+      },
+      {
+        key: "Profit",
+        videoSrc: "/scene_1_2.mp4",
+      },
+      {
+        key: "Protector",
+        videoSrc: "/scene_1_3.mp4",
+      },
+    ],
+  },
+  {
     key: "CarEntersLane",
     videoSrc: "/scene_3_0.mp4",
     labels: [
@@ -61,29 +84,6 @@ export const scenarios: Scenario[] = [
       {
         key: "Protector",
         videoSrc: "/scene_2_3.mp4",
-      },
-    ],
-  },
-  {
-    key: "TreeFalls",
-    videoSrc: "/scene_1_0.mp4",
-    labels: [
-      { key: "AutonomousCar", position: [450, 660] },
-      { key: "Cyclist", position: [500, 1080] },
-      { key: "FallenTree", position: [270, 975] },
-    ],
-    options: [
-      {
-        key: "Utilitarian",
-        videoSrc: "/scene_1_1.mp4",
-      },
-      {
-        key: "Profit",
-        videoSrc: "/scene_1_2.mp4",
-      },
-      {
-        key: "Protector",
-        videoSrc: "/scene_1_3.mp4",
       },
     ],
   },

@@ -12,11 +12,10 @@ export default class Options {
   #buttons: HTMLButtonElement[];
   #handleKeydown: (e: KeyboardEvent) => void;
 
-  constructor(parent: HTMLElement, promptKey: string, options: ListOption[]) {
+  constructor(parent: HTMLElement, options: ListOption[]) {
     this.#parent = parent;
     const list = document.createElement("div");
     list.classList.add("options");
-    list.append(createI18nText("h2", promptKey));
     this.#buttons = [];
     for (const { key, handler } of options) {
       const button = createI18nText("button", key) as HTMLButtonElement;

@@ -9,6 +9,7 @@ export function fadeIn(
   parent.appendChild(child);
   return new Promise((resolve) => {
     child.ontransitionend = () => {
+      child.classList.remove("fade");
       resolve();
     };
     setTimeout(() => {

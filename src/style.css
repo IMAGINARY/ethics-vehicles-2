@@ -179,10 +179,6 @@ video {
   border: none;
 }
 
-.choice-button.selected {
-  border: 3px solid red;
-}
-
 .choice-button:nth-of-type(1) {
   position: absolute;
   left: 752px;
@@ -199,6 +195,24 @@ video {
   position: absolute;
   left: 954px;
   top: 1925px;
+}
+
+@property --fill {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+button.long-press {
+  --fill: 0%;
+  /* transition: --fill 100ms; */
+  background: linear-gradient(
+    to right,
+    white,
+    white var(--fill),
+    red var(--fill),
+    red 100%
+  );
 }
 
 .choose-policy {

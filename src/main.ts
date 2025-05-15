@@ -7,6 +7,7 @@ import {
   changeLanguage,
 } from "./i18n";
 import { fadeIn, fadeOut } from "./animation";
+import LongPressButton from "./LongPressButton";
 
 const languages = [
   { code: "en", name: "English" },
@@ -106,11 +107,11 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
 
     // Scenario options
     const choiceButtons = options.map((option, index) => {
-      return createButton({
-        i18nKey: option.key,
+      return new LongPressButton({
+        children: [createI18nText("span", option.key)],
         key: (index + 1).toString(),
         class: "choice-button",
-        async onPress() {
+        async onFill() {
           await Promise.all(choiceButtons.map((button) => button.hide()));
           pickChoice(key, scenarioVideo, option);
         },

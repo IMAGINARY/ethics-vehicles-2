@@ -2,6 +2,7 @@
   --video-size: 2160px;
   --background-color: rgb(250, 236, 224);
   --action-color: rgb(167, 188, 168);
+  --choice-background-color: rgb(219, 185, 157);
 }
 
 *,
@@ -73,10 +74,6 @@ video {
   padding-left: 94px;
   border-radius: 9999px;
   border: none;
-}
-
-.scenario-button.selected {
-  border: 3px solid red;
 }
 
 .scenario-button:nth-of-type(1) {
@@ -171,11 +168,10 @@ video {
   font-size: 20px;
   font-weight: bold;
 
-  background-color: rgb(255, 197, 182);
   padding-block: 2rem;
   padding-right: 3rem;
   padding-left: 94px;
-  border-radius: 9999px;
+  border-radius: 20px;
   border: none;
 }
 
@@ -210,8 +206,8 @@ button.long-press {
     to right,
     white,
     white var(--fill),
-    red var(--fill),
-    red 100%
+    var(--choice-background-color) var(--fill),
+    var(--choice-background-color) 100%
   );
 }
 

@@ -118,23 +118,19 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
         };
       })
     );
-    const nextButton = createI18nText("button", "Next");
-    nextButton.classList.add("next-button");
-    const handleNextPress = async () => {
-      document.removeEventListener("keydown", handleNextPress);
-      await Promise.all([fadeOut(menu, nextButton), fadeOut(menu, arrow)]);
-      const choosePolicy = createI18nText("div", "ChoosePolicy");
-      choosePolicy.classList.add("choose-policy");
-      await fadeIn(menu, choosePolicy);
-      await choiceOptions.show();
-    };
-    document.addEventListener("keydown", async (e) => {
-      if (e.key === "2") {
-        await handleNextPress();
-      }
+    const nextButton = createButton({
+      i18nKey: "Next",
+      key: "2",
+      class: "next-button",
+      async onPress() {
+        await Promise.all([nextButton.hide(), fadeOut(menu, arrow)]);
+        const choosePolicy = createI18nText("div", "ChoosePolicy");
+        choosePolicy.classList.add("choose-policy");
+        await fadeIn(menu, choosePolicy);
+        await choiceOptions.show();
+      },
     });
-    nextButton.onclick = handleNextPress;
-    await fadeIn(menu, nextButton);
+    nextButton.show(menu);
   };
 }
 
@@ -181,25 +177,21 @@ async function pickChoice(
     arrow.classList.add("arrow-restart");
     fadeIn(menu, arrow);
 
-    const restartButton = createI18nText("button", `Restart`);
-    restartButton.classList.add("restart-button");
-    const handleClickRestart = async () => {
-      idleVideo.play();
-      document.removeEventListener("keydown", handleKeypress);
-      await Promise.all([
-        fadeOut(videoContainer, decisionVideo, 1000),
-        fadeOutChildren(menu),
-      ]);
-      showScenarioChoices();
-    };
-    restartButton.onclick = handleClickRestart;
-    const handleKeypress = (e: KeyboardEvent) => {
-      if (e.key === "3") {
-        handleClickRestart();
-      }
-    };
-    document.addEventListener("keydown", handleKeypress);
-    await fadeIn(menu, restartButton);
+    const restartButton = createButton({
+      i18nKey: "Restart",
+      class: "restart-button",
+      key: "3",
+      async onPress() {
+        idleVideo.play();
+        await restartButton.hide();
+        await Promise.all([
+          fadeOut(videoContainer, decisionVideo, 1000),
+          fadeOutChildren(menu),
+        ]);
+        showScenarioChoices();
+      },
+    });
+    await restartButton.show(menu);
   };
 }
 
@@ -220,6 +212,39 @@ async function createLabel(
     createI18nText("div", `${scenarioKey}.${labelKey}.description`)
   );
   await fadeIn(labelContainer, labelEl);
+}
+
+interface ButtonProps {
+  // Call on keydown or click
+  onPress(): void;
+  // i18n key of the button's text
+  i18nKey: string;
+  // Key to press to trigger the button
+  key: string;
+  // CSS class
+  class: string;
+}
+function createButton({ class: cls, key, i18nKey, onPress }: ButtonProps) {
+  const button = createI18nText("button", i18nKey);
+  button.classList.add(cls);
+  button.onclick = onPress;
+
+  function handleKeydown(e: KeyboardEvent) {
+    if (e.key === key) {
+      button.click();
+    }
+  }
+
+  return {
+    async show(parent: HTMLElement) {
+      await fadeIn(parent, button);
+      document.addEventListener("keydown", handleKeydown);
+    },
+    async hide() {
+      await fadeOut(button.parentElement!, button);
+      document.removeEventListener("keydown", handleKeydown);
+    },
+  };
 }
 
 async function switchLanguage() {

@@ -139,7 +139,7 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
 async function pickChoice(
   scenarioKey: string,
   scenarioVideo: HTMLVideoElement,
-  { key: optionKey, videoSrc }: ScenarioOption
+  { key: optionKey, videoSrc }: ScenarioOption,
 ) {
   const decisionVideo = document.createElement("video");
   decisionVideo.loop = false;
@@ -154,7 +154,7 @@ async function pickChoice(
   await Promise.all(
     [...labelContainer.children].map(async (labelEl) => {
       await fadeOut(labelContainer, labelEl as HTMLElement);
-    })
+    }),
   );
   // Play the scenario out
   decisionVideo.play();
@@ -199,7 +199,7 @@ async function pickChoice(
 
 async function createLabel(
   scenarioKey: string,
-  { position, color, align, key: labelKey }: Label
+  { position, color, align, key: labelKey }: Label,
 ) {
   const labelEl = document.createElement("div");
   labelEl.classList.add("label");
@@ -211,7 +211,7 @@ async function createLabel(
   name.classList.add("label-name");
   labelEl.append(name);
   labelEl.append(
-    createI18nText("div", `${scenarioKey}.${labelKey}.description`)
+    createI18nText("div", `${scenarioKey}.${labelKey}.description`),
   );
   await fadeIn(labelContainer, labelEl);
 }
@@ -251,7 +251,7 @@ function createButton({ class: cls, key, i18nKey, onPress }: ButtonProps) {
 
 async function switchLanguage() {
   const currentIndex = languages.findIndex(
-    ({ code }) => getCurrentLang() === code
+    ({ code }) => getCurrentLang() === code,
   );
   const { name, code } = languages[(currentIndex + 1) % languages.length];
   changeLanguage(code);
@@ -261,6 +261,6 @@ async function switchLanguage() {
 
 async function fadeOutChildren(parent: HTMLElement) {
   await Promise.all(
-    [...parent.children].map((child) => fadeOut(parent, child as HTMLElement))
+    [...parent.children].map((child) => fadeOut(parent, child as HTMLElement)),
   );
 }

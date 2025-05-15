@@ -1,7 +1,7 @@
 export function fadeIn(
   parent: HTMLElement,
   child: HTMLElement,
-  duration: number = 500
+  duration: number = 500,
 ): Promise<void> {
   child.classList.add("fade");
   child.classList.add("invisible");
@@ -21,7 +21,7 @@ export function fadeIn(
 export function fadeOut(
   parent: HTMLElement,
   child: HTMLElement,
-  duration: number = 500
+  duration: number = 500,
 ): Promise<void> {
   child.style.transitionDuration = `${duration}ms`;
   child.classList.add("fade");

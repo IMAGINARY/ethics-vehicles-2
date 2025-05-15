@@ -166,13 +166,21 @@ video {
 
 .choice-button {
   font-size: 20px;
-  font-weight: bold;
 
-  padding-block: 2rem;
+  padding-block: 20px;
   padding-right: 3rem;
   padding-left: 94px;
   border-radius: 20px;
   border: none;
+
+  text-align: left;
+}
+
+.choice-button h2 {
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
 }
 
 .choice-button:nth-of-type(1) {

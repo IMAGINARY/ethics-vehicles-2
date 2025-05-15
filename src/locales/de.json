@@ -5,9 +5,18 @@
   "Restart": "Neustart",
   "ChoosePolicy": "Wähle eine Leitlinie",
   "Next": "Weiter",
-  "Utilitarian": "Utilitaristisch: Minimiere Schaden an Menschen",
-  "Profit": "Kostenbewusst: Minimiere Versicherungskosten und Haftungsrisiken",
-  "Protector": "Schützend: Schütze alle Passagiere im eigenen Auto",
+  "Utilitarian": {
+    "name": "Utilitaristisch",
+    "objective": "Minimiere Gefahr für Menschen"
+  },
+  "Profit": {
+    "name": "Kostenbewusst",
+    "objective": "Minimiere Versicherungskosten und Haftungsrisiken"
+  },
+  "Protector": {
+    "name": "Schützend",
+    "objective": "Schütze alle Passagiere im eigenen Auto"
+  },
   "CarEntersLane": {
     "name": "Ein Auto fährt auf deine Fahrspur",
     "description": "Ein Auto fährt auf deine Fahrspur und es ist keine Zeit, um komplett abzubremsen. Dein Auto kann entweder dagegen prallen, links ausweichen und gegen einen geparkten Lastwagen fahren oder rechts ausweichen und eine Bushaltestelle voller Menschen gefährden.",

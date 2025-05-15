@@ -1,7 +1,8 @@
 import { fadeIn, fadeOut } from "./animation";
 
 const fillProperty = "--fill";
-const fillTime = 3000;
+const fillSpeed = 1 / 3000;
+const emptySpeed = 1 / 750;
 
 interface Props {
   key: string;
@@ -25,8 +26,8 @@ export default class LongPressButton {
       let fill = +this.#el.style
         .getPropertyValue(fillProperty)
         .replace("%", "");
-      const change = 100 * (1000 / 60 / fillTime);
       if (this.#filling) {
+        const change = 100 * ((1000 / 60) * fillSpeed);
         fill = Math.min(100, fill + change);
         fill = Math.max(10, fill);
         this.#el.style.setProperty(fillProperty, `${fill}%`);
@@ -37,6 +38,7 @@ export default class LongPressButton {
           onFill();
         }
       } else {
+        const change = 100 * ((1000 / 60) * emptySpeed);
         fill = Math.max(0, fill - change);
         this.#el.style.setProperty(fillProperty, `${fill}%`);
         if (fill > 0) {

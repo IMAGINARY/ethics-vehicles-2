@@ -108,7 +108,10 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
     // Scenario options
     const choiceButtons = options.map((option, index) => {
       return new LongPressButton({
-        children: [createI18nText("span", option.key)],
+        children: [
+          createI18nText("h2", `${option.key}.name`),
+          createI18nText("div", `${option.key}.objective`),
+        ],
         key: (index + 1).toString(),
         class: "choice-button",
         async onFill() {

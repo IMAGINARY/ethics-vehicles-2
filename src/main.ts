@@ -51,23 +51,27 @@ async function showScenarioChoices() {
   arrow.src = "/icons/Arrow_Choose_Scenario.svg";
   arrow.classList.add("arrow-choose-scenario");
   await fadeIn(menu, arrow);
-  let scenarioOptions = new Options(
-    menu,
-    scenarios.map((scenario) => {
-      return {
-        key: `${scenario.key}.name`,
-        handler: async () => {
-          await Promise.all([
-            fadeOut(menu, heading),
-            fadeOut(menu, arrow),
-            scenarioOptions.hide(),
-          ]);
-          await showScenario(scenario);
-        },
-      };
-    })
+
+  const scenarioContainer = document.createElement("div");
+  menu.appendChild(scenarioContainer);
+  const scenarioButtons = scenarios.map((scenario, i) => {
+    return createButton({
+      i18nKey: `${scenario.key}.name`,
+      class: "scenario-button",
+      key: (i + 1).toString(),
+      async onPress() {
+        await Promise.all([
+          fadeOut(menu, heading),
+          fadeOut(menu, arrow),
+          ...scenarioButtons.map((button) => button.hide()),
+        ]);
+        await showScenario(scenario);
+      },
+    });
+  });
+  await Promise.all(
+    scenarioButtons.map((button) => button.show(scenarioContainer))
   );
-  await scenarioOptions.show();
 }
 
 async function showScenario({ key, labels, videoSrc, options }: Scenario) {

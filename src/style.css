@@ -63,7 +63,7 @@ video {
   width: 200px;
 }
 
-.options button {
+.scenario-button {
   font-size: 20px;
   font-weight: bold;
 
@@ -75,23 +75,23 @@ video {
   border: none;
 }
 
-.options button.selected {
+.scenario-button.selected {
   border: 3px solid red;
 }
 
-.options :nth-child(1) {
+.scenario-button:nth-child(1) {
   position: absolute;
   left: 752px;
   top: 1800px;
 }
 
-.options :nth-child(2) {
+.scenario-button:nth-child(2) {
   position: absolute;
   left: 1200px;
   top: 1800px;
 }
 
-.options :nth-child(3) {
+.scenario-button:nth-child(3) {
   position: absolute;
   left: 954px;
   top: 1925px;

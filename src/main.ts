@@ -1,6 +1,5 @@
 import "./style.css";
 import { scenarios, Scenario, ScenarioOption, Label } from "./scenarios";
-import Options from "./Options";
 import {
   createI18nText,
   getCurrentLang,
@@ -52,8 +51,6 @@ async function showScenarioChoices() {
   arrow.classList.add("arrow-choose-scenario");
   await fadeIn(menu, arrow);
 
-  const scenarioContainer = document.createElement("div");
-  menu.appendChild(scenarioContainer);
   const scenarioButtons = scenarios.map((scenario, i) => {
     return createButton({
       i18nKey: `${scenario.key}.name`,
@@ -69,9 +66,7 @@ async function showScenarioChoices() {
       },
     });
   });
-  await Promise.all(
-    scenarioButtons.map((button) => button.show(scenarioContainer))
-  );
+  await Promise.all(scenarioButtons.map((button) => button.show(menu)));
 }
 
 async function showScenario({ key, labels, videoSrc, options }: Scenario) {
@@ -110,18 +105,17 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
     await fadeIn(menu, arrow);
 
     // Scenario options
-    const choiceOptions = new Options(
-      menu,
-      options.map((choice) => {
-        return {
-          key: choice.key,
-          handler: async () => {
-            await choiceOptions.hide();
-            pickChoice(key, scenarioVideo, choice);
-          },
-        };
-      })
-    );
+    const choiceButtons = options.map((option, index) => {
+      return createButton({
+        i18nKey: option.key,
+        key: (index + 1).toString(),
+        class: "choice-button",
+        async onPress() {
+          await Promise.all(choiceButtons.map((button) => button.hide()));
+          pickChoice(key, scenarioVideo, option);
+        },
+      });
+    });
     const nextButton = createButton({
       i18nKey: "Next",
       key: "2",
@@ -131,7 +125,7 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
         const choosePolicy = createI18nText("div", "ChoosePolicy");
         choosePolicy.classList.add("choose-policy");
         await fadeIn(menu, choosePolicy);
-        await choiceOptions.show();
+        await Promise.all(choiceButtons.map((button) => button.show(menu)));
       },
     });
     nextButton.show(menu);

@@ -175,11 +175,10 @@ async function pickChoice(
   };
   videoContainer.appendChild(decisionVideo);
   await fadeOutChildren(menu);
-  await fadeIn(menu, createI18nText("p", policyKey));
   // Hide labels
   Promise.all(
-    [...labelContainer.children].map(async (labelEl) => {
-      await fadeOut(labelContainer, labelEl as HTMLElement);
+    [...labelContainer.children].map((labelEl) => {
+      fadeOut(labelContainer, labelEl as HTMLElement);
     })
   );
   // Play the scenario out

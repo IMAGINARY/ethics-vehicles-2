@@ -3,18 +3,13 @@ export function fadeIn(
   child: HTMLElement,
   duration: number = 500
 ): Promise<void> {
-  child.classList.add("fade");
-  child.classList.add("invisible");
-  child.style.transitionDuration = `${duration}ms`;
+  child.style.animationName = "fade-in";
+  child.style.animationDuration = `${duration}ms`;
   parent.appendChild(child);
   return new Promise((resolve) => {
-    child.ontransitionend = () => {
-      child.classList.remove("fade");
+    child.onanimationend = () => {
       resolve();
     };
-    setTimeout(() => {
-      child.classList.remove("invisible");
-    }, 1);
   });
 }
 
@@ -23,14 +18,13 @@ export function fadeOut(
   child: HTMLElement,
   duration: number = 500
 ): Promise<void> {
-  child.style.transitionDuration = `${duration}ms`;
-  child.classList.add("fade");
+  child.style.animationDuration = `${duration}ms`;
+  child.style.animationName = "fade-out";
   return new Promise((resolve) => {
-    child.ontransitionend = () => {
+    child.onanimationend = () => {
       parent.removeChild(child);
       resolve();
     };
-    child.classList.add("invisible");
   });
 }
 

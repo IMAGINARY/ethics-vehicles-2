@@ -1,12 +1,11 @@
 const I18N_ATTR = "data-i18n";
 
-// TODO these should be in config
-const languages = ["en", "de"];
-
+let languages: string[] = [];
 const strings: Record<string, any> = {};
 let currentLang: string = "en";
 
-export async function loadLanguages() {
+export async function loadLanguages(langs: string[]) {
+  languages = langs;
   for (const code of languages) {
     const response = await fetch(`/locales/${code}.json`);
     strings[code] = await response.json();

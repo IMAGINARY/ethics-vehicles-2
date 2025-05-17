@@ -11,8 +11,12 @@
     "clean:videos": "node scripts/remove-videos.js"
   },
   "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3",
     "vite": "^6.2.5"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
   }
 }

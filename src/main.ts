@@ -1,5 +1,5 @@
 import "./style.css";
-import { scenarios, Scenario, ScenarioOption, Label } from "./scenarios";
+import { Scenario, ScenarioOption, Label, loadConfig } from "./config";
 import { createI18nText, loadLanguages, switchLanguage } from "./i18n";
 import { fadeIn, fadeOut } from "./animation";
 import LongPressButton from "./LongPressButton";
@@ -15,9 +15,12 @@ let idleVideo: HTMLMediaElement;
 let menu: HTMLElement;
 let labelContainer: HTMLElement;
 let langSwitcher: HTMLButtonElement;
+let scenarios: Scenario[];
 
 window.onload = async () => {
-  await loadLanguages();
+  const config = await loadConfig();
+  scenarios = config.scenarios;
+  await loadLanguages(config.langs);
   videoContainer = document.getElementById("videos") as HTMLElement;
   idleVideo = document.getElementById("idle-video") as HTMLMediaElement;
   menu = document.getElementById("menu")!;

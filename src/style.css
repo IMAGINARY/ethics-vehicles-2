@@ -3,14 +3,6 @@
   --background-color: rgb(250, 236, 224);
   --action-color: rgb(167, 188, 168);
   --choice-background-color: #dbb99d;
-
-  /* TODO move to config */
-  --button-1-x: 800px;
-  --button-1-y: 1855px;
-  --button-2-x: 1250px;
-  --button-2-y: 1855px;
-  --button-3-x: 1000px;
-  --button-3-y: 1980px;
 }
 
 /* General app styles */

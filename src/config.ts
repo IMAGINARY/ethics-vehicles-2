@@ -1,6 +1,7 @@
 import yaml from "js-yaml";
 
 interface Config {
+  buttonPositions: Record<string, [number, number]>;
   langs: string[];
   scenarios: Scenario[];
 }

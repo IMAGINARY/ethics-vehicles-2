@@ -21,6 +21,11 @@ window.onload = async () => {
   const config = await loadConfig();
   scenarios = config.scenarios;
   await loadLanguages(config.langs);
+  for (const [button, [x, y]] of Object.entries(config.buttonPositions)) {
+    document.documentElement.style.setProperty(`--${button}-x`, `${x}px`);
+    document.documentElement.style.setProperty(`--${button}-y`, `${y}px`);
+  }
+
   videoContainer = document.getElementById("videos") as HTMLElement;
   idleVideo = document.getElementById("idle-video") as HTMLMediaElement;
   menu = document.getElementById("menu")!;

@@ -1,4 +1,8 @@
 langs: [en, de]
+buttonPositions:
+  button-1: [800, 1855]
+  button-2: [1250, 1855]
+  button-3: [1000, 1980]
 scenarios:
   - key: TreeFalls
     videoSrc: /videos/scene_1_0.mp4

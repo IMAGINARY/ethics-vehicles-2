@@ -6,12 +6,14 @@ import {
   scenarios,
   policies,
   Config,
+  PolicyKey,
+  ScenarioKey,
 } from "./config";
 import { createI18nText, loadLanguages, switchLanguage } from "./i18n";
 import { fadeIn, fadeOut, stagger } from "./animation";
 import LongPressButton from "./LongPressButton";
 
-const icons: Record<string, string> = {
+const icons: Record<PolicyKey, string> = {
   Utilitarian: "/icons/Policy_Utilitarist.svg",
   Profit: "/icons/Policy_Profit.svg",
   Protector: "/icons/Policy_Protector.svg",
@@ -23,6 +25,7 @@ let menu: HTMLElement;
 let labelContainer: HTMLElement;
 let langSwitcher: HTMLButtonElement;
 let config: Config;
+let scenarioVideos: Record<ScenarioKey, HTMLVideoElement> = {} as any;
 
 window.onload = async () => {
   config = await loadConfig();
@@ -38,6 +41,15 @@ window.onload = async () => {
   menu = document.getElementById("menu")!;
   labelContainer = document.getElementById("labels")!;
   langSwitcher = document.getElementById("lang-switcher") as HTMLButtonElement;
+
+  // Preload all the scenario videos
+  for (let scenario of scenarios) {
+    const video = document.createElement("video");
+    video.loop = false;
+    video.src = config.scenarios[scenario].videoSrc;
+    video.preload = "auto";
+    scenarioVideos[scenario] = video;
+  }
 
   await showScenarioChoices();
   langSwitcher.onclick = switchLanguage;
@@ -82,21 +94,14 @@ async function showScenarioChoices() {
 }
 
 async function showScenario(
-  key: keyof Config["scenarios"],
-  { labels, videoSrc, policyVideos }: Scenario
+  key: ScenarioKey,
+  { labels, policyVideos }: Scenario
 ) {
   // Play scenario video
-  const scenarioVideo = document.createElement("video");
-  scenarioVideo.loop = false;
-  scenarioVideo.src = videoSrc;
-  scenarioVideo.preload = "auto";
-
-  // pause the idle when we know we're completely loaded
-  scenarioVideo.oncanplay = async () => {
-    scenarioVideo.play();
-    await fadeIn(videoContainer, scenarioVideo, 1500);
-    idleVideo.pause();
-  };
+  const scenarioVideo = (scenarioVideos! as any)[key];
+  scenarioVideo.play();
+  await fadeIn(videoContainer, scenarioVideo, 1500);
+  idleVideo.pause();
 
   scenarioVideo.onended = async () => {
     // Show entity labels
@@ -157,9 +162,9 @@ async function showScenario(
 }
 
 async function pickChoice(
-  scenarioKey: string,
+  scenarioKey: ScenarioKey,
   scenarioVideo: HTMLVideoElement,
-  policyKey: string,
+  policyKey: PolicyKey,
   policyVideoSrc: string
 ) {
   const decisionVideo = document.createElement("video");

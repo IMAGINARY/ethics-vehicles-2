@@ -53,10 +53,10 @@ async function showScenarioChoices() {
   const heading = createI18nText("h2", "ChooseSituation");
   heading.classList.add("situation-prompt");
   await fadeIn(menu, heading);
-  const arrow = document.createElement("img");
-  arrow.src = "/icons/Arrow_Choose_Scenario.svg";
-  arrow.classList.add("arrow-choose-scenario");
-  await fadeIn(menu, arrow);
+  const arrowChoose = document.createElement("img");
+  arrowChoose.src = "/icons/Arrow_Choose_Scenario.svg";
+  arrowChoose.classList.add("arrow-choose-scenario");
+  await fadeIn(menu, arrowChoose);
 
   const scenarioButtons = scenarios.map((scenario, i) => {
     return createButton({
@@ -66,14 +66,16 @@ async function showScenarioChoices() {
       async onPress() {
         await Promise.all([
           fadeOut(menu, heading),
-          fadeOut(menu, arrow),
+          fadeOut(menu, arrowChoose),
           ...scenarioButtons.map((button) => button.hide()),
         ]);
         await showScenario(scenario, config.scenarios[scenario]);
       },
     });
   });
-  await Promise.all(scenarioButtons.map((button) => button.show(menu)));
+  for (const button of scenarioButtons) {
+    await button.show(menu);
+  }
 }
 
 async function showScenario(
@@ -107,12 +109,13 @@ async function showScenario(
     report.appendChild(createI18nText("h1", "Report"));
     report.appendChild(createI18nText("p", `${key}.description`));
     reportContainer.appendChild(report);
-    await fadeIn(menu, reportContainer);
 
-    const arrow = document.createElement("img");
-    arrow.classList.add("arrow-next");
-    arrow.src = "/icons/Arrow_Next.svg";
-    await fadeIn(menu, arrow);
+    const arrowNext = document.createElement("img");
+    arrowNext.src = "/icons/Arrow_Next.svg";
+    arrowNext.classList.add("arrow-next");
+    await fadeIn(menu, reportContainer);
+    // TODO This shows up unreliably. Could it be a file loading issue?
+    await fadeIn(menu, arrowNext);
 
     // Scenario options
     const choiceButtons = policies.map((policy, index) => {
@@ -134,14 +137,16 @@ async function showScenario(
       key: "2",
       class: "next-button",
       async onPress() {
-        await Promise.all([nextButton.hide(), fadeOut(menu, arrow)]);
+        await Promise.all([nextButton.hide(), fadeOut(menu, arrowNext)]);
         const choosePolicy = createI18nText("div", "ChoosePolicy");
         choosePolicy.classList.add("choose-policy");
         await fadeIn(menu, choosePolicy);
-        await Promise.all(choiceButtons.map((button) => button.show(menu)));
+        for (const button of choiceButtons) {
+          await button.show(menu);
+        }
       },
     });
-    nextButton.show(menu);
+    await nextButton.show(menu);
   };
 }
 
@@ -184,10 +189,10 @@ async function pickChoice(
     conclusion.appendChild(createI18nText("p", `${scenarioKey}.${policyKey}`));
     await fadeIn(menu, conclusion);
 
-    const arrow = document.createElement("img");
-    arrow.src = "/icons/Arrow_Restart.svg";
-    arrow.classList.add("arrow-restart");
-    fadeIn(menu, arrow);
+    const arrowRestart = document.createElement("img");
+    arrowRestart.src = "/icons/Arrow_Restart.svg";
+    arrowRestart.classList.add("arrow-restart");
+    await fadeIn(menu, arrowRestart);
 
     const restartButton = createButton({
       i18nKey: "Restart",
@@ -195,12 +200,14 @@ async function pickChoice(
       key: "3",
       async onPress() {
         idleVideo.play();
+        // TODO for some reason putting this in the Promise
+        // stops the scenarios from showing.
         await restartButton.hide();
         await Promise.all([
           fadeOut(videoContainer, decisionVideo, 1000),
           fadeOutChildren(menu),
         ]);
-        showScenarioChoices();
+        await showScenarioChoices();
       },
     });
     await restartButton.show(menu);
@@ -218,7 +225,7 @@ async function createLabel(key: string, { position, color, align }: Label) {
   name.classList.add("label-name");
   labelEl.append(name);
   labelEl.append(createI18nText("div", `${key}.description`));
-  await fadeIn(labelContainer, labelEl);
+  await fadeIn(labelContainer, labelEl, 750);
 }
 
 interface ButtonProps {

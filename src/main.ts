@@ -8,7 +8,7 @@ import {
   Config,
 } from "./config";
 import { createI18nText, loadLanguages, switchLanguage } from "./i18n";
-import { fadeIn, fadeOut } from "./animation";
+import { fadeIn, fadeOut, stagger } from "./animation";
 import LongPressButton from "./LongPressButton";
 
 const icons: Record<string, string> = {
@@ -73,9 +73,12 @@ async function showScenarioChoices() {
       },
     });
   });
-  for (const button of scenarioButtons) {
-    await button.show(menu);
-  }
+  await stagger(
+    scenarioButtons.map((button) => {
+      return () => button.show(menu);
+    }),
+    200
+  );
 }
 
 async function showScenario(
@@ -141,9 +144,12 @@ async function showScenario(
         const choosePolicy = createI18nText("div", "ChoosePolicy");
         choosePolicy.classList.add("choose-policy");
         await fadeIn(menu, choosePolicy);
-        for (const button of choiceButtons) {
-          await button.show(menu);
-        }
+        await stagger(
+          choiceButtons.map((button) => {
+            return () => button.show(menu);
+          }),
+          200
+        );
       },
     });
     await nextButton.show(menu);

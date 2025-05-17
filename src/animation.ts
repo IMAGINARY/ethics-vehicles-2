@@ -33,3 +33,23 @@ export function fadeOut(
     child.classList.add("invisible");
   });
 }
+
+// Execute the events waiting the provided interval between each one.
+// Resolve when all events have finished.
+export async function stagger(
+  events: (() => Promise<void>)[],
+  interval: number
+) {
+  await Promise.all(
+    events.map(async (event, i) => {
+      await delay(i * interval);
+      await event();
+    })
+  );
+}
+
+export function delay(duration: number): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(), duration);
+  });
+}

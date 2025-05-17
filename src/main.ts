@@ -172,7 +172,7 @@ async function pickChoice(
   await fadeOutChildren(menu);
   await fadeIn(menu, createI18nText("p", policyKey));
   // Hide labels
-  await Promise.all(
+  Promise.all(
     [...labelContainer.children].map(async (labelEl) => {
       await fadeOut(labelContainer, labelEl as HTMLElement);
     })
@@ -250,8 +250,10 @@ function createButton({ class: cls, key, i18nKey, onPress }: ButtonProps) {
   button.classList.add("positioned-button");
   button.classList.add(`button-${key}`);
   button.onclick = () => {
+    button.ontransitionend = () => {
+      onPress();
+    };
     button.classList.add("pressed");
-    onPress();
   };
 
   function handleKeydown(e: KeyboardEvent) {

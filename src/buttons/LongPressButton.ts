@@ -1,4 +1,5 @@
-import { fadeIn, fadeOut } from "./animation";
+import { fadeIn, fadeOut } from "../animation";
+import styles from "./style.module.css";
 
 const fillProperty = "--fill";
 const fillSpeed = 1 / 3000;
@@ -17,9 +18,9 @@ export default class LongPressButton {
   #filling = false;
   constructor({ key, children, onFill, class: cls }: Props) {
     this.#el = document.createElement("button");
-    this.#el.classList.add("positioned-button");
-    this.#el.classList.add("long-press");
-    this.#el.classList.add(`button-${key}`);
+    this.#el.classList.add(styles.positionedButton);
+    this.#el.classList.add(styles.longPress);
+    this.#el.classList.add(styles[`button-${key}`]);
     this.#el.classList.add(cls);
     for (const child of children) {
       this.#el.appendChild(child);

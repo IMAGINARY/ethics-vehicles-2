@@ -1,0 +1,57 @@
+/* Styles for the labels surrounding the physical buttons. */
+
+.positionedButton {
+  position: absolute;
+  --padding-left: 94px;
+  padding-block: 2rem;
+  padding-right: 3rem;
+  padding-left: var(--padding-left);
+  transform: translate(calc(-1 * var(--padding-left) / 2), -50%);
+  height: var(--padding-left);
+
+  border-radius: 9999px;
+  border: none;
+  background-color: var(--action-color);
+
+  font-size: 20px;
+  font-weight: bold;
+
+  transition: background-color 150ms;
+}
+
+.positionedButton.pressed {
+  background-color: white;
+}
+
+.button-1 {
+  left: var(--button-1-x);
+  top: var(--button-1-y);
+}
+
+.button-2 {
+  left: var(--button-2-x);
+  top: var(--button-2-y);
+}
+
+.button-3 {
+  left: var(--button-3-x);
+  top: var(--button-3-y);
+  max-width: 490px;
+}
+
+@property --fill {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+button.longPress {
+  --fill: 0%;
+  background: linear-gradient(
+    to right,
+    white,
+    white var(--fill),
+    var(--choice-background-color) var(--fill),
+    var(--choice-background-color) 100%
+  );
+}

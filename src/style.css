@@ -46,67 +46,6 @@ video {
   border-radius: 8px;
 }
 
-/* Animations */
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-
-/* Styles for the labels surrounding the physical buttons. */
-
-.positioned-button {
-  position: absolute;
-  --padding-left: 94px;
-  padding-block: 2rem;
-  padding-right: 3rem;
-  padding-left: var(--padding-left);
-  transform: translate(calc(-1 * var(--padding-left) / 2), -50%);
-  height: var(--padding-left);
-
-  border-radius: 9999px;
-  border: none;
-  background-color: var(--action-color);
-
-  font-size: 20px;
-  font-weight: bold;
-
-  transition: background-color 150ms;
-}
-
-.positioned-button.pressed {
-  background-color: white;
-}
-
-.button-1 {
-  left: var(--button-1-x);
-  top: var(--button-1-y);
-}
-
-.button-2 {
-  left: var(--button-2-x);
-  top: var(--button-2-y);
-}
-
-.button-3 {
-  left: var(--button-3-x);
-  top: var(--button-3-y);
-  max-width: 490px;
-}
-
 /* Situation prompt screen */
 
 .situation-prompt {
@@ -129,25 +68,8 @@ video {
   width: 200px;
 }
 
-.scenario-button {
+button.scenario-button {
   background-color: rgb(255, 197, 182);
-}
-
-/* Animation labels */
-
-.label {
-  color: white;
-  font-size: 20px;
-
-  padding: 1rem;
-  border-radius: 1rem;
-  position: absolute;
-  max-width: 300px;
-}
-
-.label .label-name {
-  font-weight: bold;
-  margin-bottom: 8px;
 }
 
 /* Report screen */
@@ -210,7 +132,7 @@ video {
   text-transform: uppercase;
 }
 
-.choice-button {
+button.choice-button {
   min-height: 100px;
   height: auto;
 
@@ -224,28 +146,11 @@ video {
   font-weight: normal;
 }
 
-.choice-button h2 {
+button.choice-button h2 {
   padding: 0;
   margin: 0;
   font-size: 20px;
   font-weight: bold;
-}
-
-@property --fill {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 0%;
-}
-
-button.long-press {
-  --fill: 0%;
-  background: linear-gradient(
-    to right,
-    white,
-    white var(--fill),
-    var(--choice-background-color) var(--fill),
-    var(--choice-background-color) 100%
-  );
 }
 
 /* Conclusion screen */

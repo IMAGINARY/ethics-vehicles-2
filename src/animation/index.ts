@@ -1,9 +1,11 @@
+import styles from "./style.module.css";
+
 export function fadeIn(
   parent: HTMLElement,
   child: HTMLElement,
   duration: number = 500
 ): Promise<void> {
-  child.style.animationName = "fade-in";
+  child.style.animationName = styles.fadeIn;
   child.style.animationDuration = `${duration}ms`;
   parent.appendChild(child);
   return new Promise((resolve) => {
@@ -19,7 +21,7 @@ export function fadeOut(
   duration: number = 500
 ): Promise<void> {
   child.style.animationDuration = `${duration}ms`;
-  child.style.animationName = "fade-out";
+  child.style.animationName = styles.fadeOut;
   return new Promise((resolve) => {
     child.onanimationend = () => {
       parent.removeChild(child);

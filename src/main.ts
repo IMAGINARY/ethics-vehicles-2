@@ -1,7 +1,6 @@
 import "./style.css";
 import {
   Scenario,
-  Label,
   loadConfig,
   scenarios,
   policies,
@@ -11,7 +10,8 @@ import {
 } from "./config";
 import { createI18nText, loadLanguages, switchLanguage } from "./i18n";
 import { fadeIn, fadeOut, stagger } from "./animation";
-import LongPressButton from "./LongPressButton";
+import { createButton, LongPressButton } from "./buttons";
+import { createLabel } from "./labels";
 
 const icons: Record<PolicyKey, string> = {
   Utilitarian: "/icons/Policy_Utilitarist.svg",
@@ -221,60 +221,6 @@ async function pickChoice(
       },
     });
     await restartButton.show(menu);
-  };
-}
-
-async function createLabel(key: string, { position, color, align }: Label) {
-  const labelEl = document.createElement("div");
-  labelEl.classList.add("label");
-  labelEl.style.left = `${position[0]}px`;
-  labelEl.style.top = `${position[1]}px`;
-  labelEl.style.color = color ?? "white";
-  labelEl.style.textAlign = align ?? "left";
-  const name = createI18nText("div", `${key}.name`);
-  name.classList.add("label-name");
-  labelEl.append(name);
-  labelEl.append(createI18nText("div", `${key}.description`));
-  await fadeIn(labelContainer, labelEl, 750);
-}
-
-interface ButtonProps {
-  // Call on keydown or click
-  onPress(): void;
-  // i18n key of the button's text
-  i18nKey: string;
-  // Key to press to trigger the button
-  key: string;
-  // CSS class
-  class: string;
-}
-function createButton({ class: cls, key, i18nKey, onPress }: ButtonProps) {
-  const button = createI18nText("button", i18nKey);
-  button.classList.add(cls);
-  button.classList.add("positioned-button");
-  button.classList.add(`button-${key}`);
-  button.onclick = () => {
-    button.ontransitionend = () => {
-      onPress();
-    };
-    button.classList.add("pressed");
-  };
-
-  function handleKeydown(e: KeyboardEvent) {
-    if (e.key === key) {
-      button.click();
-    }
-  }
-
-  return {
-    async show(parent: HTMLElement) {
-      await fadeIn(parent, button);
-      document.addEventListener("keydown", handleKeydown);
-    },
-    async hide() {
-      await fadeOut(button.parentElement!, button);
-      document.removeEventListener("keydown", handleKeydown);
-    },
   };
 }
 

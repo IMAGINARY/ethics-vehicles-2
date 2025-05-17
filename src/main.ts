@@ -223,6 +223,7 @@ interface ButtonProps {
 function createButton({ class: cls, key, i18nKey, onPress }: ButtonProps) {
   const button = createI18nText("button", i18nKey);
   button.classList.add(cls);
+  button.classList.add(`button-${key}`);
   button.onclick = onPress;
 
   function handleKeydown(e: KeyboardEvent) {

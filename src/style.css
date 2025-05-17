@@ -2,7 +2,49 @@
   --video-size: 2160px;
   --background-color: rgb(250, 236, 224);
   --action-color: rgb(167, 188, 168);
-  --choice-background-color: rgb(219, 185, 157);
+  --choice-background-color: #dbb99d;
+
+  /* TODO move to config */
+  --button-1-x: 800px;
+  --button-1-y: 1855px;
+  --button-2-x: 1250px;
+  --button-2-y: 1855px;
+  --button-3-x: 1000px;
+  --button-3-y: 1980px;
+}
+
+.button-1,
+.button-2,
+.button-3 {
+  position: absolute;
+  --padding-left: 94px;
+  padding-block: 2rem;
+  padding-right: 3rem;
+  padding-left: var(--padding-left);
+  transform: translate(calc(-1 * var(--padding-left) / 2), -50%);
+
+  border-radius: 9999px;
+  border: none;
+  background-color: var(--action-color);
+
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.button-1 {
+  left: var(--button-1-x);
+  top: var(--button-1-y);
+}
+
+.button-2 {
+  left: var(--button-2-x);
+  top: var(--button-2-y);
+}
+
+.button-3 {
+  left: var(--button-3-x);
+  top: var(--button-3-y);
+  max-width: 490px;
 }
 
 *,
@@ -65,33 +107,8 @@ video {
 }
 
 .scenario-button {
-  font-size: 20px;
   font-weight: bold;
-
   background-color: rgb(255, 197, 182);
-  padding-block: 2rem;
-  padding-right: 3rem;
-  padding-left: 94px;
-  border-radius: 9999px;
-  border: none;
-}
-
-.scenario-button:nth-of-type(1) {
-  position: absolute;
-  left: 752px;
-  top: 1800px;
-}
-
-.scenario-button:nth-of-type(2) {
-  position: absolute;
-  left: 1200px;
-  top: 1800px;
-}
-
-.scenario-button:nth-of-type(3) {
-  position: absolute;
-  left: 954px;
-  top: 1925px;
 }
 
 .label {
@@ -148,32 +165,16 @@ video {
   width: 250px;
 }
 
-.next-button {
-  position: absolute;
-  left: 1200px;
-  top: 1805px;
-
-  font-weight: bold;
-  font-size: 20px;
-  /* TODO same as scenario buttons */
-  background-color: var(--action-color);
-  padding-block: 2rem;
-  border-radius: 9999px;
-  border: none;
-  padding-right: 3rem;
-  padding-left: 94px;
-}
-
 .choice-button {
   font-size: 20px;
 
   padding-block: 20px;
-  padding-right: 3rem;
-  padding-left: 94px;
+  padding-right: 2rem;
   border-radius: 20px;
   border: none;
 
   text-align: left;
+  font-weight: normal;
 }
 
 .choice-button h2 {
@@ -181,24 +182,6 @@ video {
   margin: 0;
   font-size: 20px;
   font-weight: bold;
-}
-
-.choice-button:nth-of-type(1) {
-  position: absolute;
-  left: 752px;
-  top: 1800px;
-}
-
-.choice-button:nth-of-type(2) {
-  position: absolute;
-  left: 1200px;
-  top: 1800px;
-}
-
-.choice-button:nth-of-type(3) {
-  position: absolute;
-  left: 954px;
-  top: 1925px;
 }
 
 @property --fill {
@@ -268,21 +251,6 @@ button.long-press {
   width: 125px;
   bottom: 30px;
   left: 825px;
-}
-
-.restart-button {
-  position: absolute;
-  left: 950px;
-  top: 1934px;
-
-  background-color: var(--action-color);
-  font-weight: bold;
-  font-size: 20px;
-  border: none;
-  border-radius: 9999px;
-  padding-block: 30px;
-  padding-right: 50px;
-  padding-left: 90px;
 }
 
 .fade {

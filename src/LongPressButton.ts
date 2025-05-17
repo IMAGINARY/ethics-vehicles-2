@@ -18,6 +18,7 @@ export default class LongPressButton {
   constructor({ key, children, onFill, class: cls }: Props) {
     this.#el = document.createElement("button");
     this.#el.classList.add("long-press");
+    this.#el.classList.add(`button-${key}`);
     this.#el.classList.add(cls);
     for (const child of children) {
       this.#el.appendChild(child);

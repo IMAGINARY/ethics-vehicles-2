@@ -16,10 +16,10 @@ scenarios:
     options:
       - key: Utilitarian
         videoSrc: /videos/scene_1_1.mp4
-      - key: Profit
-        videoSrc: /videos/scene_1_2.mp4
       - key: Protector
         videoSrc: /videos/scene_1_3.mp4
+      - key: Profit
+        videoSrc: /videos/scene_1_2.mp4
   - key: CarEntersLane
     videoSrc: /videos/scene_3_0.mp4
     labels:

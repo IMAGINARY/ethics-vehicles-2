@@ -68,9 +68,7 @@ video {
 
 /* Styles for the labels surrounding the physical buttons. */
 
-.button-1,
-.button-2,
-.button-3 {
+.positioned-button {
   position: absolute;
   --padding-left: 94px;
   padding-block: 2rem;
@@ -85,6 +83,12 @@ video {
 
   font-size: 20px;
   font-weight: bold;
+
+  transition: background-color 150ms;
+}
+
+.positioned-button.pressed {
+  background-color: white;
 }
 
 .button-1 {
@@ -126,7 +130,6 @@ video {
 }
 
 .scenario-button {
-  font-weight: bold;
   background-color: rgb(255, 197, 182);
 }
 

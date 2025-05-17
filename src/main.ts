@@ -1,5 +1,12 @@
 import "./style.css";
-import { Scenario, ScenarioOption, Label, loadConfig } from "./config";
+import {
+  Scenario,
+  Label,
+  loadConfig,
+  scenarios,
+  policies,
+  Config,
+} from "./config";
 import { createI18nText, loadLanguages, switchLanguage } from "./i18n";
 import { fadeIn, fadeOut } from "./animation";
 import LongPressButton from "./LongPressButton";
@@ -15,11 +22,10 @@ let idleVideo: HTMLMediaElement;
 let menu: HTMLElement;
 let labelContainer: HTMLElement;
 let langSwitcher: HTMLButtonElement;
-let scenarios: Scenario[];
+let config: Config;
 
 window.onload = async () => {
-  const config = await loadConfig();
-  scenarios = config.scenarios;
+  config = await loadConfig();
   await loadLanguages(config.langs);
   for (const [button, [x, y]] of Object.entries(config.buttonPositions)) {
     document.documentElement.style.setProperty(`--${button}-x`, `${x}px`);
@@ -28,6 +34,7 @@ window.onload = async () => {
 
   videoContainer = document.getElementById("videos") as HTMLElement;
   idleVideo = document.getElementById("idle-video") as HTMLMediaElement;
+  idleVideo.src = config.idleVideoSrc;
   menu = document.getElementById("menu")!;
   labelContainer = document.getElementById("labels")!;
   langSwitcher = document.getElementById("lang-switcher") as HTMLButtonElement;
@@ -53,7 +60,7 @@ async function showScenarioChoices() {
 
   const scenarioButtons = scenarios.map((scenario, i) => {
     return createButton({
-      i18nKey: `${scenario.key}.name`,
+      i18nKey: `${scenario}.name`,
       class: "scenario-button",
       key: (i + 1).toString(),
       async onPress() {
@@ -62,14 +69,17 @@ async function showScenarioChoices() {
           fadeOut(menu, arrow),
           ...scenarioButtons.map((button) => button.hide()),
         ]);
-        await showScenario(scenario);
+        await showScenario(scenario, config.scenarios[scenario]);
       },
     });
   });
   await Promise.all(scenarioButtons.map((button) => button.show(menu)));
 }
 
-async function showScenario({ key, labels, videoSrc, options }: Scenario) {
+async function showScenario(
+  key: keyof Config["scenarios"],
+  { labels, videoSrc, policyVideos }: Scenario
+) {
   // Play scenario video
   const scenarioVideo = document.createElement("video");
   scenarioVideo.loop = false;
@@ -85,8 +95,8 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
 
   scenarioVideo.onended = async () => {
     // Show entity labels
-    for (const label of labels) {
-      await createLabel(key, label);
+    for (const [labelKey, labelData] of Object.entries(labels)) {
+      await createLabel(`${key}.${labelKey}`, labelData);
     }
 
     // Scenario introduction
@@ -105,17 +115,17 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
     await fadeIn(menu, arrow);
 
     // Scenario options
-    const choiceButtons = options.map((option, index) => {
+    const choiceButtons = policies.map((policy, index) => {
       return new LongPressButton({
         children: [
-          createI18nText("h2", `${option.key}.name`),
-          createI18nText("div", `${option.key}.objective`),
+          createI18nText("h2", `${policy}.name`),
+          createI18nText("div", `${policy}.objective`),
         ],
         key: (index + 1).toString(),
         class: "choice-button",
         async onFill() {
           await Promise.all(choiceButtons.map((button) => button.hide()));
-          pickChoice(key, scenarioVideo, option);
+          pickChoice(key, scenarioVideo, policy, policyVideos[policy]);
         },
       });
     });
@@ -138,17 +148,18 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
 async function pickChoice(
   scenarioKey: string,
   scenarioVideo: HTMLVideoElement,
-  { key: optionKey, videoSrc }: ScenarioOption
+  policyKey: string,
+  policyVideoSrc: string
 ) {
   const decisionVideo = document.createElement("video");
   decisionVideo.loop = false;
-  decisionVideo.src = videoSrc;
+  decisionVideo.src = policyVideoSrc;
   decisionVideo.oncanplay = () => {
     videoContainer.removeChild(scenarioVideo);
   };
   videoContainer.appendChild(decisionVideo);
   await fadeOutChildren(menu);
-  await fadeIn(menu, createI18nText("p", optionKey));
+  await fadeIn(menu, createI18nText("p", policyKey));
   // Hide labels
   await Promise.all(
     [...labelContainer.children].map(async (labelEl) => {
@@ -165,12 +176,12 @@ async function pickChoice(
     const header = document.createElement("div");
     header.classList.add("header");
     const icon = document.createElement("img");
-    icon.src = icons[optionKey];
+    icon.src = icons[policyKey];
     header.appendChild(icon);
-    header.appendChild(createI18nText("h2", `${optionKey}.objective`));
+    header.appendChild(createI18nText("h2", `${policyKey}.objective`));
 
     conclusion.appendChild(header);
-    conclusion.appendChild(createI18nText("p", `${scenarioKey}.${optionKey}`));
+    conclusion.appendChild(createI18nText("p", `${scenarioKey}.${policyKey}`));
     await fadeIn(menu, conclusion);
 
     const arrow = document.createElement("img");
@@ -196,22 +207,17 @@ async function pickChoice(
   };
 }
 
-async function createLabel(
-  scenarioKey: string,
-  { position, color, align, key: labelKey }: Label
-) {
+async function createLabel(key: string, { position, color, align }: Label) {
   const labelEl = document.createElement("div");
   labelEl.classList.add("label");
   labelEl.style.left = `${position[0]}px`;
   labelEl.style.top = `${position[1]}px`;
   labelEl.style.color = color ?? "white";
   labelEl.style.textAlign = align ?? "left";
-  const name = createI18nText("div", `${scenarioKey}.${labelKey}.name`);
+  const name = createI18nText("div", `${key}.name`);
   name.classList.add("label-name");
   labelEl.append(name);
-  labelEl.append(
-    createI18nText("div", `${scenarioKey}.${labelKey}.description`)
-  );
+  labelEl.append(createI18nText("div", `${key}.description`));
   await fadeIn(labelContainer, labelEl);
 }
 

@@ -13,39 +13,7 @@
   --button-3-y: 1980px;
 }
 
-.button-1,
-.button-2,
-.button-3 {
-  position: absolute;
-  --padding-left: 94px;
-  padding-block: 2rem;
-  padding-right: 3rem;
-  padding-left: var(--padding-left);
-  transform: translate(calc(-1 * var(--padding-left) / 2), -50%);
-
-  border-radius: 9999px;
-  border: none;
-  background-color: var(--action-color);
-
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.button-1 {
-  left: var(--button-1-x);
-  top: var(--button-1-y);
-}
-
-.button-2 {
-  left: var(--button-2-x);
-  top: var(--button-2-y);
-}
-
-.button-3 {
-  left: var(--button-3-x);
-  top: var(--button-3-y);
-  max-width: 490px;
-}
+/* General app styles */
 
 *,
 *:before,
@@ -86,6 +54,55 @@ video {
   border-radius: 8px;
 }
 
+/* Animations */
+
+.fade {
+  transition-property: opacity;
+}
+
+.invisible {
+  opacity: 0;
+}
+
+/* Styles for the labels surrounding the physical buttons. */
+
+.button-1,
+.button-2,
+.button-3 {
+  position: absolute;
+  --padding-left: 94px;
+  padding-block: 2rem;
+  padding-right: 3rem;
+  padding-left: var(--padding-left);
+  transform: translate(calc(-1 * var(--padding-left) / 2), -50%);
+  height: var(--padding-left);
+
+  border-radius: 9999px;
+  border: none;
+  background-color: var(--action-color);
+
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.button-1 {
+  left: var(--button-1-x);
+  top: var(--button-1-y);
+}
+
+.button-2 {
+  left: var(--button-2-x);
+  top: var(--button-2-y);
+}
+
+.button-3 {
+  left: var(--button-3-x);
+  top: var(--button-3-y);
+  max-width: 490px;
+}
+
+/* Situation prompt screen */
+
 .situation-prompt {
   position: absolute;
   left: 787px;
@@ -111,6 +128,8 @@ video {
   background-color: rgb(255, 197, 182);
 }
 
+/* Animation labels */
+
 .label {
   color: white;
   font-size: 20px;
@@ -125,6 +144,8 @@ video {
   font-weight: bold;
   margin-bottom: 8px;
 }
+
+/* Report screen */
 
 .report-container {
   position: absolute;
@@ -165,14 +186,32 @@ video {
   width: 250px;
 }
 
+/* Choose a policy */
+
+.choose-policy {
+  position: absolute;
+  left: 840px;
+  top: 1700px;
+  background-color: var(--action-color);
+  padding-inline: 50px;
+  padding-block: 25px;
+  border-radius: 9999px;
+
+  font-size: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 .choice-button {
-  font-size: 20px;
+  min-height: 100px;
+  height: auto;
 
   padding-block: 20px;
   padding-right: 2rem;
   border-radius: 20px;
   border: none;
 
+  font-size: 20px;
   text-align: left;
   font-weight: normal;
 }
@@ -192,7 +231,6 @@ video {
 
 button.long-press {
   --fill: 0%;
-  /* transition: --fill 100ms; */
   background: linear-gradient(
     to right,
     white,
@@ -202,19 +240,7 @@ button.long-press {
   );
 }
 
-.choose-policy {
-  position: absolute;
-  left: 840px;
-  top: 1700px;
-  background-color: var(--action-color);
-  padding-inline: 50px;
-  padding-block: 25px;
-  border-radius: 9999px;
-
-  font-size: 25px;
-  font-weight: bold;
-  text-transform: uppercase;
-}
+/* Conclusion screen */
 
 .conclusion {
   position: absolute;
@@ -251,12 +277,4 @@ button.long-press {
   width: 125px;
   bottom: 30px;
   left: 825px;
-}
-
-.fade {
-  transition-property: opacity;
-}
-
-.invisible {
-  opacity: 0;
 }

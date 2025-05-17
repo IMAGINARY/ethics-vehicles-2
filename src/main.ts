@@ -1,18 +1,8 @@
 import "./style.css";
-import { scenarios, Scenario, ScenarioOption, Label } from "./scenarios";
-import {
-  createI18nText,
-  getCurrentLang,
-  refreshI18nText,
-  changeLanguage,
-} from "./i18n";
+import { Scenario, ScenarioOption, Label, loadConfig } from "./config";
+import { createI18nText, loadLanguages, switchLanguage } from "./i18n";
 import { fadeIn, fadeOut } from "./animation";
 import LongPressButton from "./LongPressButton";
-
-const languages = [
-  { code: "en", name: "English" },
-  { code: "de", name: "Deutsch" },
-];
 
 const icons: Record<string, string> = {
   Utilitarian: "/icons/Policy_Utilitarist.svg",
@@ -25,15 +15,24 @@ let idleVideo: HTMLMediaElement;
 let menu: HTMLElement;
 let labelContainer: HTMLElement;
 let langSwitcher: HTMLButtonElement;
+let scenarios: Scenario[];
 
-window.onload = () => {
+window.onload = async () => {
+  const config = await loadConfig();
+  scenarios = config.scenarios;
+  await loadLanguages(config.langs);
+  for (const [button, [x, y]] of Object.entries(config.buttonPositions)) {
+    document.documentElement.style.setProperty(`--${button}-x`, `${x}px`);
+    document.documentElement.style.setProperty(`--${button}-y`, `${y}px`);
+  }
+
   videoContainer = document.getElementById("videos") as HTMLElement;
   idleVideo = document.getElementById("idle-video") as HTMLMediaElement;
   menu = document.getElementById("menu")!;
   labelContainer = document.getElementById("labels")!;
   langSwitcher = document.getElementById("lang-switcher") as HTMLButtonElement;
 
-  showScenarioChoices();
+  await showScenarioChoices();
   langSwitcher.onclick = switchLanguage;
   document.addEventListener("keydown", (e) => {
     if (e.key === "l") {
@@ -87,7 +86,7 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
   scenarioVideo.onended = async () => {
     // Show entity labels
     for (const label of labels) {
-      createLabel(key, label);
+      await createLabel(key, label);
     }
 
     // Scenario introduction
@@ -139,7 +138,7 @@ async function showScenario({ key, labels, videoSrc, options }: Scenario) {
 async function pickChoice(
   scenarioKey: string,
   scenarioVideo: HTMLVideoElement,
-  { key: optionKey, videoSrc }: ScenarioOption,
+  { key: optionKey, videoSrc }: ScenarioOption
 ) {
   const decisionVideo = document.createElement("video");
   decisionVideo.loop = false;
@@ -154,7 +153,7 @@ async function pickChoice(
   await Promise.all(
     [...labelContainer.children].map(async (labelEl) => {
       await fadeOut(labelContainer, labelEl as HTMLElement);
-    }),
+    })
   );
   // Play the scenario out
   decisionVideo.play();
@@ -199,7 +198,7 @@ async function pickChoice(
 
 async function createLabel(
   scenarioKey: string,
-  { position, color, align, key: labelKey }: Label,
+  { position, color, align, key: labelKey }: Label
 ) {
   const labelEl = document.createElement("div");
   labelEl.classList.add("label");
@@ -211,7 +210,7 @@ async function createLabel(
   name.classList.add("label-name");
   labelEl.append(name);
   labelEl.append(
-    createI18nText("div", `${scenarioKey}.${labelKey}.description`),
+    createI18nText("div", `${scenarioKey}.${labelKey}.description`)
   );
   await fadeIn(labelContainer, labelEl);
 }
@@ -229,6 +228,7 @@ interface ButtonProps {
 function createButton({ class: cls, key, i18nKey, onPress }: ButtonProps) {
   const button = createI18nText("button", i18nKey);
   button.classList.add(cls);
+  button.classList.add(`button-${key}`);
   button.onclick = onPress;
 
   function handleKeydown(e: KeyboardEvent) {
@@ -249,18 +249,8 @@ function createButton({ class: cls, key, i18nKey, onPress }: ButtonProps) {
   };
 }
 
-async function switchLanguage() {
-  const currentIndex = languages.findIndex(
-    ({ code }) => getCurrentLang() === code,
-  );
-  const { name, code } = languages[(currentIndex + 1) % languages.length];
-  changeLanguage(code);
-  refreshI18nText();
-  langSwitcher.textContent = name;
-}
-
 async function fadeOutChildren(parent: HTMLElement) {
   await Promise.all(
-    [...parent.children].map((child) => fadeOut(parent, child as HTMLElement)),
+    [...parent.children].map((child) => fadeOut(parent, child as HTMLElement))
   );
 }

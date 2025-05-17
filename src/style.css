@@ -2,8 +2,10 @@
   --video-size: 2160px;
   --background-color: rgb(250, 236, 224);
   --action-color: rgb(167, 188, 168);
-  --choice-background-color: rgb(219, 185, 157);
+  --choice-background-color: #dbb99d;
 }
+
+/* General app styles */
 
 *,
 *:before,
@@ -44,6 +46,55 @@ video {
   border-radius: 8px;
 }
 
+/* Animations */
+
+.fade {
+  transition-property: opacity;
+}
+
+.invisible {
+  opacity: 0;
+}
+
+/* Styles for the labels surrounding the physical buttons. */
+
+.button-1,
+.button-2,
+.button-3 {
+  position: absolute;
+  --padding-left: 94px;
+  padding-block: 2rem;
+  padding-right: 3rem;
+  padding-left: var(--padding-left);
+  transform: translate(calc(-1 * var(--padding-left) / 2), -50%);
+  height: var(--padding-left);
+
+  border-radius: 9999px;
+  border: none;
+  background-color: var(--action-color);
+
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.button-1 {
+  left: var(--button-1-x);
+  top: var(--button-1-y);
+}
+
+.button-2 {
+  left: var(--button-2-x);
+  top: var(--button-2-y);
+}
+
+.button-3 {
+  left: var(--button-3-x);
+  top: var(--button-3-y);
+  max-width: 490px;
+}
+
+/* Situation prompt screen */
+
 .situation-prompt {
   position: absolute;
   left: 787px;
@@ -65,34 +116,11 @@ video {
 }
 
 .scenario-button {
-  font-size: 20px;
   font-weight: bold;
-
   background-color: rgb(255, 197, 182);
-  padding-block: 2rem;
-  padding-right: 3rem;
-  padding-left: 94px;
-  border-radius: 9999px;
-  border: none;
 }
 
-.scenario-button:nth-of-type(1) {
-  position: absolute;
-  left: 752px;
-  top: 1800px;
-}
-
-.scenario-button:nth-of-type(2) {
-  position: absolute;
-  left: 1200px;
-  top: 1800px;
-}
-
-.scenario-button:nth-of-type(3) {
-  position: absolute;
-  left: 954px;
-  top: 1925px;
-}
+/* Animation labels */
 
 .label {
   color: white;
@@ -108,6 +136,8 @@ video {
   font-weight: bold;
   margin-bottom: 8px;
 }
+
+/* Report screen */
 
 .report-container {
   position: absolute;
@@ -148,76 +178,7 @@ video {
   width: 250px;
 }
 
-.next-button {
-  position: absolute;
-  left: 1200px;
-  top: 1805px;
-
-  font-weight: bold;
-  font-size: 20px;
-  /* TODO same as scenario buttons */
-  background-color: var(--action-color);
-  padding-block: 2rem;
-  border-radius: 9999px;
-  border: none;
-  padding-right: 3rem;
-  padding-left: 94px;
-}
-
-.choice-button {
-  font-size: 20px;
-
-  padding-block: 20px;
-  padding-right: 3rem;
-  padding-left: 94px;
-  border-radius: 20px;
-  border: none;
-
-  text-align: left;
-}
-
-.choice-button h2 {
-  padding: 0;
-  margin: 0;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.choice-button:nth-of-type(1) {
-  position: absolute;
-  left: 752px;
-  top: 1800px;
-}
-
-.choice-button:nth-of-type(2) {
-  position: absolute;
-  left: 1200px;
-  top: 1800px;
-}
-
-.choice-button:nth-of-type(3) {
-  position: absolute;
-  left: 954px;
-  top: 1925px;
-}
-
-@property --fill {
-  syntax: "<percentage>";
-  inherits: false;
-  initial-value: 0%;
-}
-
-button.long-press {
-  --fill: 0%;
-  /* transition: --fill 100ms; */
-  background: linear-gradient(
-    to right,
-    white,
-    white var(--fill),
-    var(--choice-background-color) var(--fill),
-    var(--choice-background-color) 100%
-  );
-}
+/* Choose a policy */
 
 .choose-policy {
   position: absolute;
@@ -232,6 +193,46 @@ button.long-press {
   font-weight: bold;
   text-transform: uppercase;
 }
+
+.choice-button {
+  min-height: 100px;
+  height: auto;
+
+  padding-block: 20px;
+  padding-right: 2rem;
+  border-radius: 20px;
+  border: none;
+
+  font-size: 20px;
+  text-align: left;
+  font-weight: normal;
+}
+
+.choice-button h2 {
+  padding: 0;
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+@property --fill {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+button.long-press {
+  --fill: 0%;
+  background: linear-gradient(
+    to right,
+    white,
+    white var(--fill),
+    var(--choice-background-color) var(--fill),
+    var(--choice-background-color) 100%
+  );
+}
+
+/* Conclusion screen */
 
 .conclusion {
   position: absolute;
@@ -268,27 +269,4 @@ button.long-press {
   width: 125px;
   bottom: 30px;
   left: 825px;
-}
-
-.restart-button {
-  position: absolute;
-  left: 950px;
-  top: 1934px;
-
-  background-color: var(--action-color);
-  font-weight: bold;
-  font-size: 20px;
-  border: none;
-  border-radius: 9999px;
-  padding-block: 30px;
-  padding-right: 50px;
-  padding-left: 90px;
-}
-
-.fade {
-  transition-property: opacity;
-}
-
-.invisible {
-  opacity: 0;
 }

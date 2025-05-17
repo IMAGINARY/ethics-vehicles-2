@@ -1,10 +1,23 @@
-import en from "./locales/en.json";
-import de from "./locales/de.json";
-
 const I18N_ATTR = "data-i18n";
 
-const strings: Record<string, any> = { en, de };
+let languages: string[] = [];
+const strings: Record<string, any> = {};
 let currentLang: string = "en";
+
+export async function loadLanguages(langs: string[]) {
+  languages = langs;
+  for (const code of languages) {
+    const response = await fetch(`/locales/${code}.json`);
+    strings[code] = await response.json();
+  }
+}
+
+export async function switchLanguage() {
+  const currentIndex = languages.findIndex((code) => getCurrentLang() === code);
+  const code = languages[(currentIndex + 1) % languages.length];
+  changeLanguage(code);
+  refreshI18nText();
+}
 
 /**
  * Create a translatable element with the provided tag

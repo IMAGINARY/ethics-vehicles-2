@@ -45,7 +45,6 @@ export default class LongPressButton {
           requestAnimationFrame(tick);
         }
       }
-      console.log(fill);
     };
     const onPress = () => {
       this.#filling = true;

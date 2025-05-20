@@ -34,6 +34,10 @@ function checksumMatches(path, checksum) {
   return createHash("sha256").update(file).digest("hex") === checksum;
 }
 
+if (!fs.existsSync("./public/videos")) {
+  fs.mkdirSync("./public/videos");
+}
+
 for (const { name, checksum } of videos.videos) {
   await downloadFile(`${url}${name}`, name, checksum);
 }

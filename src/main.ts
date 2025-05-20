@@ -23,7 +23,6 @@ let videoContainer: HTMLElement;
 let idleVideo: HTMLMediaElement;
 let menu: HTMLElement;
 let labelContainer: HTMLElement;
-let langSwitcher: HTMLButtonElement;
 let config: Config;
 let scenarioVideos: Record<ScenarioKey, HTMLVideoElement> = {} as any;
 
@@ -40,7 +39,6 @@ window.onload = async () => {
   idleVideo.src = config.idleVideoSrc;
   menu = document.getElementById("menu")!;
   labelContainer = document.getElementById("labels")!;
-  langSwitcher = document.getElementById("lang-switcher") as HTMLButtonElement;
 
   // Preload all the scenario videos
   for (let scenario of scenarios) {
@@ -52,7 +50,6 @@ window.onload = async () => {
   }
 
   await showScenarioChoices();
-  langSwitcher.onclick = switchLanguage;
   document.addEventListener("keydown", (e) => {
     if (e.key === "l") {
       switchLanguage();

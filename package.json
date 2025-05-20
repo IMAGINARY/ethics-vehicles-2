@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "format": "prettier --write .",
-    "download": "node --env-file=.env.local -- scripts/download-videos.js",
+    "download": "node --env-file-if-exists=.env.local -- scripts/download-videos.js",
     "clean:videos": "node scripts/remove-videos.js"
   },
   "devDependencies": {

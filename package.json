@@ -18,5 +18,16 @@
   },
   "dependencies": {
     "js-yaml": "^4.1.0"
+  },
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": ">=20",
+      "onFail": "error"
+    },
+    "packageManager": {
+      "name": "yarn",
+      "onFail": "error"
+    }
   }
 }

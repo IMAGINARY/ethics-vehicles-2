@@ -1,4 +1,6 @@
 {
+  "Idle1": "Beteilige dich an unserem Gedanken-Experiment",
+  "Idle2": "Kann ich entscheiden, wie KI entscheidet?",
   "ChooseSituation": "Wähle ein Szenario",
   "Report": "Bericht",
   "Show": "Anzeigen",
@@ -22,19 +24,19 @@
     "description": "Ein Auto fährt auf deine Fahrspur und es ist keine Zeit, um komplett abzubremsen. Dein Auto kann entweder dagegen prallen, links ausweichen und gegen einen geparkten Lastwagen fahren oder rechts ausweichen und eine Bushaltestelle voller Menschen gefährden.",
     "AutonomousCar": {
       "name": "Automatisiertes Fahrzeug",
-      "description": "Beim Erreichen einer Bushaltestelle fährt ein anderes Auto vor dir auf deine Fahrspur."
+      "description": "Ein anderes Auto fährt vor dir auf deine Fahrspur."
     },
     "LuxuryCar": {
-      "name": "Luxusauto",
-      "description": "Ein sehr teures Auto fährt plötzlich auf deine Fahrspur."
+      "name": "Teures Luxusauto",
+      "description": "Es fährt plötzlich auf deine Fahrspur."
     },
     "Truck": {
-      "name": "Geparktes Fahrzeug",
-      "description": "Ein alter Lastwagen in schlechtem Zustand mit vier Passagieren steht am Straßenrand."
+      "name": "Geparkter Lastwagen",
+      "description": "Ein alter Laster mit vier Personen steht am Straßenrand."
     },
     "BusStop": {
       "name": "Bushaltestelle",
-      "description": "Die Bushaltestelle ist voller Leute, die auf ihren Bus warten."
+      "description": "Viele Leute warten auf ihren Bus."
     },
     "Utilitarian": "Wenn du nach links ausweichst, gefährdest du die Personen im geparkten Lastwagen. Wenn du nach rechts ausweichst, gefährdest du wahrscheinlich noch mehr Personen an der Haltestelle. Lösung: Bremsen (soweit möglich). Ein Zusammenstoß mit dem entgegenkommenden Fahrzeug führt wahrscheinlich zu keinen Todesfällen.",
     "Profit": "Ein Zusammenstoß mit dem Luxusauto, das dir entgegenkommt, kann lange Rechtsstreitigkeiten für deine Versicherung zur Folge haben. Ein Unfall in der Bushaltestelle birgt das Risiko hoher Zahlungsforderungen der Opfer oder ihrer Familien. Lösung: Weiche nach links aus in Richtung des geparkten Fahrzeugs, da es wenig wert ist, und auch weniger Menschen gefährdet werden.",

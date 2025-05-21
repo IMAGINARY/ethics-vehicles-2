@@ -123,25 +123,25 @@ async function showScenario(
     await fadeIn(menu, arrowNext);
 
     // Scenario options
-    const choiceButtons = policies.map((policy, index) => {
-      return new LongPressButton({
-        children: [
-          createI18nText("h2", `${policy}.name`),
-          createI18nText("div", `${policy}.objective`),
-        ],
-        key: (index + 1).toString(),
-        class: "choice-button",
-        async onFill() {
-          await Promise.all(choiceButtons.map((button) => button.hide()));
-          pickChoice(key, scenarioVideo, policy, policyVideos[policy]);
-        },
-      });
-    });
     const nextButton = createButton({
       i18nKey: "Next",
       key: "2",
       class: "next-button",
       async onPress() {
+        const choiceButtons = policies.map((policy, index) => {
+          return new LongPressButton({
+            children: [
+              createI18nText("h2", `${policy}.name`),
+              createI18nText("div", `${policy}.objective`),
+            ],
+            key: (index + 1).toString(),
+            class: "choice-button",
+            async onFill() {
+              await Promise.all(choiceButtons.map((button) => button.hide()));
+              pickChoice(key, scenarioVideo, policy, policyVideos[policy]);
+            },
+          });
+        });
         await Promise.all([nextButton.hide(), fadeOut(menu, arrowNext)]);
         const choosePolicy = createI18nText("div", "ChoosePolicy");
         choosePolicy.classList.add("choose-policy");

@@ -51,7 +51,8 @@ button.longPress {
     to right,
     white,
     white var(--fill),
-    var(--choice-background-color) var(--fill),
+    var(--choice-background-color)
+      min(calc(2 * var(--fill)), calc(var(--fill) + 20%)),
     var(--choice-background-color) 100%
   );
 }

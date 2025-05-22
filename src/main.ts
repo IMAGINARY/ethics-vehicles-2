@@ -1,3 +1,5 @@
+// @ts-ignore
+import "@fontsource/space-grotesk";
 import "./style.css";
 import {
   Scenario,

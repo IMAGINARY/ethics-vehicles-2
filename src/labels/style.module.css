@@ -4,10 +4,7 @@
   color: white;
   font-size: 20px;
 
-  padding: 1rem;
-  border-radius: 1rem;
   position: absolute;
-  max-width: 300px;
 }
 
 .label .labelName {

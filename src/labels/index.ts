@@ -5,7 +5,7 @@ import styles from "./style.module.css";
 
 export async function createLabel(
   key: string,
-  { position, color, align }: Label
+  { position, color, align, width }: Label
 ) {
   const labelContainer = document.getElementById("labels")!;
 
@@ -15,6 +15,9 @@ export async function createLabel(
   labelEl.style.top = `${position[1]}px`;
   labelEl.style.color = color ?? "white";
   labelEl.style.textAlign = align ?? "left";
+  if (width) {
+    labelEl.style.width = `${width}px`;
+  }
   const name = createI18nText("div", `${key}.name`);
   name.classList.add(styles.labelName);
   labelEl.append(name);

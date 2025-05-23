@@ -24,6 +24,7 @@ export interface Label {
   position: [number, number];
   color?: string;
   align?: string;
+  width?: number;
 }
 
 export async function loadConfig() {

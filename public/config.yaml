@@ -11,12 +11,15 @@ scenarios:
       AutonomousCar:
         position: [740, 890]
         color: rgb(118, 187, 255)
+        width: 300
       Cyclist:
         position: [740, 1050]
         color: rgb(82, 255, 255)
+        width: 250
       FallenTree:
-        position: [270, 1055]
+        position: [360, 1055]
         color: rgb(166, 242, 107)
+        width: 200
         align: right
     policyVideos:
       Utilitarian: ./videos/scene_1_1.mp4
@@ -26,13 +29,22 @@ scenarios:
     videoSrc: ./videos/scene_3_0.mp4
     labels:
       AutonomousCar:
-        position: [1390, 1000]
+        position: [1640, 970]
+        color: rgb(118, 187, 255)
+        width: 285
       LuxuryCar:
-        position: [1310, 610]
+        position: [1435, 585]
+        color: rgb(214, 67, 67)
+        width: 250
       Truck:
-        position: [1620, 710]
+        position: [1205, 825]
+        color: rgb(193, 114, 99)
+        width: 235
+        align: right
       BusStop:
-        position: [1050, 740]
+        position: [1665, 810]
+        color: rgb(204, 204, 204)
+        width: 250
     policyVideos:
       Utilitarian: ./videos/scene_3_1.mp4
       Protector: ./videos/scene_3_3.mp4
@@ -41,13 +53,22 @@ scenarios:
     videoSrc: ./videos/scene_2_0.mp4
     labels:
       AutonomousCar:
-        position: [850, 1220]
+        position: [1050, 1250]
+        width: 400
+        color: rgb(108, 162, 255)
       Ambulance:
-        position: [980, 1020]
+        position: [950, 930]
+        width: 200
+        color: rgb(230, 230, 230)
       Child:
-        position: [660, 1040]
+        position: [740, 1010]
+        width: 195
+        color: rgb(225, 124, 85)
       OtherCar:
-        position: [650, 1290]
+        position: [405, 1235]
+        width: 375
+        color: rgb(187, 222, 242)
+        align: right
     policyVideos:
       Utilitarian: ./videos/scene_2_1.mp4
       Protector: ./videos/scene_2_3.mp4

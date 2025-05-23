@@ -1,0 +1,52 @@
+.idleMessage {
+  --idle-bg: rgb(196, 216, 240);
+  position: absolute;
+  font-size: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+
+  border-radius: 9999px;
+  background-color: var(--idle-bg);
+  padding-block: 20px;
+  padding-inline: 40px;
+  max-width: 500px;
+}
+
+.msg1 {
+  left: 805px;
+  top: 1360px;
+  text-align: left;
+  /* width: 400px; */
+  transform-origin: top left;
+}
+
+.msg2 {
+  right: 700px;
+  top: 1400px;
+  text-align: right;
+  /* width: 350px; */
+  transform-origin: top right;
+}
+
+/* Source: https://codepen.io/Founts/pen/AJyVOr?editors=1100 */
+.msg1:after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -40px;
+  left: 75px;
+  border: 20px solid;
+  border-color: transparent transparent var(--idle-bg) var(--idle-bg);
+}
+
+.msg2:after {
+  content: " ";
+  position: absolute;
+  width: 0;
+  height: 0;
+  top: -40px;
+  right: 75px;
+  border: 20px solid;
+  border-color: transparent var(--idle-bg) var(--idle-bg) transparent;
+}

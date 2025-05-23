@@ -14,6 +14,7 @@ import { createI18nText, loadLanguages, switchLanguage } from "./i18n";
 import { animateIn, animateOut, stagger } from "./animation";
 import { createButton, LongPressButton } from "./buttons";
 import { createLabel } from "./labels";
+import IdleMessages from "./idleMessages";
 
 const icons: Record<PolicyKey, string> = {
   Utilitarian: "/icons/Policy_Utilitarist.svg",
@@ -68,6 +69,7 @@ async function showScenarioChoices() {
   arrowChoose.src = "/icons/Arrow_Choose_Scenario.svg";
   arrowChoose.classList.add("arrow-choose-scenario");
   await animateIn(menu, arrowChoose);
+  const idleMsgs = new IdleMessages();
 
   const scenarioButtons = scenarios.map((scenario, i) => {
     return createButton({
@@ -78,6 +80,7 @@ async function showScenarioChoices() {
         await Promise.all([
           animateOut(heading),
           animateOut(arrowChoose),
+          idleMsgs.hide(),
           ...scenarioButtons.map((button) => button.hide()),
         ]);
         await showScenario(scenario, config.scenarios[scenario]);
@@ -90,6 +93,7 @@ async function showScenarioChoices() {
     }),
     200
   );
+  idleMsgs.show(menu);
 }
 
 async function showScenario(

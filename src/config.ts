@@ -1,4 +1,5 @@
 import yaml from "js-yaml";
+import deepmerge from "deepmerge";
 
 // TODO not sure if the order should be hardcoded or put in the file
 export const scenarios = ["TreeFalls", "CarEntersLane", "ChildRuns"] as const;
@@ -28,8 +29,18 @@ export interface Label {
 }
 
 export async function loadConfig() {
-  // TODO combine with local config
-  const response = await fetch("/config.yaml");
+  const baseConfig = await loadConfigFile("./config.yaml");
+  const userConfig = await loadConfigFile("./settings.yaml");
   // TODO validate config
-  return yaml.load(await response.text()) as Config;
+  return deepmerge(baseConfig, userConfig) as Config;
+}
+
+export async function loadConfigFile(filename: string) {
+  try {
+    const response = await fetch(filename);
+    return yaml.load(await response.text()) as Config;
+  } catch (e) {
+    console.error(e);
+    return {};
+  }
 }

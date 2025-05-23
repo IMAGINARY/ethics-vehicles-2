@@ -1,11 +1,16 @@
 import styles from "./style.module.css";
 
-export function fadeIn(
+interface AnimationProps {
+  animation?: string;
+  duration?: number;
+}
+
+export function animateIn(
   parent: HTMLElement,
   child: HTMLElement,
-  duration: number = 500
+  { animation = "fadeIn", duration = 500 }: AnimationProps = {}
 ): Promise<void> {
-  child.style.animationName = styles.fadeIn;
+  child.style.animationName = styles[animation];
   child.style.animationDuration = `${duration}ms`;
   parent.appendChild(child);
   return new Promise((resolve) => {
@@ -15,16 +20,15 @@ export function fadeIn(
   });
 }
 
-export function fadeOut(
-  parent: HTMLElement,
+export function animateOut(
   child: HTMLElement,
-  duration: number = 500
+  { animation = "fadeOut", duration = 500 }: AnimationProps = {}
 ): Promise<void> {
   child.style.animationDuration = `${duration}ms`;
-  child.style.animationName = styles.fadeOut;
+  child.style.animationName = styles[animation];
   return new Promise((resolve) => {
     child.onanimationend = () => {
-      parent.removeChild(child);
+      child.parentElement!.removeChild(child);
       resolve();
     };
   });

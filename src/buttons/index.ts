@@ -1,4 +1,4 @@
-import { fadeIn, fadeOut } from "../animation";
+import { animateIn, animateOut } from "../animation";
 import { createI18nText } from "../i18n";
 import styles from "./style.module.css";
 
@@ -39,11 +39,11 @@ export function createButton({
 
   return {
     async show(parent: HTMLElement) {
-      await fadeIn(parent, button);
+      await animateIn(parent, button);
       document.addEventListener("keydown", handleKeydown);
     },
     async hide() {
-      await fadeOut(button.parentElement!, button);
+      await animateOut(button);
       document.removeEventListener("keydown", handleKeydown);
     },
   };

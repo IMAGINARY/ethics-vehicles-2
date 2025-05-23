@@ -123,8 +123,9 @@ button.scenario-button {
 
 .choose-policy {
   position: absolute;
-  left: 840px;
-  top: 1700px;
+
+  left: 90px;
+  bottom: -70px;
   background-color: var(--action-color);
   padding-inline: 50px;
   padding-block: 25px;
@@ -163,10 +164,11 @@ button.choice-button h2 {
   left: 750px;
   top: 1375px;
   width: 700px;
-  height: 435px;
+  max-height: 435px;
 
   background-color: var(--background-color);
-  padding-block: 20px;
+  padding-top: 40px;
+  padding-bottom: 75px;
   padding-inline: 50px;
   border-radius: 50px;
 }

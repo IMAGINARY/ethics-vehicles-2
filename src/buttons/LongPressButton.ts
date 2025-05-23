@@ -1,4 +1,4 @@
-import { fadeIn, fadeOut } from "../animation";
+import { animateIn, animateOut } from "../animation";
 import styles from "./style.module.css";
 
 const fillProperty = "--fill";
@@ -74,7 +74,7 @@ export default class LongPressButton {
   }
 
   async show(parent: HTMLElement) {
-    await fadeIn(parent, this.#el);
+    await animateIn(parent, this.#el);
     document.addEventListener("keydown", this.#onKeydown);
     document.addEventListener("keyup", this.#onKeyup);
   }
@@ -82,6 +82,6 @@ export default class LongPressButton {
   async hide() {
     document.removeEventListener("keydown", this.#onKeydown);
     document.removeEventListener("keyup", this.#onKeyup);
-    await fadeOut(this.#el.parentElement!, this.#el);
+    await animateOut(this.#el);
   }
 }

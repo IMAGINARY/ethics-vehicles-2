@@ -36,15 +36,15 @@ scenarios:
         position: [1435, 585]
         color: rgb(214, 67, 67)
         width: 250
+      BusStop:
+        position: [1665, 810]
+        color: rgb(204, 204, 204)
+        width: 250
       Truck:
         position: [1205, 825]
         color: rgb(193, 114, 99)
         width: 235
         align: right
-      BusStop:
-        position: [1665, 810]
-        color: rgb(204, 204, 204)
-        width: 250
     policyVideos:
       Utilitarian: ./videos/scene_3_1.mp4
       Protector: ./videos/scene_3_3.mp4

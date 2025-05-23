@@ -11,7 +11,7 @@ import {
   ScenarioKey,
 } from "./config";
 import { createI18nText, loadLanguages, switchLanguage } from "./i18n";
-import { fadeIn, fadeOut, stagger } from "./animation";
+import { animateIn, animateOut, stagger } from "./animation";
 import { createButton, LongPressButton } from "./buttons";
 import { createLabel } from "./labels";
 
@@ -63,11 +63,11 @@ async function showScenarioChoices() {
   // Show scenario buttons
   const heading = createI18nText("h2", "ChooseSituation");
   heading.classList.add("situation-prompt");
-  await fadeIn(menu, heading);
+  await animateIn(menu, heading);
   const arrowChoose = document.createElement("img");
   arrowChoose.src = "/icons/Arrow_Choose_Scenario.svg";
   arrowChoose.classList.add("arrow-choose-scenario");
-  await fadeIn(menu, arrowChoose);
+  await animateIn(menu, arrowChoose);
 
   const scenarioButtons = scenarios.map((scenario, i) => {
     return createButton({
@@ -76,8 +76,8 @@ async function showScenarioChoices() {
       key: (i + 1).toString(),
       async onPress() {
         await Promise.all([
-          fadeOut(menu, heading),
-          fadeOut(menu, arrowChoose),
+          animateOut(heading),
+          animateOut(arrowChoose),
           ...scenarioButtons.map((button) => button.hide()),
         ]);
         await showScenario(scenario, config.scenarios[scenario]);
@@ -99,7 +99,7 @@ async function showScenario(
   // Play scenario video
   const scenarioVideo = (scenarioVideos! as any)[key];
   scenarioVideo.play();
-  await fadeIn(videoContainer, scenarioVideo, 1500);
+  await animateIn(videoContainer, scenarioVideo, { duration: 1500 });
   idleVideo.pause();
 
   scenarioVideo.onended = async () => {
@@ -120,9 +120,12 @@ async function showScenario(
     const arrowNext = document.createElement("img");
     arrowNext.src = "/icons/Arrow_Next.svg";
     arrowNext.classList.add("arrow-next");
-    await fadeIn(menu, reportContainer);
-    // TODO This shows up unreliably. Could it be a file loading issue?
-    await fadeIn(menu, arrowNext);
+    await animateIn(menu, reportContainer, {
+      animation: "fadeInUp",
+      duration: 750,
+    });
+    // TODO This shows up unreliably on Firefox
+    await animateIn(menu, arrowNext);
 
     // Scenario options
     const nextButton = createButton({
@@ -144,10 +147,10 @@ async function showScenario(
             },
           });
         });
-        await Promise.all([nextButton.hide(), fadeOut(menu, arrowNext)]);
+        await Promise.all([nextButton.hide(), animateOut(arrowNext)]);
         const choosePolicy = createI18nText("div", "ChoosePolicy");
         choosePolicy.classList.add("choose-policy");
-        await fadeIn(menu, choosePolicy);
+        await animateIn(report, choosePolicy);
         await stagger(
           choiceButtons.map((button) => {
             return () => button.show(menu);
@@ -177,7 +180,7 @@ async function pickChoice(
   // Hide labels
   Promise.all(
     [...labelContainer.children].map((labelEl) => {
-      fadeOut(labelContainer, labelEl as HTMLElement);
+      animateOut(labelEl as HTMLElement);
     })
   );
   // Play the scenario out
@@ -196,12 +199,15 @@ async function pickChoice(
 
     conclusion.appendChild(header);
     conclusion.appendChild(createI18nText("p", `${scenarioKey}.${policyKey}`));
-    await fadeIn(menu, conclusion);
+    await animateIn(menu, conclusion, {
+      animation: "fadeInUp",
+      duration: 1000,
+    });
 
     const arrowRestart = document.createElement("img");
     arrowRestart.src = "/icons/Arrow_Restart.svg";
     arrowRestart.classList.add("arrow-restart");
-    await fadeIn(menu, arrowRestart);
+    await animateIn(menu, arrowRestart);
 
     const restartButton = createButton({
       i18nKey: "Restart",
@@ -209,12 +215,11 @@ async function pickChoice(
       key: "3",
       async onPress() {
         idleVideo.play();
-        // TODO for some reason putting this in the Promise
-        // stops the scenarios from showing.
-        await restartButton.hide();
         await Promise.all([
-          fadeOut(videoContainer, decisionVideo, 1000),
-          fadeOutChildren(menu),
+          animateOut(decisionVideo, { duration: 1000 }),
+          restartButton.hide(),
+          animateOut(arrowRestart),
+          animateOut(conclusion, { animation: "fadeOutDown", duration: 1000 }),
         ]);
         await showScenarioChoices();
       },
@@ -225,6 +230,6 @@ async function pickChoice(
 
 async function fadeOutChildren(parent: HTMLElement) {
   await Promise.all(
-    [...parent.children].map((child) => fadeOut(parent, child as HTMLElement))
+    [...parent.children].map((child) => animateOut(child as HTMLElement))
   );
 }

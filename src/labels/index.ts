@@ -1,4 +1,4 @@
-import { fadeIn } from "../animation";
+import { animateIn } from "../animation";
 import { Label } from "../config";
 import { createI18nText } from "../i18n";
 import styles from "./style.module.css";
@@ -22,5 +22,5 @@ export async function createLabel(
   name.classList.add(styles.labelName);
   labelEl.append(name);
   labelEl.append(createI18nText("div", `${key}.description`));
-  await fadeIn(labelContainer, labelEl, 750);
+  await animateIn(labelContainer, labelEl, { duration: 750 });
 }

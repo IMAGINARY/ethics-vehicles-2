@@ -54,8 +54,8 @@ scenarios:
     videoSrc: ./videos/scene_2_0.mp4
     labels:
       AutonomousCar:
-        position: [1050, 1250]
-        width: 400
+        position: [960, 1285]
+        width: 355
         color: rgb(108, 162, 255)
       Ambulance:
         position: [950, 930]

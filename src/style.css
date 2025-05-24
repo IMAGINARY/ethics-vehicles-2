@@ -81,8 +81,7 @@ button.scenario-button {
 .report-container {
   position: absolute;
   width: 700px;
-  height: 350px;
-  top: 1360px;
+  bottom: 450px;
   left: 750px;
 
   background-color: var(--background-color);
@@ -91,12 +90,9 @@ button.scenario-button {
 }
 
 .report {
-  height: calc(100% - 60px);
   border-block: 2px solid black;
   margin-block: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding-block: 30px;
 }
 
 .report h1 {

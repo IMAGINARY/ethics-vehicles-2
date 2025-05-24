@@ -20,7 +20,7 @@ export default class IdleMessages {
         animation: "scaleIn",
         duration: 750,
       });
-      await delay(5000);
+      await delay(10 * 1000);
       await animateOut(msg, { animation: "scaleOut", duration: 750 });
       this.toggleMsg();
       await delay(1000);

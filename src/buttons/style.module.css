@@ -19,6 +19,33 @@
   transition: background-color 150ms;
 }
 
+/* Button highlight */
+.positionedButton:after {
+  --radius: 15px;
+  content: " ";
+  position: absolute;
+  left: calc(var(--padding-left) / 2 - var(--radius));
+  top: calc(50% - var(--radius));
+  width: calc(var(--radius) * 2);
+  height: calc(var(--radius) * 2);
+  border-radius: 9999px;
+  animation: pulse 5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: lightgrey;
+  }
+
+  50% {
+    background-color: white;
+  }
+
+  100% {
+    background-color: lightgrey;
+  }
+}
+
 .positionedButton.pressed {
   background-color: white;
 }

@@ -22,6 +22,7 @@ const icons: Record<PolicyKey, string> = {
   Protector: "/icons/Policy_Protector.svg",
 };
 
+let app: HTMLElement;
 let videoContainer: HTMLElement;
 let idleVideo: HTMLMediaElement;
 let menu: HTMLElement;
@@ -32,11 +33,13 @@ let scenarioVideos: Record<ScenarioKey, HTMLVideoElement> = {} as any;
 window.onload = async () => {
   config = await loadConfig();
   await loadLanguages(config.langs);
+
   for (const [button, [x, y]] of Object.entries(config.buttonPositions)) {
     document.documentElement.style.setProperty(`--${button}-x`, `${x}px`);
     document.documentElement.style.setProperty(`--${button}-y`, `${y}px`);
   }
 
+  app = document.getElementById("app") as HTMLElement;
   videoContainer = document.getElementById("videos") as HTMLElement;
   idleVideo = document.getElementById("idle-video") as HTMLMediaElement;
   idleVideo.src = config.idleVideoSrc;
@@ -52,12 +55,20 @@ window.onload = async () => {
     scenarioVideos[scenario] = video;
   }
 
-  await showScenarioChoices();
+  // Set up language switching
+  const langButton = document.createElement("button");
+  langButton.classList.add("lang-button");
+  langButton.onclick = switchLanguage;
+  app.appendChild(langButton);
+
   document.addEventListener("keydown", (e) => {
     if (e.key === "l") {
       switchLanguage();
     }
   });
+
+  // Begin idle animation
+  await showScenarioChoices();
 };
 
 async function showScenarioChoices() {

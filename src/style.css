@@ -38,15 +38,16 @@ video {
   left: calc(50% - var(--video-width) / 2);
 }
 
-#lang-switcher {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  font-size: 3rem;
-  padding: 1rem 2rem;
-  background-color: white;
-  border: 2px solid black;
-  border-radius: 8px;
+.lang-button {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-color: lightgrey;
+  border-radius: 9999px;
+  border: none;
+  left: var(--lang-button-x);
+  top: var(--lang-button-y);
+  translate: -15px -15px;
 }
 
 /* Situation prompt screen */

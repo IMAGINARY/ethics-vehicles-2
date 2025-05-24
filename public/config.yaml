@@ -3,6 +3,7 @@ buttonPositions:
   button-1: [800, 1855]
   button-2: [1250, 1855]
   button-3: [1000, 1980]
+  lang-button: [1611, 1700]
 idleVideoSrc: ./videos/idle.mp4
 scenarios:
   TreeFalls:

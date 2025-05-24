@@ -67,7 +67,7 @@ scenarios:
         color: rgb(225, 124, 85)
       OtherCar:
         position: [405, 1235]
-        width: 375
+        width: 355
         color: rgb(187, 222, 242)
         align: right
     policyVideos:

@@ -1,57 +1,57 @@
 {
-  "defaultVideoURL": "http://exhibits.storage.imaginary.org/ethics-vehicles-2/videos/v0/",
+  "defaultVideoURL": "http://exhibits.storage.imaginary.org/ethics-vehicles-2/videos/v1/",
   "videos": [
     {
       "name": "idle.mp4",
-      "checksum": "80e44386f0e95ea5a83de6fa4bb97f03b14b4cce2c22fa0184b348628a8dcfea"
+      "checksum": "add357e9445077b6d858d8dd7368efb7541c98c76707b4a20ae15f60f959942c"
     },
     {
       "name": "scene_1_0.mp4",
-      "checksum": "65ba33ddc7c6ac3a7f8f05f62ade98592b68e21a3a70cd725ecd6d13ed5d1a81"
+      "checksum": "80cc44833b3f0e5a48de66ac3da54db11d59a823d30afbad0d8a7b4d68c3d9e7"
     },
     {
       "name": "scene_1_1.mp4",
-      "checksum": "fbfad5303cf7f70f2f6edb4997970ea2fec4a8164cd3f392db87fe1fe0de78b6"
+      "checksum": "bb17fdc191ad7d595ef1139c430c33f74e0b052156756a3a2f625f4808e2179b"
     },
     {
       "name": "scene_1_2.mp4",
-      "checksum": "fbfad5303cf7f70f2f6edb4997970ea2fec4a8164cd3f392db87fe1fe0de78b6"
+      "checksum": "0cb8ff6d6ac889a47e4fb530c13aec50058e7833abef447825d69292d1ba2117"
     },
     {
       "name": "scene_1_3.mp4",
-      "checksum": "fbfad5303cf7f70f2f6edb4997970ea2fec4a8164cd3f392db87fe1fe0de78b6"
+      "checksum": "8e6a85e1e5d060e2d7a9eb86323ef435ed6a07cf47dc649cf707e2fcdb633f8c"
     },
     {
       "name": "scene_2_0.mp4",
-      "checksum": "cc59ae0a1e92b2dc14cca680525eb7332513736334e7495a22acf9b8fd1a950b"
+      "checksum": "9debc6eee25fc414183e49f2c603fbb84438b34edf52fda2ec5f05ba54c29eaa"
     },
     {
       "name": "scene_2_1.mp4",
-      "checksum": "54cbbc55062f598b7a5c604794b561c9a5580aee1fab31958f51c541d15a7107"
+      "checksum": "2810d9ce1091042786e5b66ad4658ae442a5eebe67c51015eb912896b06b1318"
     },
     {
       "name": "scene_2_2.mp4",
-      "checksum": "54cbbc55062f598b7a5c604794b561c9a5580aee1fab31958f51c541d15a7107"
+      "checksum": "509a7f9b1a569945faa705283816ebc992ca55eb5e535ce43af4f4ed7706cf81"
     },
     {
       "name": "scene_2_3.mp4",
-      "checksum": "54cbbc55062f598b7a5c604794b561c9a5580aee1fab31958f51c541d15a7107"
+      "checksum": "3f2e28403da368e1e7f1d3933b1db232ca6459a1278492b6238c5c102ddf8a99"
     },
     {
       "name": "scene_3_0.mp4",
-      "checksum": "fe75ebb7782ca0c0a522539161600c28cbf52ac5c6f245a3cc5cfdaa34d29cca"
+      "checksum": "9bc91b8aa2d4230cc1c092f52ad252aeeb1189963fcead66066dfc834d5d55f7"
     },
     {
       "name": "scene_3_1.mp4",
-      "checksum": "53523ec50d40cb7ece0171307cbe57df75e7fb2eccdd9da5fd4e3db57da2b0a8"
+      "checksum": "ec9fd44e04e76624c3bc7127c7f25e9a54cbd6ec721035e0cc100af95ac497d8"
     },
     {
       "name": "scene_3_2.mp4",
-      "checksum": "53523ec50d40cb7ece0171307cbe57df75e7fb2eccdd9da5fd4e3db57da2b0a8"
+      "checksum": "ffb4f040bda906cfcae00b40cd235b6388b87968ef43947943ee7b729290ce89"
     },
     {
       "name": "scene_3_3.mp4",
-      "checksum": "53523ec50d40cb7ece0171307cbe57df75e7fb2eccdd9da5fd4e3db57da2b0a8"
+      "checksum": "5061145801da6c4efe32cf9762da704fcc66c91753fd7ce4017c8a8c0212326e"
     }
   ]
 }

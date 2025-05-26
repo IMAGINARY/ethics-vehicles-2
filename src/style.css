@@ -25,17 +25,16 @@ body {
 }
 
 #app {
-  width: var(--video-size);
-  height: var(--video-size);
   position: relative;
-  overflow: hidden;
+}
+
+#videos {
+  display: grid;
+  grid-template-areas: "video";
 }
 
 video {
-  position: absolute;
-  /* Cut of the video's extra trim (we can get rid of this if we get a square) */
-  --video-width: 3840px;
-  left: calc(50% - var(--video-width) / 2);
+  grid-area: video;
 }
 
 .lang-button {

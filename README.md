@@ -8,6 +8,8 @@ Run `yarn` to install all dependencies and download the required videos.
 
 Run `yarn build` to build the project.
 
+Run `yarn download` to just download the required videos. The video checksums are stored in `videos.json` and the script will fail if the the checksums do not match. To overwrite the checksums, run `yarn download --update-checksums`.
+
 ## Configuration
 
 The video's download URL can be set by creating a `.env.local` file and setting the `VIDEO_URL` environment variable:

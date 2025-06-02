@@ -11,7 +11,7 @@ import {
   ScenarioKey,
 } from "./config";
 import { createI18nText, loadLanguages, switchLanguage } from "./i18n";
-import { animateIn, animateOut, stagger } from "./animation";
+import { animateIn, animateOut, delay, stagger } from "./animation";
 import { createButton, LongPressButton } from "./buttons";
 import { createLabel } from "./labels";
 import IdleMessages from "./idleMessages";
@@ -121,6 +121,7 @@ async function showScenario(
     // Show entity labels
     for (const [labelKey, labelData] of Object.entries(labels)) {
       await createLabel(`${key}.${labelKey}`, labelData);
+      await delay(500);
     }
 
     // Scenario introduction

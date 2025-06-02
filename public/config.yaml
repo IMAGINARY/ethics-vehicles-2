@@ -9,19 +9,19 @@ scenarios:
   TreeFalls:
     videoSrc: ./videos/scene_1_0.mp4
     labels:
-      AutonomousCar:
-        position: [740, 890]
-        color: rgb(118, 187, 255)
-        width: 300
+      FallenTree:
+        position: [360, 1055]
+        color: rgb(184, 255, 72)
+        width: 200
+        align: right
       Cyclist:
         position: [740, 1050]
         color: rgb(82, 255, 255)
         width: 250
-      FallenTree:
-        position: [360, 1055]
-        color: rgb(166, 242, 107)
-        width: 200
-        align: right
+      AutonomousCar:
+        position: [740, 890]
+        color: rgb(143, 204, 255)
+        width: 300
     policyVideos:
       Utilitarian: ./videos/scene_1_1.mp4
       Protector: ./videos/scene_1_3.mp4
@@ -29,23 +29,23 @@ scenarios:
   CarEntersLane:
     videoSrc: ./videos/scene_3_0.mp4
     labels:
-      AutonomousCar:
-        position: [1640, 970]
-        color: rgb(118, 187, 255)
-        width: 285
       LuxuryCar:
         position: [1435, 585]
-        color: rgb(214, 67, 67)
-        width: 250
-      BusStop:
-        position: [1665, 810]
         color: rgb(204, 204, 204)
         width: 250
       Truck:
         position: [1205, 825]
-        color: rgb(193, 114, 99)
+        color: rgb(255, 183, 179)
         width: 235
         align: right
+      BusStop:
+        position: [1665, 810]
+        color: rgb(141, 255, 252)
+        width: 250
+      AutonomousCar:
+        position: [1640, 970]
+        color: rgb(153, 209, 255)
+        width: 285
     policyVideos:
       Utilitarian: ./videos/scene_3_1.mp4
       Protector: ./videos/scene_3_3.mp4
@@ -53,23 +53,23 @@ scenarios:
   ChildRuns:
     videoSrc: ./videos/scene_2_0.mp4
     labels:
-      AutonomousCar:
-        position: [960, 1285]
-        width: 355
-        color: rgb(108, 162, 255)
+      Child:
+        position: [740, 1010]
+        width: 195
+        color: rgb(225, 198, 136)
       Ambulance:
         position: [950, 930]
         width: 200
         color: rgb(230, 230, 230)
-      Child:
-        position: [740, 1010]
-        width: 195
-        color: rgb(225, 124, 85)
       OtherCar:
         position: [405, 1235]
         width: 355
-        color: rgb(187, 222, 242)
+        color: rgb(174, 240, 255)
         align: right
+      AutonomousCar:
+        position: [960, 1285]
+        width: 355
+        color: rgb(159, 198, 255)
     policyVideos:
       Utilitarian: ./videos/scene_2_1.mp4
       Protector: ./videos/scene_2_3.mp4

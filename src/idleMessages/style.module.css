@@ -7,8 +7,8 @@
 
   border-radius: 9999px;
   background-color: var(--idle-bg);
-  padding-block: 20px;
-  padding-inline: 40px;
+  padding-block: 34px;
+  padding-inline: 54px;
   max-width: 500px;
   text-align: left;
 }

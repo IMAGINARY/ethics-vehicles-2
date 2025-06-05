@@ -211,7 +211,7 @@ async function pickChoice(
     const icon = document.createElement("img");
     icon.src = icons[policyKey];
     header.appendChild(icon);
-    header.appendChild(createI18nText("h2", `${policyKey}.objective`));
+    header.appendChild(createI18nText("h2", `${policyKey}.objectiveHeader`));
 
     conclusion.appendChild(header);
     conclusion.appendChild(createI18nText("p", `${scenarioKey}.${policyKey}`));

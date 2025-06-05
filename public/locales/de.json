@@ -9,15 +9,18 @@
   "Next": "Weiter",
   "Utilitarian": {
     "name": "Utilitaristisch",
-    "objective": "Minimiere Gefahr für Menschen"
+    "objective": "Minimiere Gefahr für Menschen",
+    "objectiveHeader": "Deine Entscheidung reduziert die Gefährdung von Menschen:"
   },
   "Profit": {
     "name": "Kostenbewusst",
-    "objective": "Minimiere Versicherungskosten und Haftungsrisiken"
+    "objective": "Minimiere Versicherungskosten und Haftungsrisiken",
+    "objectiveHeader": "Deine Entscheidung minimiert Versicherungskosten:"
   },
   "Protector": {
     "name": "Schützend",
-    "objective": "Schütze alle Passagiere im eigenen Auto"
+    "objective": "Schütze alle Passagiere im eigenen Auto",
+    "objectiveHeader": "Deine Entscheidung schützt\nalle Passagiere im Auto:"
   },
   "CarEntersLane": {
     "name": "Ein Auto fährt auf deine Fahrspur",

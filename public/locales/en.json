@@ -9,15 +9,18 @@
   "Next": "Next",
   "Utilitarian": {
     "name": "Utilitarian",
-    "objective": "Minimize human injuries"
+    "objective": "Minimize human injuries",
+    "objectiveHeader": "Your decision reduces the\nrisk to people:"
   },
   "Profit": {
     "name": "Cost-conscious",
-    "objective": "Minimize insurance costs and liability risks"
+    "objective": "Minimize insurance costs and liability risks",
+    "objectiveHeader": "Your decision minimizes insurance costs:"
   },
   "Protector": {
     "name": "Protector",
-    "objective": "Protect car passengers"
+    "objective": "Protect car passengers",
+    "objectiveHeader": "Your decision protects all passengers in the car:"
   },
   "CarEntersLane": {
     "name": "A car enters your lane",

@@ -43,14 +43,14 @@ video {
 
 .lang-button {
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 46px;
+  height: 46px;
   background-color: white;
   border-radius: 9999px;
   border: none;
   left: var(--lang-button-x);
   top: var(--lang-button-y);
-  translate: -15px -15px;
+  translate: -50% -50%;
 }
 
 /* Situation prompt screen */

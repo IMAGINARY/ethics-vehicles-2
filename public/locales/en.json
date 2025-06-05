@@ -35,7 +35,7 @@
     },
     "Truck": {
       "name": "Parked truck",
-      "description": "An old truck with four people is parked on the side of the road."
+      "description": "An old truck with four\npeople is parked\non the side of\nthe road."
     },
     "BusStop": {
       "name": "Bus stop",

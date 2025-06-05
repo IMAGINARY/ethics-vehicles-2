@@ -30,7 +30,7 @@ scenarios:
     videoSrc: ./videos/scene_3_0.mp4
     labels:
       LuxuryCar:
-        position: [1435, 585]
+        position: [1430, 607]
         color: rgb(204, 204, 204)
         width: 250
       Truck:

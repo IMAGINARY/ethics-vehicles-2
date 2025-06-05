@@ -40,6 +40,9 @@ export async function loadConfig() {
 export async function loadConfigFile(filename: string) {
   try {
     const response = await fetch(filename, { cache: "no-cache" });
+    if (!response.ok) {
+      return {};
+    }
     return yaml.load(await response.text()) as Config;
   } catch (e) {
     console.error(e);

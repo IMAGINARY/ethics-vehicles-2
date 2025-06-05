@@ -14,16 +14,14 @@
 }
 
 .msg1 {
-  left: 805px;
-  top: 1360px;
-  /* width: 400px; */
+  left: calc(1624px - 840px);
+  top: 1364px;
   transform-origin: top left;
 }
 
 .msg2 {
-  right: 700px;
-  top: 1400px;
-  /* width: 350px; */
+  left: calc(1847px - 840px);
+  top: 1388px;
   transform-origin: top right;
 }
 

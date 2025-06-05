@@ -2,8 +2,8 @@ import { animateIn, animateOut } from "../animation";
 import styles from "./style.module.css";
 
 const fillProperty = "--fill";
-const fillSpeed = 1 / 3000;
-const emptySpeed = 1 / 750;
+const fillSpeed = 1 / 1;
+const emptySpeed = 1 / 1;
 
 interface Props {
   key: string;

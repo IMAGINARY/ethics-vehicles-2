@@ -17,6 +17,10 @@
   font-family: "Space Grotesk";
 }
 
+*[data-i18n] {
+  white-space: pre-line;
+}
+
 body {
   margin: 0;
   background-color: black;

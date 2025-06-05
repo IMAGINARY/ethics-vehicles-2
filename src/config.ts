@@ -32,7 +32,9 @@ export async function loadConfig() {
   const baseConfig = await loadConfigFile("./config.yaml");
   const userConfig = await loadConfigFile("./settings.yaml");
   // TODO validate config
-  return deepmerge(baseConfig, userConfig) as Config;
+  return deepmerge(baseConfig, userConfig, {
+    arrayMerge: (_destArray, sourceArray, _options) => sourceArray,
+  }) as Config;
 }
 
 export async function loadConfigFile(filename: string) {

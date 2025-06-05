@@ -10,12 +10,12 @@
   padding-block: 20px;
   padding-inline: 40px;
   max-width: 500px;
+  text-align: left;
 }
 
 .msg1 {
   left: 805px;
   top: 1360px;
-  text-align: left;
   /* width: 400px; */
   transform-origin: top left;
 }
@@ -23,7 +23,6 @@
 .msg2 {
   right: 700px;
   top: 1400px;
-  text-align: right;
   /* width: 350px; */
   transform-origin: top right;
 }

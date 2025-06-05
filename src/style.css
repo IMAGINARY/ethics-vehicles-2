@@ -1,8 +1,8 @@
 :root {
   --video-size: 2160px;
   --background-color: rgb(250, 236, 224);
-  --action-color: rgb(167, 188, 168);
-  --choice-background-color: #dbb99d;
+  --action-color: rgb(138, 191, 151);
+  --choice-background-color: rgb(255, 157, 102);
 }
 
 /* General app styles */
@@ -76,7 +76,7 @@ video {
 }
 
 button.scenario-button {
-  background-color: rgb(255, 197, 182);
+  background-color: var(--choice-background-color);
 }
 
 /* Report screen */

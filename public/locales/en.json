@@ -1,11 +1,11 @@
 {
   "Idle1": "Can I decide how AI decides?",
-  "Idle2": "Take part in our\nthought experiment",
+  "Idle2": "Take part in our\nthought experiment!",
   "ChooseSituation": "Choose a Situation",
   "Report": "Report",
   "Show": "Show",
   "Restart": "Try again",
-  "ChoosePolicy": "Choose a Policy",
+  "ChoosePolicy": "Choose a Policy:",
   "Next": "Next",
   "Utilitarian": {
     "name": "Utilitarian",

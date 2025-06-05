@@ -1,11 +1,11 @@
 {
   "Idle1": "Kann ich entscheiden,\nwie KI entscheidet?",
-  "Idle2": "Beteilige dich an unserem\nGedanken-Experiment",
+  "Idle2": "Beteilige dich an unserem Gedanken-Experiment!",
   "ChooseSituation": "Wähle ein Szenario",
   "Report": "Bericht",
   "Show": "Anzeigen",
   "Restart": "Neustart",
-  "ChoosePolicy": "Wähle eine Leitlinie",
+  "ChoosePolicy": "Wähle eine Leitlinie:",
   "Next": "Weiter",
   "Utilitarian": {
     "name": "Utilitaristisch",

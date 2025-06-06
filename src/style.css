@@ -139,6 +139,7 @@ button.scenario-button {
 button.choice-button {
   min-height: 100px;
   height: auto;
+  background-color: var(--choice-background-color);
 
   padding-block: 20px;
   padding-right: 2rem;

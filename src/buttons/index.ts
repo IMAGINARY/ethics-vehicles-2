@@ -2,13 +2,12 @@ import { animateIn, animateOut } from "../animation";
 import { createI18nText } from "../i18n";
 import styles from "./style.module.css";
 
-export { default as LongPressButton } from "./LongPressButton";
-
 interface ButtonProps {
   // Call on keydown or click
   onPress(): void;
+  children?: HTMLElement[];
   // i18n key of the button's text
-  i18nKey: string;
+  i18nKey?: string;
   // Key to press to trigger the button
   key: string;
   // CSS class
@@ -18,9 +17,18 @@ export function createButton({
   class: cls,
   key,
   i18nKey,
+  children,
   onPress,
 }: ButtonProps) {
-  const button = createI18nText("button", i18nKey);
+  let button: HTMLButtonElement;
+  if (i18nKey) {
+    button = createI18nText("button", i18nKey) as HTMLButtonElement;
+  } else {
+    button = document.createElement("button");
+    for (const child of children || []) {
+      button.appendChild(child);
+    }
+  }
   button.classList.add(cls);
   button.classList.add(styles.positionedButton);
   button.classList.add(styles[`button-${key}`]);

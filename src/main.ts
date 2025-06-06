@@ -12,7 +12,7 @@ import {
 } from "./config";
 import { createI18nText, loadLanguages, switchLanguage } from "./i18n";
 import { animateIn, animateOut, delay, stagger } from "./animation";
-import { createButton, LongPressButton } from "./buttons";
+import { createButton } from "./buttons";
 import { createLabel } from "./labels";
 import IdleMessages from "./idleMessages";
 
@@ -150,14 +150,14 @@ async function showScenario(
       class: "next-button",
       async onPress() {
         const choiceButtons = policies.map((policy, index) => {
-          return new LongPressButton({
+          return createButton({
             children: [
               createI18nText("h2", `${policy}.name`),
               createI18nText("div", `${policy}.objective`),
             ],
-            key: (index + 1).toString(),
             class: "choice-button",
-            async onFill() {
+            key: (index + 1).toString(),
+            async onPress() {
               await Promise.all(choiceButtons.map((button) => button.hide()));
               pickChoice(key, scenarioVideo, policy, policyVideos[policy]);
             },

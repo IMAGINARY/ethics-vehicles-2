@@ -19,6 +19,10 @@
   transition: background-color 150ms;
 }
 
+.positionedButton:disabled {
+  color: black;
+}
+
 /* Button highlight */
 .positionedButton:after {
   --radius: 15px;

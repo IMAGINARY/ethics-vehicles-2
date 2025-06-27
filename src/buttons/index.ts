@@ -12,12 +12,15 @@ interface ButtonProps {
   key: string;
   // CSS class
   class: string;
+  // whether the button is disabled at the outset
+  disabled?: boolean;
 }
 export function createButton({
   class: cls,
   key,
   i18nKey,
   children,
+  disabled,
   onPress,
 }: ButtonProps) {
   let button: HTMLButtonElement;
@@ -32,6 +35,9 @@ export function createButton({
   button.classList.add(cls);
   button.classList.add(styles.positionedButton);
   button.classList.add(styles[`button-${key}`]);
+  if (disabled) {
+    button.disabled = disabled;
+  }
   button.onclick = () => {
     button.ontransitionend = () => {
       onPress();
@@ -53,6 +59,9 @@ export function createButton({
     async hide() {
       await animateOut(button);
       document.removeEventListener("keydown", handleKeydown);
+    },
+    setDisabled(value: boolean) {
+      button.disabled = value;
     },
   };
 }

@@ -87,6 +87,7 @@ async function showScenarioChoices() {
       i18nKey: `${scenario}.name`,
       class: "scenario-button",
       key: (i + 1).toString(),
+      disabled: true,
       async onPress() {
         await Promise.all([
           animateOut(heading),
@@ -105,6 +106,9 @@ async function showScenarioChoices() {
     200
   );
   idleMsgs.show(menu);
+  // Wait till all buttons are loaded before enabling them to prevent
+  // race condition with the idle messages.
+  scenarioButtons.forEach((button) => button.setDisabled(false));
 }
 
 async function showScenario(

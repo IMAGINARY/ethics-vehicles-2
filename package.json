@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "@fontsource/space-grotesk": "^5.2.7",
+    "@sentry/browser": "^9.33.0",
     "deepmerge": "^4.3.1",
     "js-yaml": "^4.1.0"
   },

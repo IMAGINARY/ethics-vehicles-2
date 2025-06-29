@@ -13,6 +13,7 @@ export interface Config {
   langs: string[];
   scenarios: Record<ScenarioKey, Scenario>;
   idleVideoSrc: string;
+  sentryDSN?: string;
 }
 
 export interface Scenario {

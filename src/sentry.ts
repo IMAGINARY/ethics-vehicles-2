@@ -3,7 +3,7 @@ import * as Sentry from "@sentry/browser";
 export default function initSentry(sentryDSN: string) {
   return Sentry.init({
     dsn: sentryDSN,
-    // release: JSON.stringify(process.env.GIT_COMMIT_HASH || "unknown"),
+    release: JSON.stringify(__GIT_COMMIT_HASH__ || "unknown"),
     transport: Sentry.makeBrowserOfflineTransport(Sentry.makeFetchTransport),
     transportOptions: {},
     integrations: [

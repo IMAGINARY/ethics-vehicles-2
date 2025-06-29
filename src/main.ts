@@ -161,6 +161,7 @@ async function showScenario(
             ],
             class: "choice-button",
             key: (index + 1).toString(),
+            disabled: true,
             async onPress() {
               await Promise.all(choiceButtons.map((button) => button.hide()));
               pickChoice(key, scenarioVideo, policy, policyVideos[policy]);
@@ -177,6 +178,7 @@ async function showScenario(
           }),
           200
         );
+        choiceButtons.forEach((button) => button.setDisabled(false));
       },
     });
     await nextButton.show(menu);

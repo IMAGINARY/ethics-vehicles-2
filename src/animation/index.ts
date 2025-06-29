@@ -28,7 +28,9 @@ export function animateOut(
   child.style.animationName = styles[animation];
   return new Promise((resolve) => {
     child.onanimationend = () => {
-      child.parentElement!.removeChild(child);
+      if (child.parentElement) {
+        child.parentElement.removeChild(child);
+      }
       resolve();
     };
   });

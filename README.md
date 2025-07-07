@@ -29,6 +29,10 @@ scenarios:
         color: rgb(120, 180, 250)
 ```
 
+## Sentry support
+
+This app has support for [Sentry](https://sentry.io) application monitoring. The Sentry DSN can be set using the `sentry-dsn` query string parameter or the `sentryDSN` configuration key in `settings.yaml`. When both are set, the query string parameter takes precedence.
+
 ## License
 
 Code licensed under the MIT License. See [LICENSE.txt](/LICENSE.txt) for details.

@@ -15,6 +15,7 @@ import { animateIn, animateOut, delay, stagger } from "./animation";
 import { createButton } from "./buttons";
 import { createLabel } from "./labels";
 import IdleMessages from "./idleMessages";
+import initSentry from "./sentry";
 
 const icons: Record<PolicyKey, string> = {
   Utilitarian: "/icons/Policy_Utilitarist.svg",
@@ -31,44 +32,58 @@ let config: Config;
 let scenarioVideos: Record<ScenarioKey, HTMLVideoElement> = {} as any;
 
 window.onload = async () => {
-  config = await loadConfig();
-  await loadLanguages(config.langs);
-
-  for (const [button, [x, y]] of Object.entries(config.buttonPositions)) {
-    document.documentElement.style.setProperty(`--${button}-x`, `${x}px`);
-    document.documentElement.style.setProperty(`--${button}-y`, `${y}px`);
-  }
-
-  app = document.getElementById("app") as HTMLElement;
-  videoContainer = document.getElementById("videos") as HTMLElement;
-  idleVideo = document.getElementById("idle-video") as HTMLMediaElement;
-  idleVideo.src = config.idleVideoSrc;
-  menu = document.getElementById("menu")!;
-  labelContainer = document.getElementById("labels")!;
-
-  // Preload all the scenario videos
-  for (let scenario of scenarios) {
-    const video = document.createElement("video");
-    video.loop = false;
-    video.src = config.scenarios[scenario].videoSrc;
-    video.preload = "auto";
-    scenarioVideos[scenario] = video;
-  }
-
-  // Set up language switching
-  const langButton = document.createElement("button");
-  langButton.classList.add("lang-button");
-  langButton.onclick = switchLanguage;
-  app.appendChild(langButton);
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "l") {
-      switchLanguage();
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sentryDSN = urlParams.get("sentry-dsn");
+    let sentryInitialized = false;
+    if (sentryDSN) {
+      sentryInitialized = !!initSentry(sentryDSN);
     }
-  });
 
-  // Begin idle animation
-  await showScenarioChoices();
+    config = await loadConfig();
+    await loadLanguages(config.langs);
+    if (!sentryInitialized && config.sentryDSN) {
+      sentryInitialized = !!initSentry(config.sentryDSN);
+    }
+
+    for (const [button, [x, y]] of Object.entries(config.buttonPositions)) {
+      document.documentElement.style.setProperty(`--${button}-x`, `${x}px`);
+      document.documentElement.style.setProperty(`--${button}-y`, `${y}px`);
+    }
+
+    app = document.getElementById("app") as HTMLElement;
+    videoContainer = document.getElementById("videos") as HTMLElement;
+    idleVideo = document.getElementById("idle-video") as HTMLMediaElement;
+    idleVideo.src = config.idleVideoSrc;
+    menu = document.getElementById("menu")!;
+    labelContainer = document.getElementById("labels")!;
+
+    // Preload all the scenario videos
+    for (let scenario of scenarios) {
+      const video = document.createElement("video");
+      video.loop = false;
+      video.src = config.scenarios[scenario].videoSrc;
+      video.preload = "auto";
+      scenarioVideos[scenario] = video;
+    }
+
+    // Set up language switching
+    const langButton = document.createElement("button");
+    langButton.classList.add("lang-button");
+    langButton.onclick = switchLanguage;
+    app.appendChild(langButton);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "l") {
+        switchLanguage();
+      }
+    });
+
+    // Begin idle animation
+    await showScenarioChoices();
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 async function showScenarioChoices() {

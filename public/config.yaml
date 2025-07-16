@@ -25,7 +25,7 @@ scenarios:
     policyVideos:
       Utilitarian: ./videos/scene_1_1.mp4
       Protector: ./videos/scene_1_3.mp4
-      Profit: ./videos/scene_1_2.mp4
+      Profit: ./videos/scene_1_1.mp4
   CarEntersLane:
     videoSrc: ./videos/scene_3_0.mp4
     labels:

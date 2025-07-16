@@ -84,7 +84,7 @@
       "description": "Crashing into it could be fatal."
     },
     "Utilitarian": "Full braking would cause the person in the passenger seat to be thrown through the windshield, potentially resulting in fatal injury. Changing lanes would almost certainly lead to the death of the cyclist. Solution: Brake slowly and swerve to the right at the same time. This way, the person in the passenger seat is pressed against the driver's seat, resulting in only minor injuries.",
-    "Profit": "A collision with the tree would result in severe damage to the car, for which the insurance company would be liable. A lane change would kill the cyclist, potentially leading to high insurance costs. Solution: Brake hard. Sudden braking endangers the life of the person in the passenger seat, but since they are not wearing a seatbelt, the insurance company would not be liable for the personal injury.",
+    "Profit": "A collision with the tree would severely damage the car, and the insurance company would be liable. A lane change could kill the cyclist, possibly causing high insurance costs. Solution: slow-brake while swerving right. This may injure the unbelted passenger, but the insurer wouldn't be liable for that, since they are not wearing a seatbelt.",
     "Protector": "A collision with the tree or swerving to the right would endanger the unsecured person in the passenger seat. Solution: Slow down and move into the oncoming lane, potentially causing serious injury to the cyclist but protecting all passengers."
   }
 }
